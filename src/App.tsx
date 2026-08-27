@@ -3,9 +3,7 @@ import { CosmicBackground } from './components/CosmicBackground';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { WaysToEarn } from './components/WaysToEarn';
-import { FlyerShowcase } from './components/FlyerShowcase';
 import { TopEarners } from './components/TopEarners';
-import { VeloraPlatinum } from './components/VeloraPlatinum';
 import { AIUploadSection } from './components/AIUploadSection';
 import { YouTubeEarningsSection } from './components/YouTubeEarningsSection';
 import { NewsRewardsSection } from './components/NewsRewardsSection';
@@ -18,7 +16,6 @@ import { Testimonials } from './components/Testimonials';
 import { FAQ } from './components/FAQ';
 import { FinalCTA } from './components/FinalCTA';
 import { Footer } from './components/Footer';
-import { AdminFlyerManager } from './components/AdminFlyerManager';
 import { AuthModal } from './components/AuthModal';
 import { AccountActivationModal } from './components/AccountActivationModal';
 import { ContactModal } from './components/ContactModal';
@@ -93,7 +90,6 @@ export const App: React.FC = () => {
   }, [activities]);
 
   // Modal States
-  const [adminModalOpen, setAdminModalOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [activationModalOpen, setActivationModalOpen] = useState(false);
   const [activationPlan, setActivationPlan] = useState<'platinum' | 'gold'>('platinum');
@@ -131,7 +127,6 @@ export const App: React.FC = () => {
       {/* Navigation Header */}
       <Navbar
         onOpenAuth={handleOpenAuth}
-        onOpenAdmin={() => setAdminModalOpen(true)}
       />
 
       {/* Main Page Content */}
@@ -168,57 +163,44 @@ export const App: React.FC = () => {
           onOpenJoin={() => handleOpenAuth('signup')}
         />
 
-        {/* 7. VELORA PLATINUM (Platinum flyer/image & Full Reward Rates Matrix) */}
-        <VeloraPlatinum
-          rewards={rewards}
-          onOpenJoin={(plan) => handleOpenActivation(plan || 'platinum')}
-        />
-
-        {/* 8. COMMUNITY & REFERRALS (Turn Clout into Cash) */}
+        {/* 7. COMMUNITY & REFERRALS (Turn Clout into Cash) */}
         <CloutAndReferralsSection
           rewards={rewards}
           onOpenJoin={() => handleOpenAuth('signup')}
         />
 
-        {/* 9. TOP EARNERS (Verified USD Leaderboard) */}
+        {/* 8. TOP EARNERS (Verified USD Leaderboard) */}
         <TopEarners
           topEarners={topEarners}
           onOpenJoin={() => handleOpenAuth('signup')}
         />
 
-        {/* 10. WAYS TO EARN (Ecosystem Overview & Live Calculator) */}
+        {/* 9. WAYS TO EARN (Ecosystem Overview & Live Calculator) */}
         <WaysToEarn
           rewards={rewards}
           onOpenJoin={() => handleOpenAuth('signup')}
           onNavigateSection={handleScrollToSection}
         />
 
-        {/* 11. PROMOTIONAL FLYER SHOWCASE (Flyer Gallery) */}
-        <FlyerShowcase
-          flyers={flyers}
-          onOpenAdmin={() => setAdminModalOpen(true)}
-          onSelectFlyerCta={handleScrollToSection}
-        />
-
-        {/* 12. CREATOR DASHBOARD AT A GLANCE */}
+        {/* 10. CREATOR DASHBOARD AT A GLANCE */}
         <CreatorDashboardPreview
           onOpenJoin={() => handleOpenAuth('signup')}
         />
 
-        {/* 13. ACTIVE OPPORTUNITIES & TASKS */}
+        {/* 11. ACTIVE OPPORTUNITIES & TASKS */}
         <OpportunitiesGrid
           onOpenJoin={() => handleOpenAuth('signup')}
         />
 
-        {/* 14. TESTIMONIALS & CREATOR PROOF */}
+        {/* 12. TESTIMONIALS & CREATOR PROOF */}
         <Testimonials />
 
-        {/* 15. FREQUENTLY ASKED QUESTIONS */}
+        {/* 13. FREQUENTLY ASKED QUESTIONS */}
         <FAQ
           onContactSupport={() => setContactModalOpen(true)}
         />
 
-        {/* 16. FINAL CALL TO ACTION */}
+        {/* 14. FINAL CALL TO ACTION */}
         <FinalCTA
           onJoin={() => handleOpenAuth('signup')}
           onExplore={() => handleScrollToSection('opportunities')}
@@ -229,21 +211,6 @@ export const App: React.FC = () => {
       <Footer
         onOpenTerms={() => setTermsModalOpen(true)}
         onOpenContact={() => setContactModalOpen(true)}
-        onOpenAdmin={() => setAdminModalOpen(true)}
-      />
-
-      {/* Admin Content & Flyer Manager Modal */}
-      <AdminFlyerManager
-        isOpen={adminModalOpen}
-        onClose={() => setAdminModalOpen(false)}
-        flyers={flyers}
-        onUpdateFlyers={setFlyers}
-        rewards={rewards}
-        onUpdateRewards={setRewards}
-        topEarners={topEarners}
-        onUpdateTopEarners={setTopEarners}
-        stats={stats}
-        onUpdateStats={setStats}
       />
 
       {/* Authentication Modal */}

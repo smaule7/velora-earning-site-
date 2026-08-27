@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Bot, Newspaper, Play, Heart, Trophy, Users, ArrowRight, BookOpen, Layers, Award, Sparkles, CheckCircle2 } from 'lucide-react';
+import { VELORA_IMAGES } from '../data/veloraImages';
 
 interface FeaturesGridProps {
   onOpenJoin: () => void;
@@ -67,6 +68,17 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onOpenJoin, onSelect
     { id: 'monetize', name: 'Monetize', icon: Award, desc: 'Leverage AI skills for freelance consulting, production suites, and digital products.', tag: 'Commercial' },
   ];
 
+  const handleImageFallback = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = e.currentTarget;
+    if (!target.dataset.triedFallback) {
+      target.dataset.triedFallback = 'true';
+      const match = target.src.match(/id=([a-zA-Z0-9_-]+)/);
+      if (match && match[1]) {
+        target.src = `https://lh3.googleusercontent.com/d/${match[1]}`;
+      }
+    }
+  };
+
   return (
     <div id="features" className="space-y-32 py-16 px-6 sm:px-8 lg:px-12 max-w-6xl mx-auto">
       
@@ -83,10 +95,12 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onOpenJoin, onSelect
             }`}
           >
             <img
-              src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80"
+              src={VELORA_IMAGES.academy}
               alt="Velora AI Academy Artwork"
               className="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-105"
               referrerPolicy="no-referrer"
+              loading="lazy"
+              onError={handleImageFallback}
             />
             {/* Subtle Gradient Atmosphere Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0c051a]/80 via-transparent to-transparent pointer-events-none" />
@@ -279,10 +293,12 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onOpenJoin, onSelect
             }`}
           >
             <img
-              src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&q=80"
+              src={VELORA_IMAGES.news}
               alt="Velora News Artwork"
               className="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-105"
               referrerPolicy="no-referrer"
+              loading="lazy"
+              onError={handleImageFallback}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0c051a]/80 via-transparent to-transparent pointer-events-none" />
             
@@ -306,10 +322,12 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onOpenJoin, onSelect
           }`}
         >
           <img
-            src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1600&q=80"
+            src={VELORA_IMAGES.youtube}
             alt="YouTube Creator Studio Artwork"
             className="w-full h-full object-cover object-center"
             referrerPolicy="no-referrer"
+            loading="lazy"
+            onError={handleImageFallback}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#090514]/40 via-transparent to-[#090514]/90 pointer-events-none" />
         </div>
@@ -401,10 +419,12 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onOpenJoin, onSelect
             }`}
           >
             <img
-              src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80"
+              src={VELORA_IMAGES.content}
               alt="Content Engagement Studio Artwork"
               className="w-full h-full object-cover object-center"
               referrerPolicy="no-referrer"
+              loading="lazy"
+              onError={handleImageFallback}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0c051a]/80 via-transparent to-transparent pointer-events-none" />
             
@@ -496,10 +516,12 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onOpenJoin, onSelect
         >
           {/* Full-Width Promotional Stadium / Match Arena Image */}
           <img
-            src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1800&q=80"
+            src={VELORA_IMAGES.fanBattle}
             alt="Fan Battle Zone Stadium Arena"
             className="w-full h-full object-cover object-center"
             referrerPolicy="no-referrer"
+            loading="lazy"
+            onError={handleImageFallback}
           />
 
           {/* Subtle Dark Gradient from Bottom Upward for Clean Readability */}
@@ -599,10 +621,12 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onOpenJoin, onSelect
           style={{ transitionDelay: '200ms' }}
         >
           <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80"
+            src={VELORA_IMAGES.clout}
             alt="Velora Creator Community Collaboration"
             className="w-full h-full object-cover object-center"
             referrerPolicy="no-referrer"
+            loading="lazy"
+            onError={handleImageFallback}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#090514]/70 via-transparent to-transparent pointer-events-none" />
         </div>

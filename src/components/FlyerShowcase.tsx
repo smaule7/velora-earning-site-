@@ -275,7 +275,19 @@ export const FlyerShowcase: React.FC<FlyerShowcaseProps> = ({
               <img
                 src={flyer.imageUrl}
                 alt={flyer.title}
-                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+                className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.dataset.triedFallback) {
+                    target.dataset.triedFallback = 'true';
+                    const match = target.src.match(/id=([a-zA-Z0-9_-]+)/);
+                    if (match && match[1]) {
+                      target.src = `https://lh3.googleusercontent.com/d/${match[1]}`;
+                    }
+                  }
+                }}
               />
             </div>
             <div className="px-1">

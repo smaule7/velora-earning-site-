@@ -49,11 +49,11 @@ export const CloutAndReferralsSection: React.FC<CloutAndReferralsProps> = ({ rew
         isRevealed ? 'is-revealed' : ''
       }`}>
         {/* 1. EXACT GOOGLE DRIVE IMAGE FIRST (ABOVE WRITE-UP) */}
-        <div className="max-w-md mx-auto">
+        <div className="max-w-2xl mx-auto w-full">
           <VeloraFlyer
             imageKey="referrals"
             alt="VELORA Community & Referrals Promotional Flyer"
-            aspectClass="aspect-[4/3] sm:aspect-[16/10]"
+            aspectClass="aspect-[16/10] sm:aspect-[16/9]"
             caption="Official Community & Referrals Flyer • Turn Community into Earnings"
           />
         </div>

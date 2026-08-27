@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight, Sliders, Sparkles, Plus } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { NavItem } from '../types';
 
 interface NavbarProps {
   onOpenAuth: (mode: 'login' | 'signup') => void;
-  onOpenAdmin: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenAdmin }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -15,18 +14,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenAdmin }) => {
   const navItems: NavItem[] = [
     { label: 'Home', href: '#home' },
     { label: 'Ways to Earn', href: '#ways-to-earn' },
-    { label: 'Flyers', href: '#promotional-flyers' },
     { label: 'Top Earners', href: '#top-earners' },
     { label: 'Opportunities', href: '#opportunities' },
     { label: 'Fan Battle', href: '#fan-battle' },
-    { label: 'Platinum', href: '#platinum' },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      const sections = ['home', 'ways-to-earn', 'promotional-flyers', 'top-earners', 'opportunities', 'fan-battle', 'platinum'];
+      const sections = ['home', 'ways-to-earn', 'top-earners', 'opportunities', 'fan-battle'];
       const scrollPos = window.scrollY + 180;
       for (const section of sections) {
         const el = document.getElementById(section);
@@ -63,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenAdmin }) => {
             scrolled ? 'velora-glass-nav scrolled' : 'velora-glass-nav'
           }`}
         >
-          {/* LEFT: VELORA Wordmark (No separate V icon) */}
+          {/* LEFT: VELORA Wordmark */}
           <a
             href="#home"
             onClick={(e) => handleNavClick(e, '#home')}
@@ -95,17 +92,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenAdmin }) => {
             })}
           </nav>
 
-          {/* RIGHT: Admin Tools + Auth Buttons */}
+          {/* RIGHT: Auth Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <button
-              onClick={onOpenAdmin}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium text-amber-300 transition-colors"
-              title="Manage Flyers, Rewards, Leaderboard & Content"
-            >
-              <Sliders className="w-3.5 h-3.5" />
-              <span>Admin / Content</span>
-            </button>
-
             <button
               onClick={() => onOpenAuth('login')}
               className="px-3 py-1.5 text-xs font-medium text-stone-300 hover:text-white transition-colors focus:outline-none"
@@ -120,15 +108,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenAdmin }) => {
             </button>
           </div>
 
-          {/* Mobile Menu & Quick Admin Button */}
+          {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center gap-2">
-            <button
-              onClick={onOpenAdmin}
-              className="p-1.5 rounded-full bg-white/5 border border-white/10 text-amber-300"
-              title="Admin Manager"
-            >
-              <Sliders className="w-4 h-4" />
-            </button>
             <button
               onClick={() => onOpenAuth('signup')}
               className="btn-gold !py-1 !px-3 text-xs"
@@ -165,17 +146,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenAdmin }) => {
             </div>
 
             <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenAdmin();
-                }}
-                className="w-full py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs font-medium text-amber-300 flex items-center justify-center gap-2"
-              >
-                <Sliders className="w-3.5 h-3.5" />
-                <span>Admin & Flyer Manager</span>
-              </button>
-
               <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={() => {

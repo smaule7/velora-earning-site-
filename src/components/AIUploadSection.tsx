@@ -46,11 +46,11 @@ export const AIUploadSection: React.FC<AIUploadSectionProps> = ({ onOpenJoin }) 
         isRevealed ? 'is-revealed' : ''
       }`}>
         {/* 1. EXACT GOOGLE DRIVE IMAGE FIRST (ABOVE WRITE-UP) */}
-        <div className="max-w-md mx-auto">
+        <div className="max-w-2xl mx-auto w-full">
           <VeloraFlyer
             imageKey="academy"
             alt="VELORA AI Academy & AI Upload Promotional Flyer"
-            aspectClass="aspect-square"
+            aspectClass="aspect-[16/10] sm:aspect-[16/9]"
             caption="Official AI Academy Flyer • Learn. Create. Grow."
           />
         </div>

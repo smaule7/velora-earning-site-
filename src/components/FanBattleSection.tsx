@@ -51,11 +51,11 @@ export const FanBattleSection: React.FC<FanBattleSectionProps> = ({ onOpenJoin }
         isRevealed ? 'is-revealed' : ''
       }`}>
         {/* 1. EXACT GOOGLE DRIVE IMAGE FIRST (ABOVE WRITE-UP) */}
-        <div className="max-w-md mx-auto">
+        <div className="max-w-2xl mx-auto w-full">
           <VeloraFlyer
             imageKey="fanBattle"
             alt="VELORA Fan Battle Zone Promotional Flyer"
-            aspectClass="aspect-[4/3] sm:aspect-[16/10]"
+            aspectClass="aspect-[16/10] sm:aspect-[16/9]"
             caption="Fan Battle Zone • Compete. Rally. Climb the Leaderboard."
           />
         </div>

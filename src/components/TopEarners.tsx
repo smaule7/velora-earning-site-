@@ -104,7 +104,12 @@ export const TopEarners: React.FC<TopEarnersProps> = ({ topEarners, onOpenJoin }
                 <img
                   src={top3[1].avatarUrl}
                   alt={top3[1].name}
-                  className="w-20 h-20 rounded-full object-cover border-2 border-slate-300 shadow-xl mb-3 mt-2"
+                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                  className="w-20 h-20 rounded-full object-cover object-top border-2 border-slate-300 shadow-xl mb-3 mt-2"
+                  onError={(e) => {
+                    e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(top3[1].name)}&background=334155&color=fff`;
+                  }}
                 />
                 <h4 className="text-lg font-display text-white font-medium">{top3[1].name}</h4>
                 <p className="text-xs text-stone-400 font-mono">{top3[1].username}</p>
@@ -133,7 +138,12 @@ export const TopEarners: React.FC<TopEarnersProps> = ({ topEarners, onOpenJoin }
                 <img
                   src={top3[0].avatarUrl}
                   alt={top3[0].name}
-                  className="w-24 h-24 rounded-full object-cover border-3 border-amber-400 shadow-2xl mb-4 mt-2"
+                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                  className="w-24 h-24 rounded-full object-cover object-top border-3 border-amber-400 shadow-2xl mb-4 mt-2"
+                  onError={(e) => {
+                    e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(top3[0].name)}&background=c9a24a&color=000`;
+                  }}
                 />
                 <h4 className="text-xl font-display text-white font-medium">{top3[0].name}</h4>
                 <p className="text-xs text-amber-300 font-mono">{top3[0].username}</p>
@@ -161,7 +171,12 @@ export const TopEarners: React.FC<TopEarnersProps> = ({ topEarners, onOpenJoin }
                 <img
                   src={top3[2].avatarUrl}
                   alt={top3[2].name}
-                  className="w-20 h-20 rounded-full object-cover border-2 border-amber-700 shadow-xl mb-3 mt-2"
+                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                  className="w-20 h-20 rounded-full object-cover object-top border-2 border-amber-700 shadow-xl mb-3 mt-2"
+                  onError={(e) => {
+                    e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(top3[2].name)}&background=78350f&color=fff`;
+                  }}
                 />
                 <h4 className="text-lg font-display text-white font-medium">{top3[2].name}</h4>
                 <p className="text-xs text-stone-400 font-mono">{top3[2].username}</p>
@@ -195,7 +210,12 @@ export const TopEarners: React.FC<TopEarnersProps> = ({ topEarners, onOpenJoin }
                   <img
                     src={earner.avatarUrl}
                     alt={earner.name}
-                    className="w-11 h-11 rounded-full object-cover border border-white/15"
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
+                    className="w-11 h-11 rounded-full object-cover object-top border border-white/15"
+                    onError={(e) => {
+                      e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(earner.name)}&background=1e1b4b&color=c9a24a`;
+                    }}
                   />
                   <div>
                     <h5 className="text-sm font-medium text-white flex items-center gap-2">

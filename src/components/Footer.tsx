@@ -1,17 +1,16 @@
 import React from 'react';
-import { ArrowUpRight, ShieldCheck, Heart } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
 interface FooterProps {
   onOpenTerms: () => void;
   onOpenContact: () => void;
-  onOpenAdmin: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenTerms, onOpenContact, onOpenAdmin }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenTerms, onOpenContact }) => {
   return (
     <footer className="relative bg-[#06030c] border-t border-white/10 pt-16 pb-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
           {/* Col 1: Brand & Purpose */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center">
@@ -45,38 +44,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTerms, onOpenContact, onOp
             </ul>
           </div>
 
-          {/* Col 3: Programs & Tiers */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-white font-semibold">
-              Programs
-            </h4>
-            <ul className="space-y-2 text-xs text-stone-400">
-              <li><a href="#platinum" className="hover:text-amber-300 transition-colors">Velora Platinum VIP</a></li>
-              <li><a href="#top-earners" className="hover:text-amber-300 transition-colors">Top Earners Leaderboard</a></li>
-              <li><a href="#opportunities" className="hover:text-amber-300 transition-colors">Opportunities & Tasks</a></li>
-              <li><a href="#promotional-flyers" className="hover:text-amber-300 transition-colors">Promotional Flyers</a></li>
-              <li><a href="#community-referrals" className="hover:text-amber-300 transition-colors">2-Tier Referrals</a></li>
-            </ul>
-          </div>
-
-          {/* Col 4: Platform & Admin */}
+          {/* Col 3: Programs & Legal */}
           <div className="space-y-3">
             <h4 className="text-xs font-mono uppercase tracking-wider text-white font-semibold">
               Platform & Legal
             </h4>
             <ul className="space-y-2 text-xs text-stone-400">
+              <li><a href="#top-earners" className="hover:text-amber-300 transition-colors">Top Earners Leaderboard</a></li>
+              <li><a href="#opportunities" className="hover:text-amber-300 transition-colors">Opportunities & Tasks</a></li>
               <li><button onClick={onOpenTerms} className="hover:text-white transition-colors">Terms of Service</button></li>
               <li><button onClick={onOpenTerms} className="hover:text-white transition-colors">Privacy Policy</button></li>
               <li><button onClick={onOpenContact} className="hover:text-white transition-colors">Creator Support</button></li>
-              <li>
-                <button 
-                  onClick={onOpenAdmin} 
-                  className="text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 font-medium"
-                >
-                  <span>Content / Admin Manager</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </button>
-              </li>
             </ul>
           </div>
         </div>

@@ -32,7 +32,7 @@ export const GOOGLE_DRIVE_IDS = {
  * Helper to generate reliable browser-loadable Google Drive image URLs
  */
 export function getDriveImageUrl(fileId: string): string {
-  return `https://drive.google.com/uc?export=view&id=${fileId}`;
+  return `https://lh3.googleusercontent.com/d/${fileId}`;
 }
 
 export function getDriveDirectLh3(fileId: string): string {
@@ -71,6 +71,8 @@ export const VELORA_IMAGES = {
   platinum: getDriveImageUrl(GOOGLE_DRIVE_IDS.platinum),
   gold: getDriveImageUrl(GOOGLE_DRIVE_IDS.platinum),
   hero: getDriveImageUrl(GOOGLE_DRIVE_IDS.platinum),
+  content: getDriveImageUrl(GOOGLE_DRIVE_IDS.clout),
+  engagement: getDriveImageUrl(GOOGLE_DRIVE_IDS.clout),
 } as const;
 
 /**

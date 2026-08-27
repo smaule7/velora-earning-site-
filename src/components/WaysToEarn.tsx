@@ -14,6 +14,7 @@ import {
   Layers
 } from 'lucide-react';
 import { RewardCategoryItem } from '../types';
+import { VELORA_IMAGES } from '../data/veloraImages';
 
 interface WaysToEarnProps {
   rewards: RewardCategoryItem[];
@@ -74,6 +75,7 @@ export const WaysToEarn: React.FC<WaysToEarnProps> = ({
       color: 'from-purple-500/20 to-purple-800/10',
       border: 'border-purple-500/20',
       actionText: 'Explore AI Upload',
+      imageUrl: VELORA_IMAGES.academy,
     },
     {
       id: 'youtube-earnings',
@@ -84,6 +86,7 @@ export const WaysToEarn: React.FC<WaysToEarnProps> = ({
       color: 'from-rose-500/20 to-rose-800/10',
       border: 'border-rose-500/20',
       actionText: 'Explore YouTube Earn',
+      imageUrl: VELORA_IMAGES.youtube,
     },
     {
       id: 'news-rewards',
@@ -94,6 +97,7 @@ export const WaysToEarn: React.FC<WaysToEarnProps> = ({
       color: 'from-amber-500/20 to-amber-800/10',
       border: 'border-amber-500/20',
       actionText: 'Explore News Earn',
+      imageUrl: VELORA_IMAGES.news,
     },
     {
       id: 'fan-battle',
@@ -104,6 +108,7 @@ export const WaysToEarn: React.FC<WaysToEarnProps> = ({
       color: 'from-amber-500/20 to-amber-800/10',
       border: 'border-amber-500/20',
       actionText: 'Enter Arena',
+      imageUrl: VELORA_IMAGES.fanBattle,
     },
     {
       id: 'clout-cash',
@@ -114,16 +119,18 @@ export const WaysToEarn: React.FC<WaysToEarnProps> = ({
       color: 'from-amber-500/20 to-amber-800/10',
       border: 'border-amber-500/20',
       actionText: 'Monetize Reach',
+      imageUrl: VELORA_IMAGES.clout,
     },
     {
-      id: 'plans-pricing',
+      id: 'tier-referrals',
       title: '2-Tier Referral Overrides',
       badge: '$2.00 & $1.00 Indirect',
       description: 'Build a creator guild and earn instant invite bonuses plus multi-tier indirect passive commissions on network milestones.',
       icon: Users,
       color: 'from-emerald-500/20 to-emerald-800/10',
       border: 'border-emerald-500/20',
-      actionText: 'Membership Plans',
+      actionText: 'Explore Referrals',
+      imageUrl: VELORA_IMAGES.platinum,
     },
   ];
 
@@ -154,20 +161,47 @@ export const WaysToEarn: React.FC<WaysToEarnProps> = ({
           return (
             <div
               key={stream.id}
-              className={`p-6 rounded-2xl velora-glass border ${stream.border} relative flex flex-col justify-between group hover:border-amber-400/40 transition-all duration-300 reveal-item from-bottom ${
+              className={`p-5 sm:p-6 rounded-2xl velora-glass border ${stream.border} relative flex flex-col justify-between group hover:border-amber-400/40 transition-all duration-300 reveal-item from-bottom ${
                 isRevealed ? 'is-revealed' : ''
               }`}
               style={{ transitionDelay: `${idx * 80}ms` }}
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-amber-300 group-hover:scale-105 transition-transform">
-                    <Icon className="w-6 h-6" />
+                {/* Visual Artwork Box with Perfect Aspect Ratio and Fallbacks */}
+                {stream.imageUrl && (
+                  <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-black/60 mb-5 border border-white/10">
+                    <img
+                      src={stream.imageUrl}
+                      alt={stream.title}
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                      className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.dataset.triedFallback) {
+                          target.dataset.triedFallback = 'true';
+                          const match = target.src.match(/id=([a-zA-Z0-9_-]+)/);
+                          if (match && match[1]) {
+                            target.src = `https://lh3.googleusercontent.com/d/${match[1]}`;
+                          }
+                        }
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
+                    {/* Badge Overlay */}
+                    <div className="absolute top-3 right-3 pointer-events-none">
+                      <span className="text-[11px] font-mono font-medium px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-amber-300 border border-amber-500/30 shadow-sm">
+                        {stream.badge}
+                      </span>
+                    </div>
+
+                    {/* Icon Badge Overlay */}
+                    <div className="absolute bottom-3 left-3 w-9 h-9 rounded-lg bg-black/70 backdrop-blur-md border border-white/15 flex items-center justify-center text-amber-300 pointer-events-none">
+                      <Icon className="w-4 h-4" />
+                    </div>
                   </div>
-                  <span className="text-xs font-mono font-medium px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20">
-                    {stream.badge}
-                  </span>
-                </div>
+                )}
 
                 <h3 className="text-xl font-display text-white font-medium mb-2 group-hover:text-amber-200 transition-colors">
                   {stream.title}

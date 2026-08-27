@@ -87,16 +87,19 @@ export const Hero: React.FC<HeroProps> = ({ onJoinClick, onExploreClick, stats }
 
         {/* Hero Section Official Artwork Showcase */}
         <div 
-          className={`pt-10 max-w-2xl mx-auto w-full reveal-item scale-settle ${
+          className={`pt-10 max-w-3xl mx-auto w-full reveal-item scale-settle ${
             isRevealed ? 'is-revealed' : ''
           }`}
           style={{ transitionDelay: '380ms' }}
         >
           <VeloraFlyer
             imageKey="platinum"
-            alt="VELORA Official Ecosystem Master Flyer"
-            aspectClass="aspect-[16/10] sm:aspect-[16/9]"
+            alt="VELORA Official Ecosystem Master Artwork"
+            aspectClass="aspect-[16/9] sm:aspect-[21/9]"
             caption="VELORA Ecosystem & Multi-Stream Rewards Overview"
+            priority={true}
+            fitMode="cover"
+            objectPosition="object-center"
           />
         </div>
       </div>

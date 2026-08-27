@@ -81,26 +81,58 @@ export const OpportunitiesGrid: React.FC<OpportunitiesGridProps> = ({ onOpenJoin
         {filtered.map((opp, idx) => (
           <div
             key={opp.id}
-            className={`p-6 rounded-2xl velora-glass border border-white/10 hover:border-amber-400/40 transition-all flex flex-col justify-between group reveal-item from-bottom ${
+            className={`p-5 sm:p-6 rounded-2xl velora-glass border border-white/10 hover:border-amber-400/40 transition-all flex flex-col justify-between group reveal-item from-bottom ${
               isRevealed ? 'is-revealed' : ''
             }`}
             style={{ transitionDelay: `${idx * 100}ms` }}
           >
             <div>
-              {/* Header meta */}
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-white/5 text-amber-300 border border-white/10">
-                  {opp.category}
-                </span>
-                <span className={`text-[11px] font-mono px-2.5 py-0.5 rounded-full ${
-                  opp.status === 'High Demand' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' :
-                  opp.status === 'Ending Soon' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' :
-                  'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                }`}>
-                  {opp.status}
-                </span>
-              </div>
+              {/* Card Artwork Image Container */}
+              {opp.imageUrl && (
+                <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-black/60 mb-5 border border-white/10">
+                  <img
+                    src={opp.imageUrl}
+                    alt={opp.title}
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.dataset.triedFallback) {
+                        target.dataset.triedFallback = 'true';
+                        const match = target.src.match(/id=([a-zA-Z0-9_-]+)/);
+                        if (match && match[1]) {
+                          target.src = `https://lh3.googleusercontent.com/d/${match[1]}`;
+                        }
+                      }
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
+                  {/* Overlaid Badges */}
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                    <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-amber-300 border border-amber-400/30">
+                      {opp.category}
+                    </span>
+                    <span className={`text-[11px] font-mono px-2.5 py-1 rounded-full backdrop-blur-md ${
+                      opp.status === 'High Demand' ? 'bg-amber-500/30 text-amber-200 border border-amber-500/40' :
+                      opp.status === 'Ending Soon' ? 'bg-rose-500/30 text-rose-200 border border-rose-500/40' :
+                      'bg-emerald-500/30 text-emerald-200 border border-emerald-500/40'
+                    }`}>
+                      {opp.status}
+                    </span>
+                  </div>
+
+                  {opp.participantsCount && (
+                    <div className="absolute bottom-3 left-3 flex items-center gap-1 text-[10px] font-mono text-stone-300 bg-black/70 backdrop-blur-md px-2 py-0.5 rounded border border-white/10 pointer-events-none">
+                      <Users className="w-3 h-3 text-amber-400" />
+                      <span>{opp.participantsCount}</span>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Title & Description */}
               <h3 className="text-xl font-display text-white font-medium mb-2 group-hover:text-amber-200 transition-colors">
                 {opp.title}
               </h3>
