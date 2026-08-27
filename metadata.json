@@ -1,0 +1,6 @@
+{
+  "name": "VELORA - Digital Universe",
+  "description": "A premium creator and community platform focused on earning opportunities, AI workflows, YouTube growth, digital journalism, matchday fan battles, and multi-tier rewards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,274 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #08050f;
+    color: #f6f2fb;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+  }
+}
+
+/* Premium Physical Glass System */
+.velora-glass {
+  background: rgba(22, 14, 38, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.36);
+}
+
+.velora-glass-nav {
+  background: rgba(15, 10, 28, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
+}
+
+.velora-glass-nav.scrolled {
+  background: rgba(15, 10, 28, 0.88);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Editorial Buttons */
+.btn-gold {
+  background-color: #c9a24a;
+  color: #08050f;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.65rem 1.6rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  letter-spacing: 0.02em;
+}
+
+.btn-gold:hover {
+  background-color: #e0c37a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(201, 162, 74, 0.18);
+}
+
+.btn-ghost {
+  background: rgba(22, 14, 38, 0.6);
+  color: #f6f2fb;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  padding: 0.65rem 1.6rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-ghost:hover {
+  background: rgba(28, 16, 48, 0.85);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Subtle Editorial Eyebrow */
+.eyebrow-gold {
+  color: #c9a24a;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Single-run Entrance Animations (IntersectionObserver driven) */
+.reveal-item {
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-item.from-bottom {
+  transform: translateY(24px);
+}
+
+.reveal-item.from-left {
+  transform: translateX(-32px);
+}
+
+.reveal-item.from-right {
+  transform: translateX(32px);
+}
+
+.reveal-item.scale-settle {
+  transform: scale(0.96);
+}
+
+.reveal-item.mask-left {
+  clip-path: inset(0 100% 0 0);
+  transition: opacity 0.8s ease, clip-path 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-item.is-revealed {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+  clip-path: inset(0 0 0 0);
+}
+
+/* Hero signature concentric rings entrance (stops after settling) */
+@keyframes ringSettle {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) rotate(-6deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes dotFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hero-ring-1 {
+  animation: ringSettle 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+  opacity: 0;
+}
+
+.hero-ring-2 {
+  animation: ringSettle 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+  opacity: 0;
+}
+
+.hero-ring-3 {
+  animation: ringSettle 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  opacity: 0;
+}
+
+.hero-orbit-dot {
+  animation: dotFadeIn 0.8s ease 1.1s forwards;
+  opacity: 0;
+}
+
+/* Velora 6-Stage Morphing Loading Animation System (● -> ■ -> ▬ -> ▭ -> ● ■ ▭ -> ●) */
+@keyframes veloraMorphStageLoop {
+  0% {
+    /* Stage 1: Circle ● */
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    transform: translateY(0px) scale(1);
+    opacity: 0.9;
+  }
+  20% {
+    /* Stage 2: Smooth Square ■ */
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    transform: translateY(-9px) scale(1.05);
+    opacity: 1;
+  }
+  40% {
+    /* Stage 3: Short Rectangle ▬ */
+    width: 38px;
+    height: 14px;
+    border-radius: 3px;
+    transform: translateY(2px) scale(1);
+    opacity: 0.95;
+  }
+  60% {
+    /* Stage 4: Wider Rounded Rectangle ▭ */
+    width: 52px;
+    height: 18px;
+    border-radius: 9px;
+    transform: translateY(-6px) scale(1.06);
+    opacity: 1;
+  }
+  80% {
+    /* Stage 5: Hybrid Asymmetric Form */
+    width: 30px;
+    height: 20px;
+    border-radius: 12px 4px 12px 4px;
+    transform: translateY(1px) scale(0.96);
+    opacity: 0.9;
+  }
+  100% {
+    /* Stage 6: Return smoothly to circle ● */
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    transform: translateY(0px) scale(1);
+    opacity: 0.9;
+  }
+}
+
+.velora-morph-dot {
+  display: inline-block;
+  animation: veloraMorphStageLoop 3.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: width, height, border-radius, transform, opacity;
+  transition: all 0.3s ease-in-out;
+}
+
+.velora-dot-1 {
+  animation-delay: 0s;
+}
+
+.velora-dot-2 {
+  animation-delay: 0.35s;
+}
+
+.velora-dot-3 {
+  animation-delay: 0.7s;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-item,
+  .hero-ring-1,
+  .hero-ring-2,
+  .hero-ring-3,
+  .hero-orbit-dot,
+  .btn-gold,
+  .btn-ghost {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08050f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1c1030;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3d2566;
+}
