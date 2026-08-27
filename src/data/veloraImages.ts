@@ -11,13 +11,17 @@ export interface DriveImageEntry {
 }
 
 /**
- * 6 Primary User-Supplied Google Drive Images mapped to their exact respective sections:
+ * Centralized Google Drive Image Assets for VELORA:
  * IMAGE 1: 1FI-yWbsosSUzJhLw0KopbHh5MV7UaAh7 -> VELORA NEWS / DAILY BRIEFINGS
  * IMAGE 2: 1qNFymnzj3iCkH_rRTnwKTsaen5_1ftOZ -> COMMUNITY & REFERRALS / TURN CLOUT INTO CASH
  * IMAGE 3: 1YU82G0w2ej4SGPDbsedyasTAKn5shZRN -> FAN BATTLE ZONE / MATCHDAY DERBIES & LIVE ARENA
  * IMAGE 4: 16jB46KNFQ9QrZrRHjd0IBO5ERC60NFBM -> VELORA AI ACADEMY / AI UPLOAD & CREATIVE REWARDS
  * IMAGE 5: 13WenxmPXT2FmBNtBTIuM2u-9-zj7LscO -> YOUTUBE OPPORTUNITIES / CREATOR SUITE & REWARDS
- * IMAGE 6: 1LvGrRwhx17RXMzuLMMH9YRn7vpLpevcD -> VELORA PLATINUM & GOLD MEMBERSHIP PROMOTIONS
+ * IMAGE 6: 1LvGrRwhx17RXMzuLMMH9YRn7vpLpevcD -> VELORA PLATINUM & GOLD MEMBERSHIP / ECOSYSTEM MASTER
+ * IMAGE 7: 1BOUIgETdO2fyAdhkSAHxyV9LoXYVQLMp -> MULTI-STREAM EARNING ECOSYSTEM / WAYS TO EARN
+ * IMAGE 8: 1L4P1EXGnQWlo7X9SyNoZ2a1hH3jBXu4N -> CREATOR DASHBOARD & REAL-TIME ANALYTICS HUB
+ * IMAGE 9: 1vE5qjpzQo9vmMmtafzzFATogF_dVHNMw -> CONTENT ENGAGEMENT & MEDIA STREAMING REWARDS
+ * IMAGE 10: 18IS-ml94PsXgJj5EL76Y0sb-t-aqX4Z_ -> COMMUNITY GROWTH & 2-TIER REFERRAL ACCELERATOR
  */
 export const GOOGLE_DRIVE_IDS = {
   news: '1FI-yWbsosSUzJhLw0KopbHh5MV7UaAh7',
@@ -26,6 +30,11 @@ export const GOOGLE_DRIVE_IDS = {
   academy: '16jB46KNFQ9QrZrRHjd0IBO5ERC60NFBM',
   youtube: '13WenxmPXT2FmBNtBTIuM2u-9-zj7LscO',
   platinum: '1LvGrRwhx17RXMzuLMMH9YRn7vpLpevcD',
+  // 4 Additional Official Google Drive Images:
+  earningStreams: '1BOUIgETdO2fyAdhkSAHxyV9LoXYVQLMp',
+  creatorDashboard: '1L4P1EXGnQWlo7X9SyNoZ2a1hH3jBXu4N',
+  contentEngagement: '1vE5qjpzQo9vmMmtafzzFATogF_dVHNMw',
+  communityGrowth: '18IS-ml94PsXgJj5EL76Y0sb-t-aqX4Z_',
 } as const;
 
 /**
@@ -54,12 +63,17 @@ export const VELORA_IMAGES = {
   image4: getDriveImageUrl(GOOGLE_DRIVE_IDS.academy),
   image5: getDriveImageUrl(GOOGLE_DRIVE_IDS.youtube),
   image6: getDriveImageUrl(GOOGLE_DRIVE_IDS.platinum),
+  image7: getDriveImageUrl(GOOGLE_DRIVE_IDS.earningStreams),
+  image8: getDriveImageUrl(GOOGLE_DRIVE_IDS.creatorDashboard),
+  image9: getDriveImageUrl(GOOGLE_DRIVE_IDS.contentEngagement),
+  image10: getDriveImageUrl(GOOGLE_DRIVE_IDS.communityGrowth),
 
   // Semantic Aliases
   news: getDriveImageUrl(GOOGLE_DRIVE_IDS.news),
   clout: getDriveImageUrl(GOOGLE_DRIVE_IDS.clout),
-  referrals: getDriveImageUrl(GOOGLE_DRIVE_IDS.clout),
-  community: getDriveImageUrl(GOOGLE_DRIVE_IDS.clout),
+  referrals: getDriveImageUrl(GOOGLE_DRIVE_IDS.communityGrowth),
+  community: getDriveImageUrl(GOOGLE_DRIVE_IDS.communityGrowth),
+  communityGrowth: getDriveImageUrl(GOOGLE_DRIVE_IDS.communityGrowth),
   fanBattle: getDriveImageUrl(GOOGLE_DRIVE_IDS.fanBattle),
   fanbattle: getDriveImageUrl(GOOGLE_DRIVE_IDS.fanBattle),
   derby: getDriveImageUrl(GOOGLE_DRIVE_IDS.fanBattle),
@@ -71,8 +85,13 @@ export const VELORA_IMAGES = {
   platinum: getDriveImageUrl(GOOGLE_DRIVE_IDS.platinum),
   gold: getDriveImageUrl(GOOGLE_DRIVE_IDS.platinum),
   hero: getDriveImageUrl(GOOGLE_DRIVE_IDS.platinum),
-  content: getDriveImageUrl(GOOGLE_DRIVE_IDS.clout),
-  engagement: getDriveImageUrl(GOOGLE_DRIVE_IDS.clout),
+  content: getDriveImageUrl(GOOGLE_DRIVE_IDS.contentEngagement),
+  engagement: getDriveImageUrl(GOOGLE_DRIVE_IDS.contentEngagement),
+  contentEngagement: getDriveImageUrl(GOOGLE_DRIVE_IDS.contentEngagement),
+  earningStreams: getDriveImageUrl(GOOGLE_DRIVE_IDS.earningStreams),
+  waysToEarn: getDriveImageUrl(GOOGLE_DRIVE_IDS.earningStreams),
+  dashboard: getDriveImageUrl(GOOGLE_DRIVE_IDS.creatorDashboard),
+  creatorDashboard: getDriveImageUrl(GOOGLE_DRIVE_IDS.creatorDashboard),
 } as const;
 
 /**

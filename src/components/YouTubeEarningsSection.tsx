@@ -36,45 +36,73 @@ export const YouTubeEarningsSection: React.FC<YouTubeEarningsSectionProps> = ({ 
     <section 
       id="youtube-earnings" 
       ref={sectionRef}
-      className="relative py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"
+      className="relative py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto"
     >
-      <div className={`space-y-8 p-6 sm:p-10 rounded-3xl velora-glass border border-rose-500/30 bg-gradient-to-b from-rose-950/20 via-black/80 to-black shadow-2xl reveal-item scale-settle ${
+      <div className={`space-y-10 p-6 sm:p-10 rounded-3xl velora-glass border border-rose-500/30 bg-gradient-to-b from-rose-950/20 via-black/80 to-black shadow-2xl reveal-item scale-settle ${
         isRevealed ? 'is-revealed' : ''
       }`}>
-        {/* 1. EXACT GOOGLE DRIVE IMAGE FIRST (ABOVE WRITE-UP) */}
-        <div className="max-w-2xl mx-auto w-full">
-          <VeloraFlyer
-            imageKey="youtube"
-            alt="VELORA YouTube Opportunities & Creator Rewards Promotional Flyer"
-            aspectClass="aspect-[16/10] sm:aspect-[16/9]"
-            caption="Official YouTube Opportunities Flyer • Turn Content Into Earnings"
-          />
-        </div>
+        {/* ALTERNATING SIDE-BY-SIDE HERO WRAPPER: WRITE-UP ON LEFT, IMAGE ON RIGHT */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+          {/* LEFT SIDE: CATEGORY + HEADING + SHORT WRITE-UP + CTA */}
+          <div className="lg:col-span-7 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-mono uppercase tracking-widest">
+              <Youtube className="w-3.5 h-3.5 text-rose-400" />
+              <span>{VELORA_CONTENT.youtube.sectionLabel}</span>
+            </div>
 
-        {/* 2. FEATURE LABEL */}
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-mono uppercase tracking-widest">
-            <Youtube className="w-3.5 h-3.5 text-rose-400" />
-            <span>{VELORA_CONTENT.youtube.sectionLabel}</span>
+            <div className="space-y-2">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display text-white font-medium tracking-tight">
+                {VELORA_CONTENT.youtube.headline}
+              </h2>
+              <p className="text-amber-300 font-display text-sm sm:text-base italic">
+                "{VELORA_CONTENT.youtube.subtitle}"
+              </p>
+            </div>
+
+            <p className="text-stone-300 text-sm sm:text-base leading-relaxed">
+              {VELORA_CONTENT.youtube.description}
+            </p>
+
+            {/* Quick Reward Highlight Badges */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+              <div className="p-3 rounded-xl bg-black/60 border border-rose-500/30">
+                <span className="text-[10px] text-stone-400 uppercase font-mono block">Base Grant</span>
+                <span className="text-lg sm:text-xl font-display text-rose-300 font-medium block">$50.00</span>
+              </div>
+              <div className="p-3 rounded-xl bg-black/60 border border-amber-400/30">
+                <span className="text-[10px] text-stone-400 uppercase font-mono block">CTR Bounty</span>
+                <span className="text-lg sm:text-xl font-display text-amber-300 font-medium block">$75.00</span>
+              </div>
+              <div className="p-3 rounded-xl bg-black/60 border border-emerald-400/30 col-span-2 sm:col-span-1">
+                <span className="text-[10px] text-stone-400 uppercase font-mono block">Sponsor Pool</span>
+                <span className="text-lg sm:text-xl font-display text-emerald-400 font-medium block">Up to $250</span>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <button
+                onClick={onOpenJoin}
+                className="btn-gold text-xs sm:text-sm px-6 py-3 shadow-lg shadow-rose-500/20 inline-flex items-center gap-2"
+              >
+                <span>{VELORA_CONTENT.youtube.ctaText} →</span>
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* 3. MAIN TITLE & HEADLINE */}
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <h2 className="text-2xl sm:text-4xl font-display text-white font-medium tracking-tight">
-            {VELORA_CONTENT.youtube.headline}
-          </h2>
-          <p className="text-amber-300 font-display text-base sm:text-lg italic">
-            "{VELORA_CONTENT.youtube.subtitle}"
-          </p>
-          <p className="text-stone-300 text-sm sm:text-base leading-relaxed">
-            {VELORA_CONTENT.youtube.description}
-          </p>
+          {/* RIGHT SIDE: OFFICIAL ARTWORK */}
+          <div className="lg:col-span-5 w-full">
+            <VeloraFlyer
+              imageKey="youtube"
+              alt="VELORA YouTube Opportunities & Creator Rewards Promotional Artwork"
+              aspectClass="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3]"
+              caption="Official YouTube Opportunities • Turn Content Into Earnings"
+            />
+          </div>
         </div>
 
         <div className="h-px bg-white/10" />
 
-        {/* 4. WHAT YOU GET / KEY FEATURES */}
+        {/* WHAT YOU GET / KEY FEATURES */}
         <div className="space-y-3">
           <h3 className="text-xs font-mono uppercase tracking-wider text-rose-300 flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-rose-400" /> WHAT YOU GET
@@ -91,33 +119,7 @@ export const YouTubeEarningsSection: React.FC<YouTubeEarningsSectionProps> = ({ 
 
         <div className="h-px bg-white/10" />
 
-        {/* 5. REWARDS / EARNINGS STRUCTURE */}
-        <div className="space-y-3">
-          <h3 className="text-xs font-mono uppercase tracking-wider text-rose-300 flex items-center gap-2">
-            <DollarSign className="w-3.5 h-3.5 text-rose-400" /> REWARDS / EARNINGS STRUCTURE
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="p-4 rounded-xl bg-black/60 border border-rose-500/30 text-center">
-              <span className="text-[10px] text-stone-400 uppercase font-mono block">Base Campaign Grant</span>
-              <span className="text-2xl font-display text-rose-300 font-medium my-1 block">$50.00</span>
-              <span className="text-[11px] text-stone-400">Per qualifying video milestone</span>
-            </div>
-            <div className="p-4 rounded-xl bg-black/60 border border-amber-400/30 text-center">
-              <span className="text-[10px] text-stone-400 uppercase font-mono block">CTR Optimization Bounty</span>
-              <span className="text-2xl font-display text-amber-300 font-medium my-1 block">$75.00</span>
-              <span className="text-[11px] text-stone-400">Per verified thumbnail split test</span>
-            </div>
-            <div className="p-4 rounded-xl bg-black/60 border border-emerald-400/30 text-center">
-              <span className="text-[10px] text-stone-400 uppercase font-mono block">Sponsor Campaign Pool</span>
-              <span className="text-2xl font-display text-emerald-400 font-medium my-1 block">Up to $250</span>
-              <span className="text-[11px] text-stone-400">Top-tier partner creator campaigns</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="h-px bg-white/10" />
-
-        {/* 6. HOW IT WORKS */}
+        {/* HOW IT WORKS */}
         <div className="space-y-3">
           <h3 className="text-xs font-mono uppercase tracking-wider text-rose-300 flex items-center gap-2">
             <ShieldCheck className="w-3.5 h-3.5 text-rose-400" /> HOW IT WORKS

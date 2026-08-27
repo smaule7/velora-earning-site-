@@ -40,45 +40,73 @@ export const AIUploadSection: React.FC<AIUploadSectionProps> = ({ onOpenJoin }) 
     <section 
       id="ai-upload" 
       ref={sectionRef}
-      className="relative py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"
+      className="relative py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto"
     >
-      <div className={`space-y-8 p-6 sm:p-10 rounded-3xl velora-glass border border-purple-500/30 bg-gradient-to-b from-purple-950/20 via-black/80 to-black shadow-2xl reveal-item scale-settle ${
+      <div className={`space-y-10 p-6 sm:p-10 rounded-3xl velora-glass border border-purple-500/30 bg-gradient-to-b from-purple-950/20 via-black/80 to-black shadow-2xl reveal-item scale-settle ${
         isRevealed ? 'is-revealed' : ''
       }`}>
-        {/* 1. EXACT GOOGLE DRIVE IMAGE FIRST (ABOVE WRITE-UP) */}
-        <div className="max-w-2xl mx-auto w-full">
-          <VeloraFlyer
-            imageKey="academy"
-            alt="VELORA AI Academy & AI Upload Promotional Flyer"
-            aspectClass="aspect-[16/10] sm:aspect-[16/9]"
-            caption="Official AI Academy Flyer • Learn. Create. Grow."
-          />
-        </div>
-
-        {/* 2. FEATURE LABEL */}
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-mono uppercase tracking-widest">
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>{VELORA_CONTENT.aiAcademy.sectionLabel}</span>
+        {/* SIDE-BY-SIDE HERO WRAPPER: IMAGE ON LEFT, WRITE-UP ON RIGHT */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+          {/* LEFT SIDE: OFFICIAL ARTWORK */}
+          <div className="lg:col-span-5 w-full">
+            <VeloraFlyer
+              imageKey="academy"
+              alt="VELORA AI Academy & AI Upload Promotional Artwork"
+              aspectClass="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3]"
+              caption="Official AI Academy • Learn. Create. Grow."
+            />
           </div>
-        </div>
 
-        {/* 3. MAIN TITLE & HEADLINE */}
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <h2 className="text-2xl sm:text-4xl font-display text-white font-medium tracking-tight">
-            {VELORA_CONTENT.aiAcademy.headline}
-          </h2>
-          <p className="text-amber-300 font-display text-base sm:text-lg italic">
-            "{VELORA_CONTENT.aiAcademy.subtitle}"
-          </p>
-          <p className="text-stone-300 text-sm sm:text-base leading-relaxed">
-            {VELORA_CONTENT.aiAcademy.description}
-          </p>
+          {/* RIGHT SIDE: CATEGORY + HEADING + SHORT WRITE-UP + CTA */}
+          <div className="lg:col-span-7 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-mono uppercase tracking-widest">
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>{VELORA_CONTENT.aiAcademy.sectionLabel}</span>
+            </div>
+
+            <div className="space-y-2">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display text-white font-medium tracking-tight">
+                {VELORA_CONTENT.aiAcademy.headline}
+              </h2>
+              <p className="text-amber-300 font-display text-sm sm:text-base italic">
+                "{VELORA_CONTENT.aiAcademy.subtitle}"
+              </p>
+            </div>
+
+            <p className="text-stone-300 text-sm sm:text-base leading-relaxed">
+              {VELORA_CONTENT.aiAcademy.description}
+            </p>
+
+            {/* Quick Reward Highlight Badges */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+              <div className="p-3 rounded-xl bg-black/60 border border-purple-500/30">
+                <span className="text-[10px] text-stone-400 uppercase font-mono block">Asset Submission</span>
+                <span className="text-lg sm:text-xl font-display text-purple-300 font-medium block">$25 – $80</span>
+              </div>
+              <div className="p-3 rounded-xl bg-black/60 border border-amber-400/30">
+                <span className="text-[10px] text-stone-400 uppercase font-mono block">AI Lucky Book</span>
+                <span className="text-lg sm:text-xl font-display text-amber-300 font-medium block">$15 Bonus</span>
+              </div>
+              <div className="p-3 rounded-xl bg-black/60 border border-emerald-400/30 col-span-2 sm:col-span-1">
+                <span className="text-[10px] text-stone-400 uppercase font-mono block">Prompt Royalties</span>
+                <span className="text-lg sm:text-xl font-display text-emerald-400 font-medium block">Continuous $</span>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <button
+                onClick={onOpenJoin}
+                className="btn-gold text-xs sm:text-sm px-6 py-3 shadow-lg shadow-purple-500/20 inline-flex items-center gap-2"
+              >
+                <span>{VELORA_CONTENT.aiAcademy.ctaText} →</span>
+              </button>
+            </div>
+          </div>
         </div>
 
         <div className="h-px bg-white/10" />
 
-        {/* 4. WHAT YOU GET / KEY FEATURES */}
+        {/* WHAT YOU GET / KEY FEATURES */}
         <div className="space-y-3">
           <h3 className="text-xs font-mono uppercase tracking-wider text-purple-300 flex items-center gap-2">
             <CheckCircle2 className="w-3.5 h-3.5 text-purple-400" /> WHAT YOU GET
@@ -95,33 +123,7 @@ export const AIUploadSection: React.FC<AIUploadSectionProps> = ({ onOpenJoin }) 
 
         <div className="h-px bg-white/10" />
 
-        {/* 5. REWARDS / EARNINGS STRUCTURE */}
-        <div className="space-y-3">
-          <h3 className="text-xs font-mono uppercase tracking-wider text-purple-300 flex items-center gap-2">
-            <DollarSign className="w-3.5 h-3.5 text-purple-400" /> REWARDS / EARNINGS STRUCTURE
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="p-4 rounded-xl bg-black/60 border border-purple-500/30 text-center">
-              <span className="text-[10px] text-stone-400 uppercase font-mono block">Asset Submission</span>
-              <span className="text-2xl font-display text-purple-300 font-medium my-1 block">$25 – $80</span>
-              <span className="text-[11px] text-stone-400">Per verified prompt toolkit</span>
-            </div>
-            <div className="p-4 rounded-xl bg-black/60 border border-amber-400/30 text-center">
-              <span className="text-[10px] text-stone-400 uppercase font-mono block">AI Lucky Book Reward</span>
-              <span className="text-2xl font-display text-amber-300 font-medium my-1 block">$15 Bonus</span>
-              <span className="text-[11px] text-stone-400">Per curriculum chapter milestone</span>
-            </div>
-            <div className="p-4 rounded-xl bg-black/60 border border-emerald-400/30 text-center">
-              <span className="text-[10px] text-stone-400 uppercase font-mono block">Download Royalties</span>
-              <span className="text-2xl font-display text-emerald-400 font-medium my-1 block">Continuous $</span>
-              <span className="text-[11px] text-stone-400">Credited automatically per download</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="h-px bg-white/10" />
-
-        {/* 6. HOW IT WORKS */}
+        {/* HOW IT WORKS */}
         <div className="space-y-3">
           <h3 className="text-xs font-mono uppercase tracking-wider text-purple-300 flex items-center gap-2">
             <ShieldCheck className="w-3.5 h-3.5 text-purple-400" /> HOW IT WORKS
