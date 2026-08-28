@@ -248,14 +248,103 @@ export const UserDashboardPage: React.FC<UserDashboardPageProps> = ({
     },
   ];
 
+  // --- Registration date (dynamic) ---
+  const formatRegistrationDate = () => {
+    if (!currentUser?.registeredAt) return 'Today';
+    const d = new Date(currentUser.registeredAt);
+    if (Number.isNaN(d.getTime())) return 'Today';
+    const today = new Date();
+    if (d.toDateString() === today.toDateString()) return 'Today';
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  };
+
+  const planLabel = currentUser?.plan === 'golden_ai' ? 'Golden AI' : 'Silver AI';
+  const planFee = currentUser?.plan === 'golden_ai' ? '₦14,500' : '₦9,500';
+
+  // --- Activation details (dynamic) ---
+  const activationDetails = [
+    { label: 'Plan', value: isAccountActive ? planLabel : 'Inactive' },
+    { label: 'Activation Fee', value: isAccountActive ? planFee : 'Inactive' },
+    { label: 'Payment Status', value: isAccountActive ? 'Confirmed' : 'Pending' },
+    { label: 'Registration Date', value: formatRegistrationDate() },
+  ];
+
+  // --- Primary tools (with live values) ---
+  const primaryTools = [
+    {
+      id: 'withdraw' as FeatureModalType,
+      title: 'Earnings',
+      value: isAccountActive ? stats.availableBalance : '₦0.00',
+      desc: 'View your income and rewards',
+      icon: DollarSign,
+      accent: 'text-emerald-400',
+      accentBg: 'bg-emerald-500/10',
+      accentBorder: 'border-emerald-500/20',
+    },
+    {
+      id: 'academy' as FeatureModalType,
+      title: 'Training',
+      value: '0',
+      desc: 'Access skill-building programs',
+      icon: GraduationCap,
+      accent: 'text-blue-400',
+      accentBg: 'bg-blue-500/10',
+      accentBorder: 'border-blue-500/20',
+    },
+    {
+      id: 'content' as FeatureModalType,
+      title: 'Assets',
+      value: '0',
+      desc: 'Manage your digital assets',
+      icon: ImageIcon,
+      accent: 'text-purple-400',
+      accentBg: 'bg-purple-500/10',
+      accentBorder: 'border-purple-500/20',
+    },
+    {
+      id: 'referrals' as FeatureModalType,
+      title: 'Network',
+      value: '0',
+      desc: 'Grow your community reach',
+      icon: Users,
+      accent: 'text-amber-300',
+      accentBg: 'bg-amber-400/10',
+      accentBorder: 'border-amber-400/20',
+    },
+  ];
+
+  // --- Recent activity (real data where available) ---
+  const recentActivity = isAccountActive
+    ? [
+        { title: 'Account Activated', desc: 'Your account is now active and unlocked', time: formatRegistrationDate(), icon: CheckCircle2, tone: 'text-emerald-400' },
+        { title: 'Welcome Reward Claimed', desc: 'Your welcome reward has been credited', time: formatRegistrationDate(), icon: Sparkles, tone: 'text-amber-300' },
+        { title: 'Account Created', desc: 'You successfully joined Velora', time: formatRegistrationDate(), icon: User, tone: 'text-stone-300' },
+      ]
+    : [
+        { title: 'Account Created', desc: 'You successfully joined Velora', time: formatRegistrationDate(), icon: User, tone: 'text-stone-300' },
+        { title: 'Welcome Reward', desc: 'Welcome reward available to claim', time: formatRegistrationDate(), icon: Sparkles, tone: 'text-amber-300' },
+        { title: 'Activation Pending', desc: 'Complete payment to unlock your account', time: formatRegistrationDate(), icon: Clock, tone: 'text-rose-400' },
+      ];
+
+  // --- Sidebar navigation ---
+  const navItems: { label: string; icon: React.ElementType; action: () => void }[] = [
+    { label: 'Dashboard', icon: Activity, action: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
+    { label: 'Earnings', icon: DollarSign, action: () => handleCardClick('withdraw', 'Earnings') },
+    { label: 'Training', icon: GraduationCap, action: () => handleCardClick('academy', 'Training') },
+    { label: 'Assets', icon: ImageIcon, action: () => handleCardClick('content', 'Assets') },
+    { label: 'Network', icon: Users, action: () => handleCardClick('referrals', 'Network') },
+    { label: 'Wallet', icon: Wallet, action: () => handleCardClick('withdraw', 'Wallet') },
+    { label: 'Settings', icon: Settings, action: () => setActiveModal('settings') },
+  ];
+
   return (
-    <div className="min-h-screen bg-[#07030e] text-stone-100 font-sans selection:bg-amber-500 selection:text-black pb-10">
+    <div className="min-h-screen bg-[#07030e] text-stone-100 font-sans selection:bg-amber-500 selection:text-black">
       {/* ========================================================================= */}
-      {/* 1. COMPACT HEADER */}
+      {/* TOP BAR */}
       {/* ========================================================================= */}
       <header className="sticky top-0 z-40 bg-[#0b0517]/95 backdrop-blur-md border-b border-white/10 px-4 sm:px-6 lg:px-8 py-2.5">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
-          {/* LEFT: Return button + Small VELORA logo */}
+        <div className="max-w-[1400px] mx-auto flex items-center justify-between gap-3">
+          {/* LEFT: Brand */}
           <div className="flex items-center gap-2.5">
             <button
               onClick={onBackToHome}
@@ -274,22 +363,20 @@ export const UserDashboardPage: React.FC<UserDashboardPageProps> = ({
             </div>
           </div>
 
-          {/* RIGHT: Notifications, User Profile, Admin Simulator & Logout */}
+          {/* RIGHT: Status, Notifications, Profile, Logout */}
           <div className="flex items-center gap-2 sm:gap-2.5">
-            {/* Account Status Badge */}
             {isAccountActive ? (
               <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] sm:text-[11px] font-mono font-medium flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span>ACCOUNT ACTIVE</span>
+                <span>ACTIVE</span>
               </span>
             ) : (
               <span className="px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-300 border border-rose-500/30 text-[10px] sm:text-[11px] font-mono font-medium flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse" />
-                <span>ACCOUNT INACTIVE</span>
+                <span>INACTIVE</span>
               </span>
             )}
 
-            {/* Notification Bell */}
             <div className="relative">
               <button
                 onClick={() => setNotificationsOpen(!notificationsOpen)}
@@ -323,17 +410,6 @@ export const UserDashboardPage: React.FC<UserDashboardPageProps> = ({
               )}
             </div>
 
-            {/* User Profile Pill */}
-            <div className="flex items-center gap-1.5 pl-1.5 border-l border-white/10">
-              <div className="w-6 h-6 rounded-md bg-amber-400/20 text-amber-300 border border-amber-400/30 flex items-center justify-center font-bold text-[11px]">
-                {initials}
-              </div>
-              <span className="text-xs font-medium text-white hidden md:inline truncate max-w-[120px]">
-                {displayName.split(' ')[0]}
-              </span>
-            </div>
-
-            {/* Logout */}
             <button
               onClick={onLogout}
               className="flex items-center gap-1 px-2.5 py-1 rounded-md bg-white/5 hover:bg-rose-500/20 text-stone-300 hover:text-rose-300 border border-white/10 hover:border-rose-500/30 text-xs font-mono transition-colors"
@@ -347,203 +423,236 @@ export const UserDashboardPage: React.FC<UserDashboardPageProps> = ({
       </header>
 
       {/* ========================================================================= */}
-      {/* MAIN DASHBOARD CONTENT (Compact, balanced SaaS layout) */}
+      {/* SHELL: SIDEBAR + MAIN CONTENT */}
       {/* ========================================================================= */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-5">
-        {/* ======================================================================= */}
-        {/* 1. WELCOME BAR */}
-        {/* ======================================================================= */}
-        <section className="p-4 sm:p-4.5 rounded-xl bg-[#0f071f] border border-white/10 shadow-sm relative overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <div className="space-y-0.5 text-left">
-            <h1 className="text-base sm:text-lg font-display text-white font-semibold tracking-tight">
-              Welcome back, <span className="text-amber-200 font-semibold">{displayName}</span>
-            </h1>
-            <p className="text-xs text-stone-300 font-normal leading-relaxed">
-              Manage your VELORA activities, track your earnings, and explore available opportunities.
-            </p>
-          </div>
+      <div className="relative z-10 max-w-[1400px] mx-auto flex flex-col lg:flex-row lg:items-start gap-0 lg:gap-6 px-4 sm:px-6 lg:px-8 py-5">
+        {/* ===================================================================== */}
+        {/* SIDEBAR NAVIGATION + USER PROFILE */}
+        {/* ===================================================================== */}
+        <aside className="lg:sticky lg:top-[64px] w-full lg:w-60 shrink-0 mb-4 lg:mb-0">
+          {/* Nav — horizontal scroll on mobile, vertical on desktop */}
+          <nav className="rounded-xl bg-[#0e071c] border border-white/10 p-2 flex lg:flex-col gap-1 overflow-x-auto lg:overflow-visible">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = item.label === 'Dashboard';
+              return (
+                <button
+                  key={item.label}
+                  onClick={item.action}
+                  className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-colors shrink-0 lg:w-full ${
+                    isActive
+                      ? 'bg-amber-400/15 text-amber-200 border border-amber-400/25'
+                      : 'text-stone-300 hover:text-white hover:bg-white/5 border border-transparent'
+                  }`}
+                >
+                  <Icon className="w-4 h-4 shrink-0" />
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
+          </nav>
 
-          <div className="flex items-center gap-2 text-xs font-mono text-stone-400 bg-black/50 px-3 py-1.5 rounded-lg border border-white/5 shrink-0">
-            <span>ID: <strong className="text-amber-300">{userId}</strong></span>
-            <span>•</span>
-            <span className="truncate max-w-[180px]">{email}</span>
+          {/* User Profile */}
+          <div className="mt-3 rounded-xl bg-[#0e071c] border border-white/10 p-4 hidden lg:block">
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-xl bg-amber-400/15 text-amber-300 border border-amber-400/30 flex items-center justify-center font-bold text-sm shrink-0">
+                {initials}
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-white truncate">{displayName}</p>
+                <p className="text-[11px] text-stone-400 truncate">{email}</p>
+              </div>
+            </div>
+            <div className="mt-3 pt-3 border-t border-white/5 flex items-center justify-between">
+              <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider">Account ID</span>
+              <span className="text-[11px] font-mono text-amber-300">{userId}</span>
+            </div>
           </div>
+        </aside>
+
+        {/* ===================================================================== */}
+        {/* MAIN CONTENT */}
+        {/* ===================================================================== */}
+        <main className="flex-1 min-w-0 space-y-5">
+        {/* ======================================================================= */}
+        {/* DASHBOARD HEADING */}
+        {/* ======================================================================= */}
+        <section className="space-y-1 text-left">
+          <h1 className="text-2xl sm:text-3xl font-display text-white font-semibold tracking-tight">
+            Dashboard
+          </h1>
+          <p className="text-sm text-stone-400">
+            Welcome back to your Velora account
+          </p>
         </section>
 
         {/* ======================================================================= */}
-        {/* 2. BALANCE SECTION (Directly below Welcome with 20-24px spacing) */}
-        {/* ======================================================================= */}
-        <section className="p-4 rounded-xl bg-[#0e071c] border border-white/10 shadow-sm flex items-center justify-between gap-3 text-left">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0">
-              <Wallet className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-stone-400 block">
-                Balance
-              </span>
-              <span className="text-2xl sm:text-3xl font-display font-semibold text-emerald-400 tracking-tight block">
-                {stats.availableBalance}
-              </span>
-            </div>
-          </div>
-          {isAccountActive && (
-            <button
-              onClick={() => setActiveModal('withdraw')}
-              className="btn-gold px-4 py-2 text-xs font-semibold shrink-0"
-            >
-              Withdraw
-            </button>
-          )}
-        </section>
-
-        {/* ======================================================================= */}
-        {/* 3. ACCOUNT STATUS (Inactive / Active) */}
+        {/* ACCOUNT STATUS */}
         {/* ======================================================================= */}
         {!isAccountActive ? (
-          <section className="p-4 rounded-xl bg-[#130722] border border-amber-400/30 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left">
-            <div className="flex items-start sm:items-center gap-3">
-              <div className="p-2 rounded-lg bg-amber-400/15 text-amber-300 border border-amber-400/30 shrink-0 mt-0.5 sm:mt-0">
-                <AlertCircle className="w-5 h-5 text-amber-300" />
-              </div>
-              <div className="space-y-1">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h2 className="text-xs sm:text-sm font-display font-bold text-white tracking-wide">
-                    ACCOUNT INACTIVE
-                  </h2>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
-                    PENDING ACTIVATION
-                  </span>
+          <section className="p-5 rounded-xl bg-[#130722] border border-amber-400/25 shadow-sm text-left">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <div className="p-2.5 rounded-lg bg-amber-400/15 text-amber-300 border border-amber-400/30 shrink-0">
+                  <AlertCircle className="w-5 h-5" />
                 </div>
-                <p className="text-xs text-stone-300 font-normal leading-tight">
-                  Your VELORA account is currently inactive. Please activate your account to unlock earning opportunities.
-                </p>
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-stone-400">Account Status</span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                      INACTIVE
+                    </span>
+                  </div>
+                  <p className="text-sm text-stone-300 font-normal leading-relaxed max-w-lg">
+                    Your account is currently inactive. Activate your account to unlock all earning tools on Velora.
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <button
-              onClick={() => setActiveModal('payment_details')}
-              className="btn-gold px-4 py-2.5 text-xs font-semibold flex items-center justify-center gap-1.5 shrink-0 w-full sm:w-auto shadow-sm"
-            >
-              <CreditCard className="w-3.5 h-3.5" />
-              <span>Activate Account</span>
-            </button>
+              <button
+                onClick={() => setActiveModal('payment_details')}
+                className="btn-gold px-5 py-2.5 text-xs font-semibold flex items-center justify-center gap-1.5 shrink-0 w-full sm:w-auto"
+              >
+                <CreditCard className="w-3.5 h-3.5" />
+                <span>Activate Account</span>
+              </button>
+            </div>
           </section>
         ) : (
-          <section className="p-4 rounded-xl bg-[#091512] border border-emerald-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                <CheckCircle2 className="w-5 h-5" />
+          <section className="p-5 rounded-xl bg-[#091512] border border-emerald-500/30 shadow-sm text-left">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <div className="p-2.5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shrink-0">
+                  <CheckCircle2 className="w-5 h-5" />
+                </div>
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-stone-400">Account Status</span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      ACTIVE
+                    </span>
+                  </div>
+                  <p className="text-sm text-stone-300 font-normal leading-relaxed max-w-lg">
+                    Your account is active. All Velora earning tools are fully unlocked and ready to use.
+                  </p>
+                </div>
               </div>
-              <div className="space-y-1">
-                <h2 className="text-xs sm:text-sm font-semibold text-white">ACCOUNT ACTIVE</h2>
-                <p className="text-xs text-stone-300">
-                  Your creator status is verified. All VELORA earning opportunities are fully unlocked.
-                </p>
-              </div>
-            </div>
 
-            <button
-              onClick={() => setActiveModal('withdraw')}
-              className="btn-gold px-4 py-2 text-xs font-semibold shrink-0"
-            >
-              Withdraw Funds
-            </button>
+              <button
+                onClick={() => setActiveModal('withdraw')}
+                className="btn-gold px-5 py-2.5 text-xs font-semibold shrink-0 w-full sm:w-auto"
+              >
+                Withdraw Funds
+              </button>
+            </div>
           </section>
         )}
 
         {/* ======================================================================= */}
-        {/* 4. SUMMARY / QUICK STATS (4 Equal-Height Cards) */}
+        {/* YOUR ACTIVATION DETAILS */}
         {/* ======================================================================= */}
-        <section className="space-y-2 text-left">
-          <div className="text-[11px] font-mono uppercase tracking-wider text-stone-400">
-            Earnings Overview
+        <section className="rounded-xl bg-[#0e071c] border border-white/10 shadow-sm p-5 text-left space-y-4">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-amber-300" />
+            <h2 className="text-sm font-semibold text-white">Your Activation Details</h2>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            {/* Card 1: Total Earnings */}
-            <div className="p-4 rounded-xl bg-[#0e071c] border border-white/10 shadow-sm flex flex-col justify-between space-y-2 h-full">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono text-stone-400 uppercase tracking-wider">
-                  Total Earnings
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {activationDetails.map((d) => (
+              <div key={d.label} className="p-3.5 rounded-lg bg-black/40 border border-white/5">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-stone-500 block mb-1">
+                  {d.label}
                 </span>
-                <div className="p-1.5 rounded-lg bg-amber-400/10 text-amber-300 border border-amber-400/20">
-                  <TrendingUp className="w-4 h-4" />
-                </div>
-              </div>
-              <div>
-                <span className="text-xl sm:text-2xl font-display text-white font-semibold tracking-tight block">
-                  {stats.totalEarnings}
-                </span>
-              </div>
-            </div>
-
-            {/* Card 2: Available Balance */}
-            <div className="p-4 rounded-xl bg-[#0e071c] border border-white/10 shadow-sm flex flex-col justify-between space-y-2 h-full">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono text-stone-400 uppercase tracking-wider">
-                  Available Balance
-                </span>
-                <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                  <Wallet className="w-4 h-4" />
-                </div>
-              </div>
-              <div>
-                <span className="text-xl sm:text-2xl font-display text-emerald-400 font-semibold tracking-tight block">
-                  {stats.availableBalance}
+                <span
+                  className={`text-sm font-semibold block truncate ${
+                    d.label === 'Payment Status'
+                      ? isAccountActive
+                        ? 'text-emerald-400'
+                        : 'text-amber-300'
+                      : 'text-white'
+                  }`}
+                >
+                  {d.value}
                 </span>
               </div>
-            </div>
-
-            {/* Card 3: Pending Earnings */}
-            <div className="p-4 rounded-xl bg-[#0e071c] border border-white/10 shadow-sm flex flex-col justify-between space-y-2 h-full">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono text-stone-400 uppercase tracking-wider">
-                  Pending Earnings
-                </span>
-                <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                  <Clock className="w-4 h-4" />
-                </div>
-              </div>
-              <div>
-                <span className="text-xl sm:text-2xl font-display text-purple-300 font-semibold tracking-tight block">
-                  {stats.pendingEarnings}
-                </span>
-              </div>
-            </div>
-
-            {/* Card 4: Activities */}
-            <div className="p-4 rounded-xl bg-[#0e071c] border border-white/10 shadow-sm flex flex-col justify-between space-y-2 h-full">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono text-stone-400 uppercase tracking-wider">
-                  Activities
-                </span>
-                <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                  <Activity className="w-4 h-4" />
-                </div>
-              </div>
-              <div>
-                <span className="text-xl sm:text-2xl font-display text-blue-300 font-semibold tracking-tight block">
-                  {stats.activities}
-                </span>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
         {/* ======================================================================= */}
-        {/* 5. AVAILABLE OPPORTUNITIES (MAIN CARDS) */}
+        {/* WELCOME REWARD */}
         {/* ======================================================================= */}
-        <section className="space-y-2 text-left">
+        <button
+          onClick={() => (isAccountActive ? setActiveModal(null) : setActiveModal('payment_details'))}
+          className="group w-full text-left p-5 rounded-xl bg-gradient-to-r from-[#1a1030] to-[#0e071c] border border-amber-400/25 hover:border-amber-400/50 shadow-sm transition-colors flex items-center justify-between gap-4"
+        >
+          <div className="flex items-center gap-4 min-w-0">
+            <div className="p-3 rounded-xl bg-amber-400/15 text-amber-300 border border-amber-400/30 shrink-0">
+              <Sparkles className="w-6 h-6" />
+            </div>
+            <div className="min-w-0 space-y-0.5">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h2 className="text-sm sm:text-base font-semibold text-white">Welcome Reward</h2>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-medium bg-amber-400/15 text-amber-300 border border-amber-400/25">
+                  {isAccountActive ? 'Claimed' : 'Available'}
+                </span>
+              </div>
+              <p className="text-xs text-stone-400 leading-relaxed">
+                {isAccountActive
+                  ? 'Your welcome reward has been credited to your Velora account.'
+                  : 'Claim your Velora welcome reward — activate your account to continue.'}
+              </p>
+            </div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-amber-300/70 group-hover:translate-x-1 transition-transform shrink-0" />
+        </button>
+
+        {/* ======================================================================= */}
+        {/* YOUR TOOLS */}
+        {/* ======================================================================= */}
+        <section className="space-y-3 text-left">
           <div className="space-y-0.5">
             <h2 className="text-base sm:text-lg font-display font-semibold text-white">
-              Available Opportunities
+              Your Tools
             </h2>
             <p className="text-xs text-stone-400">
-              Explore ways to earn and participate across the VELORA platform.
+              Access your earning tools and creator features across Velora.
             </p>
           </div>
 
-          {/* 4-column card grid on desktop, 2-col on tablet, 1-col on mobile */}
+          {/* Primary tools with live values */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            {primaryTools.map((tool) => {
+              const Icon = tool.icon;
+              const locked = !isAccountActive;
+              return (
+                <button
+                  key={tool.title}
+                  onClick={() => handleCardClick(tool.id, tool.title)}
+                  className="group p-4 rounded-xl bg-[#0e071c] hover:bg-[#150a2b] border border-white/10 hover:border-amber-400/30 text-left transition-all duration-150 flex flex-col justify-between shadow-sm active:scale-[0.99] focus:outline-none focus:ring-1 focus:ring-amber-400/40 min-h-[132px]"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className={`p-2 rounded-lg ${tool.accentBg} ${tool.accent} border ${tool.accentBorder}`}>
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    {locked ? (
+                      <Lock className="w-3.5 h-3.5 text-stone-500" />
+                    ) : (
+                      <ChevronRight className="w-4 h-4 text-stone-500 group-hover:text-amber-300 group-hover:translate-x-1 transition-all" />
+                    )}
+                  </div>
+                  <div className="space-y-1 mt-3">
+                    <span className={`text-xl sm:text-2xl font-display font-semibold tracking-tight block ${tool.accent}`}>
+                      {tool.value}
+                    </span>
+                    <h3 className="text-sm font-semibold text-white">{tool.title}</h3>
+                    <p className="text-[11px] text-stone-400 leading-relaxed line-clamp-2">{tool.desc}</p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Additional Velora tools */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {opportunityCards.map((card) => {
               const Icon = card.icon;
@@ -574,7 +683,10 @@ export const UserDashboardPage: React.FC<UserDashboardPageProps> = ({
                   </div>
 
                   <div className="pt-2.5 mt-3 border-t border-white/5 flex items-center justify-between text-xs font-mono text-stone-400 group-hover:text-amber-300 transition-colors">
-                    <span>{isAccountActive ? 'Open Workspace' : 'Locked'}</span>
+                    <span className="flex items-center gap-1">
+                      {!isAccountActive && <Lock className="w-3 h-3" />}
+                      {isAccountActive ? 'Open Workspace' : 'Locked'}
+                    </span>
                     <ChevronRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                   </div>
                 </button>
@@ -582,7 +694,35 @@ export const UserDashboardPage: React.FC<UserDashboardPageProps> = ({
             })}
           </div>
         </section>
-      </main>
+
+        {/* ======================================================================= */}
+        {/* RECENT ACTIVITY */}
+        {/* ======================================================================= */}
+        <section className="rounded-xl bg-[#0e071c] border border-white/10 shadow-sm p-5 text-left space-y-4">
+          <div className="flex items-center gap-2">
+            <Activity className="w-4 h-4 text-amber-300" />
+            <h2 className="text-sm font-semibold text-white">Recent Activity</h2>
+          </div>
+          <div className="divide-y divide-white/5">
+            {recentActivity.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <div key={i} className="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
+                  <div className={`p-2 rounded-lg bg-white/5 border border-white/10 shrink-0 ${item.tone}`}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium text-white">{item.title}</p>
+                    <p className="text-xs text-stone-400 leading-relaxed">{item.desc}</p>
+                  </div>
+                  <span className="text-[11px] font-mono text-stone-500 shrink-0 pt-0.5">{item.time}</span>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+        </main>
+      </div>
 
       {/* ========================================================================= */}
       {/* 6. MODALS & INTERACTION OVERLAYS */}
@@ -1008,6 +1148,58 @@ export const UserDashboardPage: React.FC<UserDashboardPageProps> = ({
                 {withdrawSuccess ? 'Processing...' : 'Submit Withdrawal Request'}
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: SETTINGS */}
+      {activeModal === 'settings' && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="w-full max-w-md rounded-2xl bg-[#0f071f] border border-white/15 p-6 space-y-4 text-left shadow-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <Settings className="w-5 h-5 text-amber-300" />
+                <h3 className="text-base font-semibold text-white">Account Settings</h3>
+              </div>
+              <button onClick={() => setActiveModal(null)} className="p-1 rounded text-stone-400 hover:text-white">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="flex items-center gap-3 p-3.5 rounded-xl bg-black/50 border border-white/10">
+              <div className="w-11 h-11 rounded-xl bg-amber-400/15 text-amber-300 border border-amber-400/30 flex items-center justify-center font-bold text-sm shrink-0">
+                {initials}
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-white truncate">{displayName}</p>
+                <p className="text-[11px] text-stone-400 truncate">{email}</p>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <div className="p-3 rounded-xl bg-black/40 border border-white/5 flex items-center justify-between text-xs">
+                <span className="text-stone-400">Phone Number</span>
+                <span className="text-white font-medium">{phoneNumber}</span>
+              </div>
+              <div className="p-3 rounded-xl bg-black/40 border border-white/5 flex items-center justify-between text-xs">
+                <span className="text-stone-400">Account ID</span>
+                <span className="text-amber-300 font-mono">{userId}</span>
+              </div>
+              <div className="p-3 rounded-xl bg-black/40 border border-white/5 flex items-center justify-between text-xs">
+                <span className="text-stone-400">Account Status</span>
+                <span className={isAccountActive ? 'text-emerald-400 font-medium' : 'text-rose-300 font-medium'}>
+                  {isAccountActive ? 'Active' : 'Inactive'}
+                </span>
+              </div>
+            </div>
+
+            <button
+              onClick={onLogout}
+              className="w-full py-2.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
+            >
+              <LogOut className="w-4 h-4" />
+              <span>Log Out</span>
+            </button>
           </div>
         </div>
       )}

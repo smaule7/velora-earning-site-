@@ -161,18 +161,12 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
         setIsLoading(false);
         setIsSuccess(true);
 
-        const userData = {
-          fullName: fullName.trim(),
-          email: email.trim(),
-          phoneNumber: phoneNumber.trim(),
-          isLoggedIn: true,
-          status: 'inactive' as const,
-        };
-
-        // Save session in localStorage
+        // Save session in localStorage immediately so the account persists
         try {
           localStorage.setItem('velora_user', JSON.stringify({
-            ...userData,
+            fullName: fullName.trim(),
+            email: email.trim(),
+            phoneNumber: phoneNumber.trim(),
             registeredAt: new Date().toISOString(),
             isLoggedIn: true,
             status: 'inactive',
@@ -180,17 +174,21 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
         } catch (e) {
           // ignore storage quota error
         }
-
-        if (onRegisterSuccess) {
-          onRegisterSuccess(userData);
-        }
-
-        setTimeout(() => {
-          setIsSuccess(false);
-          onClose();
-        }, 1200);
+        // Note: navigation is deferred until the user clicks "Continue"
       }, 1000);
     }
+  };
+
+  const handleContinue = () => {
+    setIsSuccess(false);
+    if (onRegisterSuccess) {
+      onRegisterSuccess({
+        fullName: fullName.trim(),
+        email: email.trim(),
+        phoneNumber: phoneNumber.trim(),
+      });
+    }
+    onClose();
   };
 
   return (
@@ -215,21 +213,28 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
         </button>
 
         {isSuccess ? (
-          <div className="py-12 text-center space-y-4 animate-fadeIn">
-            <div className="w-14 h-14 rounded-2xl bg-amber-400/20 text-amber-300 border border-amber-400/40 flex items-center justify-center mx-auto shadow-lg shadow-amber-500/10">
-              <CheckCircle2 className="w-8 h-8" />
+          <div className="py-10 text-center space-y-5 animate-fadeIn">
+            <div className="w-16 h-16 rounded-2xl bg-amber-400/15 text-amber-300 border border-amber-400/40 flex items-center justify-center mx-auto shadow-lg shadow-amber-500/10">
+              <CheckCircle2 className="w-9 h-9" />
             </div>
-            <div className="space-y-1">
+            <div className="space-y-2">
               <h3 className="font-display text-2xl font-medium text-white">
-                Account Created Successfully
+                Account Created
               </h3>
-              <p className="text-xs text-stone-300">
-                Welcome to Velora, <span className="text-white font-medium">{fullName}</span>!
+              <p className="text-sm text-stone-300 leading-relaxed max-w-xs mx-auto">
+                Your account has been created successfully. Activate your account to begin earning with Velora.
               </p>
             </div>
-            <p className="text-xs text-amber-300 font-mono pt-2">
-              Loading your creator dashboard experience...
-            </p>
+            <div className="pt-1">
+              <button
+                type="button"
+                onClick={handleContinue}
+                className="btn-gold w-full py-3.5 rounded-xl font-semibold text-xs sm:text-sm tracking-wider uppercase flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
+              >
+                <span>Continue</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         ) : isLoading ? (
           <div className="py-16 text-center flex flex-col items-center justify-center space-y-4 animate-fadeIn">
