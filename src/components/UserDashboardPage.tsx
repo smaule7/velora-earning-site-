@@ -333,16 +333,6 @@ export const UserDashboardPage: React.FC<UserDashboardPageProps> = ({
               </span>
             </div>
 
-            {/* Admin Verification Simulator (for instant testing of states) */}
-            <button
-              onClick={() => onUpdateUserStatus(isAccountActive ? 'inactive' : 'active')}
-              className="hidden lg:flex items-center gap-1 px-2 py-1 rounded-md bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 border border-amber-400/25 text-[10px] font-mono transition-colors"
-              title="Toggle Active / Inactive for testing"
-            >
-              <RefreshCw className="w-3 h-3" />
-              <span>Simulator</span>
-            </button>
-
             {/* Logout */}
             <button
               onClick={onLogout}
@@ -357,23 +347,23 @@ export const UserDashboardPage: React.FC<UserDashboardPageProps> = ({
       </header>
 
       {/* ========================================================================= */}
-      {/* MAIN DASHBOARD CONTENT (Compact, cohesive & professionally aligned) */}
+      {/* MAIN DASHBOARD CONTENT (Compact, balanced SaaS layout) */}
       {/* ========================================================================= */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3.5 sm:pt-4 space-y-3 sm:space-y-3.5">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-5">
         {/* ======================================================================= */}
-        {/* 2. WELCOME AREA (Compact & Refined) */}
+        {/* 1. WELCOME BAR */}
         {/* ======================================================================= */}
-        <section className="p-3 sm:p-4 rounded-xl bg-[#0f071f] border border-white/10 shadow-sm relative overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5">
+        <section className="p-4 sm:p-4.5 rounded-xl bg-[#0f071f] border border-white/10 shadow-sm relative overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="space-y-0.5 text-left">
             <h1 className="text-base sm:text-lg font-display text-white font-semibold tracking-tight">
               Welcome back, <span className="text-amber-200 font-semibold">{displayName}</span>
             </h1>
-            <p className="text-xs text-stone-300 font-normal leading-tight">
+            <p className="text-xs text-stone-300 font-normal leading-relaxed">
               Manage your VELORA activities, track your earnings, and explore available opportunities.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-mono text-stone-400 bg-black/40 px-2.5 py-1 rounded-lg border border-white/5 shrink-0">
+          <div className="flex items-center gap-2 text-xs font-mono text-stone-400 bg-black/50 px-3 py-1.5 rounded-lg border border-white/5 shrink-0">
             <span>ID: <strong className="text-amber-300">{userId}</strong></span>
             <span>•</span>
             <span className="truncate max-w-[180px]">{email}</span>
@@ -381,44 +371,71 @@ export const UserDashboardPage: React.FC<UserDashboardPageProps> = ({
         </section>
 
         {/* ======================================================================= */}
-        {/* 3. ACCOUNT STATUS (Inactive / Active - Tightly integrated card) */}
+        {/* 2. BALANCE SECTION (Directly below Welcome with 20-24px spacing) */}
+        {/* ======================================================================= */}
+        <section className="p-4 rounded-xl bg-[#0e071c] border border-white/10 shadow-sm flex items-center justify-between gap-3 text-left">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0">
+              <Wallet className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-[11px] font-mono uppercase tracking-wider text-stone-400 block">
+                Balance
+              </span>
+              <span className="text-2xl sm:text-3xl font-display font-semibold text-emerald-400 tracking-tight block">
+                {stats.availableBalance}
+              </span>
+            </div>
+          </div>
+          {isAccountActive && (
+            <button
+              onClick={() => setActiveModal('withdraw')}
+              className="btn-gold px-4 py-2 text-xs font-semibold shrink-0"
+            >
+              Withdraw
+            </button>
+          )}
+        </section>
+
+        {/* ======================================================================= */}
+        {/* 3. ACCOUNT STATUS (Inactive / Active) */}
         {/* ======================================================================= */}
         {!isAccountActive ? (
-          <section className="p-3 sm:p-3.5 rounded-xl bg-[#130722] border border-amber-400/30 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 text-left">
-            <div className="flex items-center gap-2.5">
-              <div className="p-1.5 rounded-lg bg-amber-400/15 text-amber-300 border border-amber-400/30 shrink-0">
-                <AlertCircle className="w-4 h-4 text-amber-300" />
+          <section className="p-4 rounded-xl bg-[#130722] border border-amber-400/30 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left">
+            <div className="flex items-start sm:items-center gap-3">
+              <div className="p-2 rounded-lg bg-amber-400/15 text-amber-300 border border-amber-400/30 shrink-0 mt-0.5 sm:mt-0">
+                <AlertCircle className="w-5 h-5 text-amber-300" />
               </div>
-              <div className="space-y-0.5">
+              <div className="space-y-1">
                 <div className="flex items-center gap-2 flex-wrap">
                   <h2 className="text-xs sm:text-sm font-display font-bold text-white tracking-wide">
                     ACCOUNT INACTIVE
                   </h2>
-                  <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
                     PENDING ACTIVATION
                   </span>
                 </div>
                 <p className="text-xs text-stone-300 font-normal leading-tight">
-                  Activate your VELORA account to unlock earning opportunities.
+                  Your VELORA account is currently inactive. Please activate your account to unlock earning opportunities.
                 </p>
               </div>
             </div>
 
             <button
               onClick={() => setActiveModal('payment_details')}
-              className="btn-gold px-4 py-2 text-xs font-semibold flex items-center justify-center gap-1.5 shrink-0 w-full sm:w-auto shadow-sm"
+              className="btn-gold px-4 py-2.5 text-xs font-semibold flex items-center justify-center gap-1.5 shrink-0 w-full sm:w-auto shadow-sm"
             >
               <CreditCard className="w-3.5 h-3.5" />
               <span>Activate Account</span>
             </button>
           </section>
         ) : (
-          <section className="p-3 sm:p-3.5 rounded-xl bg-[#091512] border border-emerald-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 text-left">
-            <div className="flex items-center gap-2.5">
-              <div className="p-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                <CheckCircle2 className="w-4 h-4" />
+          <section className="p-4 rounded-xl bg-[#091512] border border-emerald-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                <CheckCircle2 className="w-5 h-5" />
               </div>
-              <div className="space-y-0.5">
+              <div className="space-y-1">
                 <h2 className="text-xs sm:text-sm font-semibold text-white">ACCOUNT ACTIVE</h2>
                 <p className="text-xs text-stone-300">
                   Your creator status is verified. All VELORA earning opportunities are fully unlocked.
@@ -428,7 +445,7 @@ export const UserDashboardPage: React.FC<UserDashboardPageProps> = ({
 
             <button
               onClick={() => setActiveModal('withdraw')}
-              className="btn-gold px-3.5 py-1.5 text-xs font-semibold shrink-0"
+              className="btn-gold px-4 py-2 text-xs font-semibold shrink-0"
             >
               Withdraw Funds
             </button>
@@ -436,76 +453,76 @@ export const UserDashboardPage: React.FC<UserDashboardPageProps> = ({
         )}
 
         {/* ======================================================================= */}
-        {/* 4. EARNINGS OVERVIEW (4 Equal-Height Stat Cards) */}
+        {/* 4. SUMMARY / QUICK STATS (4 Equal-Height Cards) */}
         {/* ======================================================================= */}
-        <section className="space-y-1.5 text-left">
+        <section className="space-y-2 text-left">
           <div className="text-[11px] font-mono uppercase tracking-wider text-stone-400">
             Earnings Overview
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {/* Card 1: Total Earnings */}
-            <div className="p-3 sm:p-3.5 rounded-xl bg-[#0e071c] border border-white/10 shadow-sm flex flex-col justify-between space-y-1.5">
+            <div className="p-4 rounded-xl bg-[#0e071c] border border-white/10 shadow-sm flex flex-col justify-between space-y-2 h-full">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-mono text-stone-400 uppercase tracking-wider">
                   Total Earnings
                 </span>
-                <div className="p-1 rounded-md bg-amber-400/10 text-amber-300 border border-amber-400/20">
-                  <TrendingUp className="w-3.5 h-3.5" />
+                <div className="p-1.5 rounded-lg bg-amber-400/10 text-amber-300 border border-amber-400/20">
+                  <TrendingUp className="w-4 h-4" />
                 </div>
               </div>
               <div>
-                <span className="text-lg sm:text-xl font-display text-white font-semibold tracking-tight block">
+                <span className="text-xl sm:text-2xl font-display text-white font-semibold tracking-tight block">
                   {stats.totalEarnings}
                 </span>
               </div>
             </div>
 
             {/* Card 2: Available Balance */}
-            <div className="p-3 sm:p-3.5 rounded-xl bg-[#0e071c] border border-white/10 shadow-sm flex flex-col justify-between space-y-1.5">
+            <div className="p-4 rounded-xl bg-[#0e071c] border border-white/10 shadow-sm flex flex-col justify-between space-y-2 h-full">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-mono text-stone-400 uppercase tracking-wider">
                   Available Balance
                 </span>
-                <div className="p-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                  <Wallet className="w-3.5 h-3.5" />
+                <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  <Wallet className="w-4 h-4" />
                 </div>
               </div>
               <div>
-                <span className="text-lg sm:text-xl font-display text-emerald-400 font-semibold tracking-tight block">
+                <span className="text-xl sm:text-2xl font-display text-emerald-400 font-semibold tracking-tight block">
                   {stats.availableBalance}
                 </span>
               </div>
             </div>
 
             {/* Card 3: Pending Earnings */}
-            <div className="p-3 sm:p-3.5 rounded-xl bg-[#0e071c] border border-white/10 shadow-sm flex flex-col justify-between space-y-1.5">
+            <div className="p-4 rounded-xl bg-[#0e071c] border border-white/10 shadow-sm flex flex-col justify-between space-y-2 h-full">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-mono text-stone-400 uppercase tracking-wider">
                   Pending Earnings
                 </span>
-                <div className="p-1 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                  <Clock className="w-3.5 h-3.5" />
+                <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                  <Clock className="w-4 h-4" />
                 </div>
               </div>
               <div>
-                <span className="text-lg sm:text-xl font-display text-purple-300 font-semibold tracking-tight block">
+                <span className="text-xl sm:text-2xl font-display text-purple-300 font-semibold tracking-tight block">
                   {stats.pendingEarnings}
                 </span>
               </div>
             </div>
 
             {/* Card 4: Activities */}
-            <div className="p-3 sm:p-3.5 rounded-xl bg-[#0e071c] border border-white/10 shadow-sm flex flex-col justify-between space-y-1.5">
+            <div className="p-4 rounded-xl bg-[#0e071c] border border-white/10 shadow-sm flex flex-col justify-between space-y-2 h-full">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-mono text-stone-400 uppercase tracking-wider">
                   Activities
                 </span>
-                <div className="p-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                  <Activity className="w-3.5 h-3.5" />
+                <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                  <Activity className="w-4 h-4" />
                 </div>
               </div>
               <div>
-                <span className="text-lg sm:text-xl font-display text-blue-300 font-semibold tracking-tight block">
+                <span className="text-xl sm:text-2xl font-display text-blue-300 font-semibold tracking-tight block">
                   {stats.activities}
                 </span>
               </div>
@@ -514,51 +531,51 @@ export const UserDashboardPage: React.FC<UserDashboardPageProps> = ({
         </section>
 
         {/* ======================================================================= */}
-        {/* 5. VELORA EARNING FEATURES (MAIN SECTION) */}
+        {/* 5. AVAILABLE OPPORTUNITIES (MAIN CARDS) */}
         {/* ======================================================================= */}
         <section className="space-y-2 text-left">
           <div className="space-y-0.5">
-            <h2 className="text-sm sm:text-base font-display font-semibold text-white">
-              VELORA Opportunities
+            <h2 className="text-base sm:text-lg font-display font-semibold text-white">
+              Available Opportunities
             </h2>
             <p className="text-xs text-stone-400">
               Explore ways to earn and participate across the VELORA platform.
             </p>
           </div>
 
-          {/* Fully Clickable Responsive Grid (Balanced spacing, equal-height & compact) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
+          {/* 4-column card grid on desktop, 2-col on tablet, 1-col on mobile */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {opportunityCards.map((card) => {
               const Icon = card.icon;
               return (
                 <button
                   key={card.id}
                   onClick={() => handleCardClick(card.id, card.title)}
-                  className="group p-3.5 rounded-xl bg-[#0e071c] hover:bg-[#150a2b] border border-white/10 hover:border-amber-400/30 text-left transition-all duration-150 flex flex-col justify-between shadow-sm hover:shadow-md relative overflow-hidden focus:outline-none focus:ring-1 focus:ring-amber-400/40 active:scale-[0.99]"
+                  className="group p-4 rounded-xl bg-[#0e071c] hover:bg-[#150a2b] border border-white/10 hover:border-amber-400/30 text-left transition-all duration-150 flex flex-col justify-between shadow-sm hover:shadow-md relative overflow-hidden focus:outline-none focus:ring-1 focus:ring-amber-400/40 active:scale-[0.99] min-h-[140px]"
                 >
-                  <div className="space-y-2">
+                  <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <div className={`p-1.5 rounded-lg ${card.bgColor} ${card.color} border ${card.borderColor}`}>
+                      <div className={`p-2 rounded-lg ${card.bgColor} ${card.color} border ${card.borderColor}`}>
                         <Icon className="w-4 h-4" />
                       </div>
-                      <span className="text-[10px] font-mono text-amber-300/90 bg-white/5 px-2 py-0.5 rounded-full border border-white/5">
+                      <span className="text-[10px] font-mono text-amber-300/90 bg-white/5 px-2.5 py-0.5 rounded-full border border-white/5">
                         {card.badge}
                       </span>
                     </div>
 
-                    <div className="space-y-0.5">
-                      <h3 className="text-xs sm:text-sm font-semibold text-white group-hover:text-amber-200 transition-colors">
+                    <div className="space-y-1">
+                      <h3 className="text-sm font-semibold text-white group-hover:text-amber-200 transition-colors">
                         {card.title}
                       </h3>
-                      <p className="text-[11px] sm:text-xs text-stone-400 leading-snug line-clamp-2">
+                      <p className="text-xs text-stone-400 leading-relaxed line-clamp-2">
                         {card.desc}
                       </p>
                     </div>
                   </div>
 
-                  <div className="pt-2 mt-2.5 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-stone-400 group-hover:text-amber-300 transition-colors">
+                  <div className="pt-2.5 mt-3 border-t border-white/5 flex items-center justify-between text-xs font-mono text-stone-400 group-hover:text-amber-300 transition-colors">
                     <span>{isAccountActive ? 'Open Workspace' : 'Locked'}</span>
-                    <ChevronRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
+                    <ChevronRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                   </div>
                 </button>
               );
