@@ -586,16 +586,22 @@ export const AccountActivationModal: React.FC<AccountActivationModalProps> = ({
               </div>
 
               {/* CONTINUE TO TELEGRAM BUTTON */}
-              <a
-                href="https://t.me/VELORA_COACHREAL"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-gold w-full py-4 text-xs sm:text-sm font-semibold justify-center tracking-wider uppercase flex items-center gap-2 shadow-xl shadow-amber-500/25"
-              >
-                <Send className="w-4 h-4" />
-                <span>CONTINUE TO TELEGRAM</span>
-                <ExternalLink className="w-3.5 h-3.5 ml-0.5 opacity-80" />
-              </a>
+              {(() => {
+                const telegramMessage = "Hello VELORA Admin, I have successfully completed my registration payment. Kindly review and confirm my payment proof so my account can be activated. Thank you";
+                const telegramUrl = `https://t.me/VELORA_COACHREAL?text=${encodeURIComponent(telegramMessage)}`;
+                return (
+                  <a
+                    href={telegramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-gold w-full py-4 text-xs sm:text-sm font-semibold justify-center tracking-wider uppercase flex items-center gap-2 shadow-xl shadow-amber-500/25"
+                  >
+                    <Send className="w-4 h-4" />
+                    <span>CONTINUE TO TELEGRAM</span>
+                    <ExternalLink className="w-3.5 h-3.5 ml-0.5 opacity-80" />
+                  </a>
+                );
+              })()}
             </div>
 
             {/* Bottom auxiliary controls */}
