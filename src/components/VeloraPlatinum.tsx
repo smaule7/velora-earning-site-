@@ -268,7 +268,7 @@ export const VeloraPlatinum: React.FC<VeloraAIPackagesProps> = ({ onOpenJoin }) 
             <span className="text-[10px] text-stone-400 uppercase font-mono block">Bank Name</span>
             <span className="text-base font-display text-white font-medium flex items-center justify-center gap-1.5">
               <Building2 className="w-4 h-4 text-amber-400" />
-              MONIEPOINT
+              MONIEPOINT VELORA
             </span>
           </div>
 

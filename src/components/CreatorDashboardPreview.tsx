@@ -244,7 +244,7 @@ export const CreatorDashboardPreview: React.FC<CreatorDashboardPreviewProps> = (
                       Bank / Payment Provider
                     </span>
                     <span className="text-sm font-semibold text-white block">
-                      Moniepoint
+                      MONIEPOINT VELORA
                     </span>
                   </div>
 
@@ -254,7 +254,7 @@ export const CreatorDashboardPreview: React.FC<CreatorDashboardPreviewProps> = (
                       Account Name
                     </span>
                     <span className="text-sm font-semibold text-amber-200 block">
-                      Chinedu Blessing Ikechukwu
+                      CHIDINDU BLESSING IKECHUKWU
                     </span>
                   </div>
 
