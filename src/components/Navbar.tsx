@@ -1,23 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
-import { NavItem } from '../types';
+import { Menu, X, ArrowUpRight, LayoutDashboard, User } from 'lucide-react';
+import { NavItem, VeloraUser } from '../types';
 
 interface NavbarProps {
   onOpenAuth: (mode: 'login' | 'signup') => void;
+  currentUser?: VeloraUser | null;
+  onNavigateDashboard?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth }) => {
+export const Navbar: React.FC<NavbarProps> = ({ 
+  onOpenAuth,
+  currentUser,
+  onNavigateDashboard 
+}) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
-  const navItems: NavItem[] = [
-    { label: 'Home', href: '#home' },
-    { label: 'Ways to Earn', href: '#ways-to-earn' },
-    { label: 'Top Earners', href: '#top-earners' },
-    { label: 'Opportunities', href: '#opportunities' },
-    { label: 'Fan Battle', href: '#fan-battle' },
-  ];
+  const navItems: NavItem[] = currentUser?.isLoggedIn
+    ? [
+        { label: 'Home', href: '#home' },
+        { label: 'Ways to Earn', href: '#ways-to-earn' },
+        { label: 'Top Earners', href: '#top-earners' },
+        { label: 'Opportunities', href: '#opportunities' },
+        { label: 'Fan Battle', href: '#fan-battle' },
+        { label: 'Dashboard', href: '#dashboard' },
+      ]
+    : [
+        { label: 'Home', href: '#home' },
+        { label: 'Ways to Earn', href: '#ways-to-earn' },
+        { label: 'Top Earners', href: '#top-earners' },
+        { label: 'Opportunities', href: '#opportunities' },
+        { label: 'Fan Battle', href: '#fan-battle' },
+      ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +60,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth }) => {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
+    if (href === '#dashboard-preview' || href === '#dashboard') {
+      if (onNavigateDashboard) {
+        onNavigateDashboard();
+        return;
+      }
+    }
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
     if (element) {
@@ -94,27 +115,60 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth }) => {
 
           {/* RIGHT: Auth Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <button
-              onClick={() => onOpenAuth('login')}
-              className="px-3 py-1.5 text-xs font-medium text-stone-300 hover:text-white transition-colors focus:outline-none"
-            >
-              Login
-            </button>
-            <button
-              onClick={() => onOpenAuth('signup')}
-              className="btn-gold !py-1.5 !px-4 text-xs font-semibold"
-            >
-              Get Registered
-            </button>
+            {currentUser?.isLoggedIn ? (
+              <>
+                <button
+                  onClick={onNavigateDashboard}
+                  className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-all text-xs font-mono"
+                >
+                  <span className={`w-2 h-2 rounded-full ${currentUser.status === 'active' ? 'bg-emerald-400' : 'bg-rose-400 animate-pulse'}`} />
+                  <span className="truncate max-w-[120px]">{currentUser.fullName.split(' ')[0]}</span>
+                  <span className={`text-[10px] px-1.5 py-0.2 rounded ${currentUser.status === 'active' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>
+                    {currentUser.status === 'active' ? 'ACTIVE' : 'INACTIVE'}
+                  </span>
+                </button>
+
+                <button
+                  onClick={onNavigateDashboard}
+                  className="btn-gold !py-1.5 !px-4 text-xs font-semibold flex items-center gap-1.5"
+                >
+                  <LayoutDashboard className="w-3.5 h-3.5" />
+                  <span>Dashboard</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => onOpenAuth('login')}
+                  className="px-3 py-1.5 text-xs font-medium text-stone-300 hover:text-white transition-colors focus:outline-none"
+                >
+                  Login
+                </button>
+
+                <button
+                  onClick={() => onOpenAuth('signup')}
+                  className="btn-gold !py-1.5 !px-4 text-xs font-semibold flex items-center gap-1.5"
+                >
+                  <span>Get Started</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center gap-2">
             <button
-              onClick={() => onOpenAuth('signup')}
-              className="btn-gold !py-1 !px-3 text-xs"
+              onClick={() => {
+                if (currentUser?.isLoggedIn) {
+                  if (onNavigateDashboard) onNavigateDashboard();
+                } else {
+                  onOpenAuth('signup');
+                }
+              }}
+              className="btn-gold !py-1 !px-3 text-xs flex items-center gap-1"
             >
-              Join
+              <span>{currentUser?.isLoggedIn ? 'Dashboard' : 'Get Started'}</span>
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -146,26 +200,47 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth }) => {
             </div>
 
             <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenAuth('login');
-                  }}
-                  className="w-full py-2 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-white"
-                >
-                  Login
-                </button>
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenAuth('signup');
-                  }}
-                  className="btn-gold w-full !py-2 text-xs font-semibold"
-                >
-                  Join Velora
-                </button>
-              </div>
+              {currentUser?.isLoggedIn ? (
+                <div className="space-y-2">
+                  <div className="px-3 py-2 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between text-xs font-mono">
+                    <span className="text-stone-300 truncate">{currentUser.fullName}</span>
+                    <span className={`px-2 py-0.5 rounded text-[10px] ${currentUser.status === 'active' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>
+                      {currentUser.status === 'active' ? 'ACTIVE' : 'INACTIVE'}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      if (onNavigateDashboard) onNavigateDashboard();
+                    }}
+                    className="btn-gold w-full !py-2.5 text-xs font-semibold flex items-center justify-center gap-1.5"
+                  >
+                    <LayoutDashboard className="w-3.5 h-3.5" />
+                    <span>Open Dashboard</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onOpenAuth('login');
+                    }}
+                    className="w-full py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium text-white transition-all"
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onOpenAuth('signup');
+                    }}
+                    className="btn-gold w-full !py-2.5 text-xs font-semibold"
+                  >
+                    Get Started
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

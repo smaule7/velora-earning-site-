@@ -165,6 +165,8 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
           fullName: fullName.trim(),
           email: email.trim(),
           phoneNumber: phoneNumber.trim(),
+          isLoggedIn: true,
+          status: 'inactive' as const,
         };
 
         // Save session in localStorage
@@ -173,6 +175,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
             ...userData,
             registeredAt: new Date().toISOString(),
             isLoggedIn: true,
+            status: 'inactive',
           }));
         } catch (e) {
           // ignore storage quota error
@@ -185,8 +188,8 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
         setTimeout(() => {
           setIsSuccess(false);
           onClose();
-        }, 1400);
-      }, 1200);
+        }, 1200);
+      }, 1000);
     }
   };
 

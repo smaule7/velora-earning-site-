@@ -53,10 +53,28 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       setIsSuccess(true);
 
       try {
+        const existingData = localStorage.getItem('velora_user');
+        let currentStatus: 'inactive' | 'active' = 'inactive';
+        let existingName = email.split('@')[0] || 'Velora Creator';
+        let existingPhone = '';
+
+        if (existingData) {
+          try {
+            const parsed = JSON.parse(existingData);
+            if (parsed.status) currentStatus = parsed.status;
+            if (parsed.fullName) existingName = parsed.fullName;
+            if (parsed.phoneNumber) existingPhone = parsed.phoneNumber;
+          } catch (e) {
+            // ignore
+          }
+        }
+
         localStorage.setItem('velora_user', JSON.stringify({
-          fullName: email.split('@')[0] || 'Velora Creator',
+          fullName: existingName,
           email: email.trim(),
+          phoneNumber: existingPhone,
           isLoggedIn: true,
+          status: currentStatus,
           loggedInAt: new Date().toISOString(),
         }));
       } catch (e) {

@@ -163,3 +163,14 @@ export interface CreatorDashboardData {
     positive: boolean;
   }[];
 }
+
+export interface VeloraUser {
+  fullName: string;
+  email: string;
+  phoneNumber?: string;
+  isLoggedIn: boolean;
+  status: 'inactive' | 'active';
+  registeredAt?: string;
+  activatedAt?: string;
+  plan?: AIPackagePlan;
+}

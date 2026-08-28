@@ -11,6 +11,7 @@ import { ContentEngagementSection } from './components/ContentEngagementSection'
 import { FanBattleSection } from './components/FanBattleSection';
 import { CloutAndReferralsSection } from './components/CloutAndReferralsSection';
 import { CreatorDashboardPreview } from './components/CreatorDashboardPreview';
+import { UserDashboardPage } from './components/UserDashboardPage';
 import { OpportunitiesGrid } from './components/OpportunitiesGrid';
 import { Testimonials } from './components/Testimonials';
 import { FAQ } from './components/FAQ';
@@ -23,7 +24,7 @@ import { ContactModal } from './components/ContactModal';
 import { TermsModal } from './components/TermsModal';
 import { FanBattleModal } from './components/FanBattleModal';
 import { VeloraAIPackages } from './components/VeloraPlatinum';
-import { PromotionalFlyer, RewardCategoryItem, TopEarner, PlatformStats, AIPackagePlan } from './types';
+import { PromotionalFlyer, RewardCategoryItem, TopEarner, PlatformStats, AIPackagePlan, VeloraUser } from './types';
 import { INITIAL_FLYERS, INITIAL_REWARD_RATES, INITIAL_TOP_EARNERS, INITIAL_STATS } from './data/veloraData';
 import { LiveActivityPopup, ActivityNotification, DEFAULT_ACTIVITIES } from './components/LiveActivityPopup';
 
@@ -91,6 +92,98 @@ export const App: React.FC = () => {
     localStorage.setItem('velora_live_activities', JSON.stringify(activities));
   }, [activities]);
 
+  // User Account State & View Routing
+  const [currentView, setCurrentView] = useState<'landing' | 'dashboard'>(() => {
+    if (typeof window !== 'undefined' && window.location.hash === '#dashboard') {
+      return 'dashboard';
+    }
+    return 'landing';
+  });
+
+  const [currentUser, setCurrentUser] = useState<VeloraUser | null>(() => {
+    const saved = localStorage.getItem('velora_user');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return {
+          fullName: parsed.fullName || 'Velora Creator',
+          email: parsed.email || 'creator@velora.io',
+          phoneNumber: parsed.phoneNumber || '',
+          isLoggedIn: !!parsed.isLoggedIn,
+          status: parsed.status === 'active' ? 'active' : 'inactive',
+          registeredAt: parsed.registeredAt || new Date().toISOString(),
+        };
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    return null;
+  });
+
+  // Listen for hash changes
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === '#dashboard') {
+        setCurrentView('dashboard');
+      } else if (window.location.hash === '#home' || window.location.hash === '') {
+        setCurrentView('landing');
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const handleUpdateUserStatus = (newStatus: 'inactive' | 'active') => {
+    setCurrentUser((prev) => {
+      const updated: VeloraUser = prev
+        ? {
+            ...prev,
+            status: newStatus,
+            activatedAt: newStatus === 'active' ? new Date().toISOString() : undefined,
+          }
+        : {
+            fullName: 'Velora Creator',
+            email: 'creator@velora.io',
+            isLoggedIn: true,
+            status: newStatus,
+            registeredAt: new Date().toISOString(),
+            activatedAt: newStatus === 'active' ? new Date().toISOString() : undefined,
+          };
+      try {
+        localStorage.setItem('velora_user', JSON.stringify(updated));
+      } catch (e) {
+        // ignore
+      }
+      return updated;
+    });
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('velora_user');
+    setCurrentUser(null);
+    setCurrentView('landing');
+    if (typeof window !== 'undefined') {
+      window.location.hash = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleNavigateDashboard = () => {
+    setCurrentView('dashboard');
+    if (typeof window !== 'undefined') {
+      window.location.hash = 'dashboard';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleNavigateHome = () => {
+    setCurrentView('landing');
+    if (typeof window !== 'undefined') {
+      window.location.hash = 'home';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   // Modal States
   const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -130,6 +223,16 @@ export const App: React.FC = () => {
   };
 
   const handleRegisterSuccess = (userData: { fullName: string; email: string; phoneNumber: string }) => {
+    const newUser: VeloraUser = {
+      fullName: userData.fullName.trim(),
+      email: userData.email.trim(),
+      phoneNumber: userData.phoneNumber.trim(),
+      isLoggedIn: true,
+      status: 'inactive',
+      registeredAt: new Date().toISOString(),
+    };
+    setCurrentUser(newUser);
+
     const nameParts = userData.fullName.trim().split(/\s+/);
     const firstName = nameParts[0] || 'Creator';
     const lastInitial = nameParts.length > 1 ? ` ${nameParts[nameParts.length - 1][0].toUpperCase()}.` : '';
@@ -145,16 +248,39 @@ export const App: React.FC = () => {
     };
     setActivities((prev) => [newActivity, ...prev]);
 
-    // Smoothly scroll to the dashboard view
-    setTimeout(() => {
-      handleScrollToSection('dashboard-preview');
-    }, 600);
+    // Direct transition to dedicated dashboard page
+    setCurrentView('dashboard');
+    if (typeof window !== 'undefined') {
+      window.location.hash = 'dashboard';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleLoginSuccess = (email: string) => {
-    setTimeout(() => {
-      handleScrollToSection('dashboard-preview');
-    }, 600);
+    const saved = localStorage.getItem('velora_user');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        setCurrentUser(parsed);
+      } catch (e) {
+        // ignore
+      }
+    } else {
+      setCurrentUser({
+        fullName: email.split('@')[0] || 'Velora Creator',
+        email: email.trim(),
+        isLoggedIn: true,
+        status: 'inactive',
+        registeredAt: new Date().toISOString(),
+      });
+    }
+
+    // Direct transition to dedicated dashboard page
+    setCurrentView('dashboard');
+    if (typeof window !== 'undefined') {
+      window.location.hash = 'dashboard';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -162,100 +288,121 @@ export const App: React.FC = () => {
       {/* Background Ambient Atmosphere */}
       <CosmicBackground />
 
-      {/* Navigation Header */}
-      <Navbar
-        onOpenAuth={handleOpenAuth}
-      />
-
-      {/* Main Page Content */}
-      <main id="home" className="relative z-10">
-        {/* 1. HERO (with Dedicated Hero Artwork) */}
-        <Hero
-          onJoinClick={() => handleOpenAuth('signup')}
-          onExploreClick={() => handleScrollToSection('ai-upload')}
-          stats={stats}
-        />
-
-        {/* 2. AI UPLOAD (AI flyer/image) */}
-        <AIUploadSection
-          onOpenJoin={() => handleOpenAuth('signup')}
-        />
-
-        {/* 3. YOUTUBE REWARDS (YouTube flyer/image) */}
-        <YouTubeEarningsSection
-          onOpenJoin={() => handleOpenAuth('signup')}
-        />
-
-        {/* 4. VELORA NEWS (News flyer/image) */}
-        <NewsRewardsSection
-          onOpenJoin={() => handleOpenAuth('signup')}
-        />
-
-        {/* 5. CONTENT ENGAGEMENT (Engagement flyer/image) */}
-        <ContentEngagementSection
-          onOpenJoin={() => handleOpenAuth('signup')}
-        />
-
-        {/* 6. FAN BATTLE ZONE (Fan Battle flyer/image) */}
-        <FanBattleSection
-          onOpenJoin={() => handleOpenAuth('signup')}
-        />
-
-        {/* 7. COMMUNITY & REFERRALS (Turn Clout into Cash) */}
-        <CloutAndReferralsSection
+      {currentView === 'dashboard' ? (
+        /* DEDICATED USER DASHBOARD PAGE VIEW */
+        <UserDashboardPage
+          currentUser={currentUser}
+          onBackToHome={handleNavigateHome}
+          onLogout={handleLogout}
+          onUpdateUserStatus={handleUpdateUserStatus}
           rewards={rewards}
-          onOpenJoin={() => handleOpenAuth('signup')}
+          onOpenContact={() => setContactModalOpen(true)}
         />
+      ) : (
+        /* MAIN LANDING PAGE VIEW */
+        <>
+          {/* Navigation Header */}
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+          />
 
-        {/* 8. TOP EARNERS (Verified USD Leaderboard) */}
-        <TopEarners
-          topEarners={topEarners}
-          onOpenJoin={() => handleOpenAuth('signup')}
-        />
+          {/* Main Page Content */}
+          <main id="home" className="relative z-10">
+            {/* 1. HERO (with Dedicated Hero Artwork) */}
+            <Hero
+              onJoinClick={() => handleOpenAuth('signup')}
+              onExploreClick={() => handleScrollToSection('ai-upload')}
+              stats={stats}
+            />
 
-        {/* 9. WAYS TO EARN (Ecosystem Overview & Live Calculator) */}
-        <WaysToEarn
-          rewards={rewards}
-          onOpenJoin={() => handleOpenAuth('signup')}
-          onNavigateSection={handleScrollToSection}
-        />
+            {/* 2. AI UPLOAD (AI flyer/image) */}
+            <AIUploadSection
+              onOpenJoin={() => handleOpenAuth('signup')}
+            />
 
-        {/* 10. AI PACKAGES & ACTIVATION (Silver AI ₦9,500 & Golden AI ₦14,500) */}
-        <VeloraAIPackages
-          rewards={rewards}
-          onOpenJoin={(plan) => handleOpenActivation(plan || 'silver_ai')}
-        />
+            {/* 3. YOUTUBE REWARDS (YouTube flyer/image) */}
+            <YouTubeEarningsSection
+              onOpenJoin={() => handleOpenAuth('signup')}
+            />
 
-        {/* 11. CREATOR DASHBOARD AT A GLANCE */}
-        <CreatorDashboardPreview
-          onOpenJoin={() => handleOpenAuth('signup')}
-        />
+            {/* 4. VELORA NEWS (News flyer/image) */}
+            <NewsRewardsSection
+              onOpenJoin={() => handleOpenAuth('signup')}
+            />
 
-        {/* 12. ACTIVE OPPORTUNITIES & TASKS */}
-        <OpportunitiesGrid
-          onOpenJoin={() => handleOpenAuth('signup')}
-        />
+            {/* 5. CONTENT ENGAGEMENT (Engagement flyer/image) */}
+            <ContentEngagementSection
+              onOpenJoin={() => handleOpenAuth('signup')}
+            />
 
-        {/* 13. TESTIMONIALS & CREATOR PROOF */}
-        <Testimonials />
+            {/* 6. FAN BATTLE ZONE (Fan Battle flyer/image) */}
+            <FanBattleSection
+              onOpenJoin={() => handleOpenAuth('signup')}
+            />
 
-        {/* 14. FREQUENTLY ASKED QUESTIONS */}
-        <FAQ
-          onContactSupport={() => setContactModalOpen(true)}
-        />
+            {/* 7. COMMUNITY & REFERRALS (Turn Clout into Cash) */}
+            <CloutAndReferralsSection
+              rewards={rewards}
+              onOpenJoin={() => handleOpenAuth('signup')}
+            />
 
-        {/* 15. FINAL CALL TO ACTION */}
-        <FinalCTA
-          onJoin={() => handleOpenAuth('signup')}
-          onExplore={() => handleScrollToSection('opportunities')}
-        />
-      </main>
+            {/* 8. TOP EARNERS (Verified USD Leaderboard) */}
+            <TopEarners
+              topEarners={topEarners}
+              onOpenJoin={() => handleOpenAuth('signup')}
+            />
 
-      {/* Footer */}
-      <Footer
-        onOpenTerms={() => setTermsModalOpen(true)}
-        onOpenContact={() => setContactModalOpen(true)}
-      />
+            {/* 9. WAYS TO EARN (Ecosystem Overview & Live Calculator) */}
+            <WaysToEarn
+              rewards={rewards}
+              onOpenJoin={() => handleOpenAuth('signup')}
+              onNavigateSection={handleScrollToSection}
+            />
+
+            {/* 10. AI PACKAGES & ACTIVATION (Silver AI ₦9,500 & Golden AI ₦14,500) */}
+            <VeloraAIPackages
+              rewards={rewards}
+              onOpenJoin={(plan) => handleOpenActivation(plan || 'silver_ai')}
+            />
+
+            {/* 11. CREATOR DASHBOARD AT A GLANCE */}
+            <CreatorDashboardPreview
+              currentUser={currentUser}
+              onOpenPayment={() => handleOpenActivation('silver_ai')}
+              onOpenRegister={handleOpenRegister}
+              onUpdateUserStatus={handleUpdateUserStatus}
+              onNavigateDedicatedDashboard={handleNavigateDashboard}
+            />
+
+            {/* 12. ACTIVE OPPORTUNITIES & TASKS */}
+            <OpportunitiesGrid
+              onOpenJoin={() => handleOpenAuth('signup')}
+            />
+
+            {/* 13. TESTIMONIALS & CREATOR PROOF */}
+            <Testimonials />
+
+            {/* 14. FREQUENTLY ASKED QUESTIONS */}
+            <FAQ
+              onContactSupport={() => setContactModalOpen(true)}
+            />
+
+            {/* 15. FINAL CALL TO ACTION */}
+            <FinalCTA
+              onJoin={() => handleOpenAuth('signup')}
+              onExplore={() => handleScrollToSection('opportunities')}
+            />
+          </main>
+
+          {/* Footer */}
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+          />
+        </>
+      )}
 
       {/* 11. VELORA SIGN-UP / REGISTRATION MODAL */}
       <RegistrationModal

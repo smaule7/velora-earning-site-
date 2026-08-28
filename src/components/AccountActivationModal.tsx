@@ -66,8 +66,8 @@ export const AccountActivationModal: React.FC<AccountActivationModalProps> = ({
   // Account Details (Exact specifications)
   const paymentDetails = {
     accountNumber: '5275881766',
-    accountName: 'CHIDINDU BLESSING IKECHUKWU',
-    bankName: 'MONIEPOINT',
+    accountName: 'Chinedu Blessing Ikechukwu',
+    bankName: 'Moniepoint',
     amountSilverNaira: '₦9,500',
     amountGoldenNaira: '₦14,500',
   };
