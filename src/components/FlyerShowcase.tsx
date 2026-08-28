@@ -68,7 +68,7 @@ export const FlyerShowcase: React.FC<FlyerShowcaseProps> = ({
 
   const categories = [
     { id: 'all', label: 'All Showcases' },
-    { id: 'platinum', label: 'Platinum Tier' },
+    { id: 'packages', label: 'AI Packages' },
     { id: 'youtube', label: 'YouTube Earn' },
     { id: 'fanbattle', label: 'Fan Battle' },
     { id: 'news', label: 'News Rewards' },

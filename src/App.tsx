@@ -21,7 +21,8 @@ import { AccountActivationModal } from './components/AccountActivationModal';
 import { ContactModal } from './components/ContactModal';
 import { TermsModal } from './components/TermsModal';
 import { FanBattleModal } from './components/FanBattleModal';
-import { PromotionalFlyer, RewardCategoryItem, TopEarner, PlatformStats } from './types';
+import { VeloraAIPackages } from './components/VeloraPlatinum';
+import { PromotionalFlyer, RewardCategoryItem, TopEarner, PlatformStats, AIPackagePlan } from './types';
 import { INITIAL_FLYERS, INITIAL_REWARD_RATES, INITIAL_TOP_EARNERS, INITIAL_STATS } from './data/veloraData';
 import { LiveActivityPopup, ActivityNotification, DEFAULT_ACTIVITIES } from './components/LiveActivityPopup';
 
@@ -92,21 +93,21 @@ export const App: React.FC = () => {
   // Modal States
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [activationModalOpen, setActivationModalOpen] = useState(false);
-  const [activationPlan, setActivationPlan] = useState<'platinum' | 'gold'>('platinum');
+  const [activationPlan, setActivationPlan] = useState<AIPackagePlan>('silver_ai');
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [termsModalOpen, setTermsModalOpen] = useState(false);
   const [fanBattleModalOpen, setFanBattleModalOpen] = useState(false);
 
   const handleOpenAuth = (mode: 'login' | 'signup') => {
     if (mode === 'signup') {
-      setActivationPlan('platinum');
+      setActivationPlan('silver_ai');
       setActivationModalOpen(true);
     } else {
       setAuthModalOpen(true);
     }
   };
 
-  const handleOpenActivation = (plan: 'platinum' | 'gold' = 'platinum') => {
+  const handleOpenActivation = (plan: AIPackagePlan = 'silver_ai') => {
     setActivationPlan(plan);
     setActivationModalOpen(true);
   };
@@ -182,25 +183,31 @@ export const App: React.FC = () => {
           onNavigateSection={handleScrollToSection}
         />
 
-        {/* 10. CREATOR DASHBOARD AT A GLANCE */}
+        {/* 10. AI PACKAGES & ACTIVATION (Silver AI ₦9,500 & Golden AI ₦14,500) */}
+        <VeloraAIPackages
+          rewards={rewards}
+          onOpenJoin={(plan) => handleOpenActivation(plan || 'silver_ai')}
+        />
+
+        {/* 11. CREATOR DASHBOARD AT A GLANCE */}
         <CreatorDashboardPreview
           onOpenJoin={() => handleOpenAuth('signup')}
         />
 
-        {/* 11. ACTIVE OPPORTUNITIES & TASKS */}
+        {/* 12. ACTIVE OPPORTUNITIES & TASKS */}
         <OpportunitiesGrid
           onOpenJoin={() => handleOpenAuth('signup')}
         />
 
-        {/* 12. TESTIMONIALS & CREATOR PROOF */}
+        {/* 13. TESTIMONIALS & CREATOR PROOF */}
         <Testimonials />
 
-        {/* 13. FREQUENTLY ASKED QUESTIONS */}
+        {/* 14. FREQUENTLY ASKED QUESTIONS */}
         <FAQ
           onContactSupport={() => setContactModalOpen(true)}
         />
 
-        {/* 14. FINAL CALL TO ACTION */}
+        {/* 15. FINAL CALL TO ACTION */}
         <FinalCTA
           onJoin={() => handleOpenAuth('signup')}
           onExplore={() => handleScrollToSection('opportunities')}
@@ -219,7 +226,7 @@ export const App: React.FC = () => {
         onClose={() => setAuthModalOpen(false)}
         onOpenActivation={() => {
           setAuthModalOpen(false);
-          handleOpenActivation('platinum');
+          handleOpenActivation('silver_ai');
         }}
       />
 

@@ -24,7 +24,7 @@ import { MorphLoader } from './MorphLoader';
 interface AccountActivationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  initialPlan?: 'platinum' | 'gold';
+  initialPlan?: 'silver_ai' | 'golden_ai' | 'silver' | 'golden' | 'platinum' | 'gold';
   onOpenLogin?: () => void;
   onRegisteredUser?: (user: { name: string; planName: string; amount: string }) => void;
 }
@@ -34,10 +34,16 @@ type FlowStep = 'registration' | 'morph_loader' | 'payment' | 'telegram_confirma
 export const AccountActivationModal: React.FC<AccountActivationModalProps> = ({
   isOpen,
   onClose,
-  initialPlan = 'platinum',
+  initialPlan = 'silver_ai',
   onOpenLogin,
   onRegisteredUser,
 }) => {
+  // Normalize initial plan
+  const normalizePlan = (p: string): 'silver_ai' | 'golden_ai' => {
+    if (p === 'golden_ai' || p === 'golden' || p === 'gold') return 'golden_ai';
+    return 'silver_ai';
+  };
+
   // Step State
   const [step, setStep] = useState<FlowStep>('registration');
 
@@ -45,7 +51,7 @@ export const AccountActivationModal: React.FC<AccountActivationModalProps> = ({
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [selectedPlan, setSelectedPlan] = useState<'platinum' | 'gold'>(initialPlan);
+  const [selectedPlan, setSelectedPlan] = useState<'silver_ai' | 'golden_ai'>(normalizePlan(initialPlan));
   const [formError, setFormError] = useState('');
 
   // Payment Countdown Timer (120 seconds = 02:00)
@@ -62,16 +68,17 @@ export const AccountActivationModal: React.FC<AccountActivationModalProps> = ({
     accountNumber: '5275881766',
     accountName: 'CHIDINDU BLESSING IKECHUKWU',
     bankName: 'MONIEPOINT',
-    amountPlatinumNaira: '₦15,000',
-    amountGoldNaira: '₦25,000',
+    amountSilverNaira: '₦9,500',
+    amountGoldenNaira: '₦14,500',
   };
 
-  const currentAmount = selectedPlan === 'gold' ? paymentDetails.amountGoldNaira : paymentDetails.amountPlatinumNaira;
+  const currentAmount = selectedPlan === 'golden_ai' ? paymentDetails.amountGoldenNaira : paymentDetails.amountSilverNaira;
 
   // Reset or initialize on modal open
   useEffect(() => {
     if (isOpen) {
       setStep('registration');
+      setSelectedPlan(normalizePlan(initialPlan));
       setTimeLeft(120);
       setTimerExpired(false);
       setCopiedAccountNumber(false);
@@ -161,8 +168,8 @@ export const AccountActivationModal: React.FC<AccountActivationModalProps> = ({
     const firstName = nameParts[0] || 'User';
     const lastInitial = nameParts.length > 1 ? ` ${nameParts[nameParts.length - 1][0].toUpperCase()}.` : '';
     const safePublicName = `${firstName}${lastInitial}`;
-    const planLabel = selectedPlan === 'gold' ? 'Velora Gold Plan' : 'Velora Platinum Plan';
-    const amountLabel = selectedPlan === 'gold' ? paymentDetails.amountGoldNaira : paymentDetails.amountPlatinumNaira;
+    const planLabel = selectedPlan === 'golden_ai' ? 'Golden AI Package' : 'Silver AI Package';
+    const amountLabel = selectedPlan === 'golden_ai' ? paymentDetails.amountGoldenNaira : paymentDetails.amountSilverNaira;
 
     if (onRegisteredUser) {
       onRegisteredUser({
@@ -216,7 +223,7 @@ export const AccountActivationModal: React.FC<AccountActivationModalProps> = ({
             <div className="pr-8 space-y-1.5">
               <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[11px] font-mono uppercase tracking-wider">
                 <Crown className="w-3 h-3" />
-                <span>Velora Membership Registration</span>
+                <span>Velora AI Package Registration</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-display text-white font-medium">
                 Get Registered
@@ -230,28 +237,28 @@ export const AccountActivationModal: React.FC<AccountActivationModalProps> = ({
             <div className="grid grid-cols-2 gap-2 p-1.5 rounded-xl bg-black/50 border border-white/10">
               <button
                 type="button"
-                onClick={() => setSelectedPlan('platinum')}
+                onClick={() => setSelectedPlan('silver_ai')}
                 className={`py-2 px-3 rounded-lg text-xs font-medium transition-all flex items-center justify-center gap-1.5 ${
-                  selectedPlan === 'platinum'
+                  selectedPlan === 'silver_ai'
                     ? 'bg-amber-400 text-black font-semibold shadow-md'
                     : 'text-stone-300 hover:text-white'
                 }`}
               >
-                <span>Platinum Plan</span>
-                <span className="font-mono text-[11px]">({paymentDetails.amountPlatinumNaira})</span>
+                <span>Silver AI Package</span>
+                <span className="font-mono text-[11px]">({paymentDetails.amountSilverNaira})</span>
               </button>
               <button
                 type="button"
-                onClick={() => setSelectedPlan('gold')}
+                onClick={() => setSelectedPlan('golden_ai')}
                 className={`py-2 px-3 rounded-lg text-xs font-medium transition-all flex items-center justify-center gap-1.5 ${
-                  selectedPlan === 'gold'
+                  selectedPlan === 'golden_ai'
                     ? 'bg-amber-400 text-black font-semibold shadow-md'
                     : 'text-stone-300 hover:text-white'
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Gold Elite</span>
-                <span className="font-mono text-[11px]">({paymentDetails.amountGoldNaira})</span>
+                <span>Golden AI Package</span>
+                <span className="font-mono text-[11px]">({paymentDetails.amountGoldenNaira})</span>
               </button>
             </div>
 

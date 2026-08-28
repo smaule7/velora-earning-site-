@@ -51,12 +51,12 @@ export const AdminFlyerManager: React.FC<AdminFlyerManagerProps> = ({
   const [flyerTitle, setFlyerTitle] = useState('');
   const [flyerSubtitle, setFlyerSubtitle] = useState('');
   const [flyerDescription, setFlyerDescription] = useState('');
-  const [flyerCategory, setFlyerCategory] = useState<PromotionalFlyer['category']>('platinum');
+  const [flyerCategory, setFlyerCategory] = useState<PromotionalFlyer['category']>('packages');
   const [flyerImageUrl, setFlyerImageUrl] = useState('');
   const [flyerCtaText, setFlyerCtaText] = useState('JOIN NOW');
-  const [flyerCtaLink, setFlyerCtaLink] = useState('#platinum');
-  const [flyerRewardBadge, setFlyerRewardBadge] = useState('EARN $10.00 - $25.00');
-  const [flyerTags, setFlyerTags] = useState('Platinum, Instant Cash, VIP');
+  const [flyerCtaLink, setFlyerCtaLink] = useState('#plans-pricing');
+  const [flyerRewardBadge, setFlyerRewardBadge] = useState('EARN ₦10,000 - ₦50,000');
+  const [flyerTags, setFlyerTags] = useState('Silver AI (₦9,500), Golden AI (₦14,500), AI Packages');
   const [flyerAspect, setFlyerAspect] = useState<PromotionalFlyer['aspect']>('portrait');
   const [flyerCallout, setFlyerCallout] = useState('Exclusive Spotlight');
   const [flyerFeatured, setFlyerFeatured] = useState(false);
@@ -307,7 +307,7 @@ export const AdminFlyerManager: React.FC<AdminFlyerManagerProps> = ({
                       onChange={e => setFlyerCategory(e.target.value as any)}
                       className="w-full px-3 py-2 rounded-lg bg-black/50 border border-white/15 text-white text-sm focus:border-amber-400 focus:outline-none"
                     >
-                      <option value="platinum">Velora Platinum</option>
+                      <option value="packages">Velora AI Packages</option>
                       <option value="youtube">YouTube Creator Earnings</option>
                       <option value="fanbattle">Fan Battle Zone</option>
                       <option value="news">Velora News Rewards</option>

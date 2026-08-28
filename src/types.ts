@@ -37,12 +37,14 @@ export interface CategoryItem {
   stats?: string;
 }
 
+export type AIPackagePlan = 'silver_ai' | 'golden_ai';
+
 export interface PromotionalFlyer {
   id: string;
   title: string;
   subtitle: string;
   description: string;
-  category: 'platinum' | 'youtube' | 'news' | 'fanbattle' | 'clout' | 'engagement' | 'ai' | 'referrals' | 'quiz';
+  category: 'packages' | 'platinum' | 'youtube' | 'news' | 'fanbattle' | 'clout' | 'engagement' | 'ai' | 'referrals' | 'quiz';
   imageUrl: string;
   ctaText: string;
   ctaLink?: string;

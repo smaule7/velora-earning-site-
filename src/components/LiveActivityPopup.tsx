@@ -7,8 +7,8 @@ export interface ActivityNotification {
   id: string;
   type?: ActivityType;
   name: string; // e.g. "Samuel T.", "John", "Blessing E."
-  planName?: string; // e.g. "Velora Gold Plan", "Velora Platinum Plan"
-  amount: string; // e.g. "₦14,500", "₦15,000"
+  planName?: string; // e.g. "Golden AI Package", "Silver AI Package"
+  amount: string; // e.g. "₦14,500", "₦9,500"
   timestamp?: string;
   actionText?: string;
   isDemo?: boolean;
@@ -23,9 +23,9 @@ export const DEFAULT_ACTIVITIES: ActivityNotification[] = [
     id: 'act-1',
     type: 'registration',
     name: 'Samuel T.',
-    planName: 'Velora Gold Plan',
+    planName: 'Golden AI Package',
     amount: '₦14,500',
-    actionText: 'Just registered and activated Velora Gold Plan',
+    actionText: 'Just registered and activated Golden AI Package',
     timestamp: 'Just now',
   },
   {
@@ -41,9 +41,9 @@ export const DEFAULT_ACTIVITIES: ActivityNotification[] = [
     id: 'act-3',
     type: 'registration',
     name: 'Blessing E.',
-    planName: 'Velora Gold Plan',
-    amount: '₦14,500',
-    actionText: 'Just registered and activated Velora Gold Plan',
+    planName: 'Silver AI Package',
+    amount: '₦9,500',
+    actionText: 'Just registered and activated Silver AI Package',
     timestamp: '1m ago',
   },
   {
@@ -59,9 +59,9 @@ export const DEFAULT_ACTIVITIES: ActivityNotification[] = [
     id: 'act-5',
     type: 'registration',
     name: 'David C.',
-    planName: 'Velora Gold Plan',
+    planName: 'Golden AI Package',
     amount: '₦14,500',
-    actionText: 'Just registered and activated Velora Gold Plan',
+    actionText: 'Just registered and activated Golden AI Package',
     timestamp: 'Just now',
   },
   {
@@ -77,9 +77,9 @@ export const DEFAULT_ACTIVITIES: ActivityNotification[] = [
     id: 'act-7',
     type: 'registration',
     name: 'Blessing O.',
-    planName: 'Velora Gold Plan',
-    amount: '₦14,500',
-    actionText: 'Just registered and activated Velora Gold Plan',
+    planName: 'Silver AI Package',
+    amount: '₦9,500',
+    actionText: 'Just registered and activated Silver AI Package',
     timestamp: 'Just now',
   },
   {
@@ -95,9 +95,9 @@ export const DEFAULT_ACTIVITIES: ActivityNotification[] = [
     id: 'act-9',
     type: 'registration',
     name: 'Michael E.',
-    planName: 'Velora Gold Plan',
+    planName: 'Golden AI Package',
     amount: '₦14,500',
-    actionText: 'Just registered and activated Velora Gold Plan',
+    actionText: 'Just registered and activated Golden AI Package',
     timestamp: 'Just now',
   },
   {
