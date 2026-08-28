@@ -17,6 +17,7 @@ import { FAQ } from './components/FAQ';
 import { FinalCTA } from './components/FinalCTA';
 import { Footer } from './components/Footer';
 import { AuthModal } from './components/AuthModal';
+import { RegistrationModal } from './components/RegistrationModal';
 import { AccountActivationModal } from './components/AccountActivationModal';
 import { ContactModal } from './components/ContactModal';
 import { TermsModal } from './components/TermsModal';
@@ -91,6 +92,7 @@ export const App: React.FC = () => {
   }, [activities]);
 
   // Modal States
+  const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [activationModalOpen, setActivationModalOpen] = useState(false);
   const [activationPlan, setActivationPlan] = useState<AIPackagePlan>('silver_ai');
@@ -98,12 +100,19 @@ export const App: React.FC = () => {
   const [termsModalOpen, setTermsModalOpen] = useState(false);
   const [fanBattleModalOpen, setFanBattleModalOpen] = useState(false);
 
+  const handleOpenRegister = () => {
+    setRegistrationModalOpen(true);
+  };
+
+  const handleOpenLogin = () => {
+    setAuthModalOpen(true);
+  };
+
   const handleOpenAuth = (mode: 'login' | 'signup') => {
     if (mode === 'signup') {
-      setActivationPlan('silver_ai');
-      setActivationModalOpen(true);
+      handleOpenRegister();
     } else {
-      setAuthModalOpen(true);
+      handleOpenLogin();
     }
   };
 
@@ -118,6 +127,34 @@ export const App: React.FC = () => {
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleRegisterSuccess = (userData: { fullName: string; email: string; phoneNumber: string }) => {
+    const nameParts = userData.fullName.trim().split(/\s+/);
+    const firstName = nameParts[0] || 'Creator';
+    const lastInitial = nameParts.length > 1 ? ` ${nameParts[nameParts.length - 1][0].toUpperCase()}.` : '';
+    const safePublicName = `${firstName}${lastInitial}`;
+
+    const newActivity: ActivityNotification = {
+      id: `reg-${Date.now()}`,
+      name: safePublicName,
+      planName: 'Velora Creator',
+      amount: 'Registered',
+      actionText: 'Just registered a new Velora creator account',
+      timestamp: 'Just now',
+    };
+    setActivities((prev) => [newActivity, ...prev]);
+
+    // Smoothly scroll to the dashboard view
+    setTimeout(() => {
+      handleScrollToSection('dashboard-preview');
+    }, 600);
+  };
+
+  const handleLoginSuccess = (email: string) => {
+    setTimeout(() => {
+      handleScrollToSection('dashboard-preview');
+    }, 600);
   };
 
   return (
@@ -220,14 +257,26 @@ export const App: React.FC = () => {
         onOpenContact={() => setContactModalOpen(true)}
       />
 
-      {/* Authentication Modal */}
+      {/* 11. VELORA SIGN-UP / REGISTRATION MODAL */}
+      <RegistrationModal
+        isOpen={registrationModalOpen}
+        onClose={() => setRegistrationModalOpen(false)}
+        onOpenLogin={() => {
+          setRegistrationModalOpen(false);
+          setAuthModalOpen(true);
+        }}
+        onRegisterSuccess={handleRegisterSuccess}
+      />
+
+      {/* Authentication / Login Modal */}
       <AuthModal
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
-        onOpenActivation={() => {
+        onOpenRegister={() => {
           setAuthModalOpen(false);
-          handleOpenActivation('silver_ai');
+          setRegistrationModalOpen(true);
         }}
+        onLoginSuccess={handleLoginSuccess}
       />
 
       {/* Account Activation Flow Modal (with 3-Dot MorphLoader, Naira Payment & 02:00 Countdown) */}
