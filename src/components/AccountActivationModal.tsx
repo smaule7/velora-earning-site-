@@ -66,8 +66,8 @@ export const AccountActivationModal: React.FC<AccountActivationModalProps> = ({
   // Account Details (Exact specifications)
   const paymentDetails = {
     accountNumber: '5275881766',
-    accountName: 'Chinedu Blessing Ikechukwu',
-    bankName: 'Moniepoint',
+    accountName: 'CHIDINDU BLESSING IKECHUKWU',
+    bankName: 'MONIEPOINT VELORA',
     amountSilverNaira: '₦9,500',
     amountGoldenNaira: '₦14,500',
   };
@@ -505,7 +505,7 @@ export const AccountActivationModal: React.FC<AccountActivationModalProps> = ({
 
             {/* Instruction Callout */}
             <p className="text-xs text-center text-stone-300">
-              Please transfer <strong className="text-amber-300 font-mono">{currentAmount}</strong> to the Moniepoint account above, then click the confirmation button below.
+              Please transfer <strong className="text-amber-300 font-mono">{currentAmount}</strong> to the MONIEPOINT VELORA account above, then click the confirmation button below.
             </p>
 
             {/* Action Buttons */}
@@ -581,7 +581,7 @@ export const AccountActivationModal: React.FC<AccountActivationModalProps> = ({
                 </div>
                 <div className="flex justify-between text-stone-300">
                   <span>Bank Paid To:</span>
-                  <span className="text-white font-medium">MONIEPOINT (5275881766)</span>
+                  <span className="text-white font-medium">MONIEPOINT VELORA (5275881766)</span>
                 </div>
               </div>
 

@@ -799,13 +799,13 @@ export const UserDashboardPage: React.FC<UserDashboardPageProps> = ({
               {/* Provider */}
               <div className="p-3.5 rounded-xl bg-black/60 border border-white/10 flex items-center justify-between">
                 <span className="text-xs font-mono text-stone-400">Bank/Payment Provider:</span>
-                <span className="text-sm font-bold text-white font-display">Moniepoint</span>
+                <span className="text-sm font-bold text-white font-display">MONIEPOINT VELORA</span>
               </div>
 
               {/* Account Name */}
               <div className="p-3.5 rounded-xl bg-black/60 border border-white/10 flex items-center justify-between">
                 <span className="text-xs font-mono text-stone-400">Account Name:</span>
-                <span className="text-sm font-bold text-amber-200 font-display">Chinedu Blessing Ikechukwu</span>
+                <span className="text-sm font-bold text-amber-200 font-display">CHIDINDU BLESSING IKECHUKWU</span>
               </div>
 
               {/* Account Number */}
