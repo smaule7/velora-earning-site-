@@ -49,7 +49,7 @@ export const Hero: React.FC<HeroProps> = ({ onJoinClick, onExploreClick, stats }
           }`}
           style={{ transitionDelay: '120ms' }}
         >
-          VELORA: A DIGITAL UNIVERSE OF POSSIBILITIES
+          VELORA — Enter the Digital Universe
         </h1>
 
         {/* Narrative Description */}
