@@ -49,7 +49,7 @@ export const Hero: React.FC<HeroProps> = ({ onJoinClick, onExploreClick, stats }
           }`}
           style={{ transitionDelay: '120ms' }}
         >
-          VELORA — Enter the Digital Universe
+          Velora Earnings — Online Earning Platform in Nigeria
         </h1>
 
         {/* Narrative Description */}
@@ -59,7 +59,7 @@ export const Hero: React.FC<HeroProps> = ({ onJoinClick, onExploreClick, stats }
           }`}
           style={{ transitionDelay: '220ms' }}
         >
-          A creator-powered platform where people can learn, engage, compete, discover opportunities, and earn through meaningful participation.
+          Discover Velora Earnings, Nigeria's premier digital platform empowering creators and members across Africa to earn through digital activities, rewards, AI workflows, and community engagement.
         </p>
 
         {/* Action Buttons */}

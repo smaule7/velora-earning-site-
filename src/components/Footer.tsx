@@ -15,12 +15,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTerms, onOpenContact }) =>
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center">
               <span className="font-display text-2xl tracking-widest text-white font-medium">
-                VELORA
+                VELORA EARNINGS
               </span>
             </div>
 
             <p className="text-stone-400 text-xs sm:text-sm leading-relaxed max-w-sm">
-              The premier creator and community platform for earning, AI workflows, YouTube growth, digital journalism, matchday fan battles, and multi-tier rewards.
+              Velora Earnings is the premier online earning platform in Nigeria and Africa for digital creators, AI workflows, YouTube growth, digital journalism, matchday fan battles, and community rewards.
             </p>
 
             <div className="flex items-center gap-2 text-xs text-amber-300 font-mono pt-2">
@@ -50,11 +50,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTerms, onOpenContact }) =>
               Platform & Legal
             </h4>
             <ul className="space-y-2 text-xs text-stone-400">
+              <li><a href="#ways-to-earn" className="hover:text-amber-300 transition-colors">How Velora Earnings Works</a></li>
               <li><a href="#top-earners" className="hover:text-amber-300 transition-colors">Top Earners Leaderboard</a></li>
               <li><a href="#opportunities" className="hover:text-amber-300 transition-colors">Opportunities & Tasks</a></li>
+              <li><a href="#faq" className="hover:text-amber-300 transition-colors">Velora Earnings FAQ</a></li>
               <li><button onClick={onOpenTerms} className="hover:text-white transition-colors">Terms of Service</button></li>
               <li><button onClick={onOpenTerms} className="hover:text-white transition-colors">Privacy Policy</button></li>
-              <li><button onClick={onOpenContact} className="hover:text-white transition-colors">Creator Support</button></li>
+              <li><button onClick={onOpenContact} className="hover:text-white transition-colors">Contact Velora Earnings Support</button></li>
             </ul>
           </div>
         </div>
