@@ -22,6 +22,7 @@ export const Hero: React.FC<HeroProps> = ({ onJoinClick, onExploreClick, stats }
 
   return (
     <section
+      id="home"
       ref={heroRef}
       className="relative min-h-[92vh] flex flex-col justify-center items-center text-center px-4 sm:px-6 lg:px-8 pt-28 pb-16 overflow-hidden"
     >
@@ -39,7 +40,7 @@ export const Hero: React.FC<HeroProps> = ({ onJoinClick, onExploreClick, stats }
           }`}
         >
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-          <span>WELCOME TO VELORA</span>
+          <span>OFFICIAL DIGITAL PLATFORM</span>
         </div>
 
         {/* Primary Headline */}
@@ -49,7 +50,7 @@ export const Hero: React.FC<HeroProps> = ({ onJoinClick, onExploreClick, stats }
           }`}
           style={{ transitionDelay: '120ms' }}
         >
-          Velora Earnings — Online Earning Platform in Nigeria
+          Velora Earnings
         </h1>
 
         {/* Narrative Description */}
@@ -59,7 +60,7 @@ export const Hero: React.FC<HeroProps> = ({ onJoinClick, onExploreClick, stats }
           }`}
           style={{ transitionDelay: '220ms' }}
         >
-          Discover Velora Earnings, Nigeria's premier digital platform empowering creators and members across Africa to earn through digital activities, rewards, AI workflows, and community engagement.
+          Explore the official Velora Earnings platform, discover available features, learn how Velora Earnings works, and get started today with verified daily rewards across Nigeria and Africa.
         </p>
 
         {/* Action Buttons */}
@@ -73,7 +74,7 @@ export const Hero: React.FC<HeroProps> = ({ onJoinClick, onExploreClick, stats }
             onClick={onJoinClick}
             className="btn-gold text-sm sm:text-base px-8 py-3.5 w-full sm:w-auto shadow-lg shadow-amber-400/10"
           >
-            <span>GET REGISTERED</span>
+            <span>SIGN UP FOR VELORA EARNINGS</span>
             <ArrowRight className="w-4 h-4" />
           </button>
           

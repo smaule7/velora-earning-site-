@@ -42,6 +42,7 @@ export const AIUploadSection: React.FC<AIUploadSectionProps> = ({ onOpenJoin }) 
       ref={sectionRef}
       className="relative py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto"
     >
+      <div id="academy" className="absolute -top-24 left-0 pointer-events-none" />
       <div className={`space-y-10 p-6 sm:p-10 rounded-3xl velora-glass border border-purple-500/30 bg-gradient-to-b from-purple-950/20 via-black/80 to-black shadow-2xl reveal-item scale-settle ${
         isRevealed ? 'is-revealed' : ''
       }`}>

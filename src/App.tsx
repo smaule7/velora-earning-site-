@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CosmicBackground } from './components/CosmicBackground';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { VeloraExplainerSection } from './components/VeloraExplainerSection';
 import { WaysToEarn } from './components/WaysToEarn';
 import { TopEarners } from './components/TopEarners';
 import { AIUploadSection } from './components/AIUploadSection';
@@ -11,7 +12,19 @@ import { ContentEngagementSection } from './components/ContentEngagementSection'
 import { FanBattleSection } from './components/FanBattleSection';
 import { CloutAndReferralsSection } from './components/CloutAndReferralsSection';
 import { CreatorDashboardPreview } from './components/CreatorDashboardPreview';
+import { SignUpPage } from './components/SignUpPage';
+import { LoginPage } from './components/LoginPage';
+import { FeaturesPage } from './components/FeaturesPage';
+import { BlogPage } from './components/BlogPage';
 import { UserDashboardPage } from './components/UserDashboardPage';
+import { AboutPage } from './components/AboutPage';
+import { HowItWorksPage } from './components/HowItWorksPage';
+import { VeloraEarningsPage } from './components/VeloraEarningsPage';
+import { VeloraLinuxPage } from './components/VeloraLinuxPage';
+import { FAQPage } from './components/FAQPage';
+import { ContactPage } from './components/ContactPage';
+import { TermsPage } from './components/TermsPage';
+import { PrivacyPage } from './components/PrivacyPage';
 import { OpportunitiesGrid } from './components/OpportunitiesGrid';
 import { Testimonials } from './components/Testimonials';
 import { FAQ } from './components/FAQ';
@@ -27,6 +40,31 @@ import { VeloraAIPackages } from './components/VeloraPlatinum';
 import { PromotionalFlyer, RewardCategoryItem, TopEarner, PlatformStats, AIPackagePlan, VeloraUser } from './types';
 import { INITIAL_FLYERS, INITIAL_REWARD_RATES, INITIAL_TOP_EARNERS, INITIAL_STATS } from './data/veloraData';
 import { LiveActivityPopup, ActivityNotification, DEFAULT_ACTIVITIES } from './components/LiveActivityPopup';
+import { applyPageSEO } from './utils/seo';
+
+type AppView = 'landing' | 'dashboard' | 'about' | 'how-it-works' | 'features' | 'faqs' | 'faq' | 'contact' | 'signup' | 'login' | 'blog' | 'terms' | 'privacy' | 'velora-earnings' | 'velora-linux';
+
+const parseInitialView = (): AppView => {
+  if (typeof window === 'undefined') return 'landing';
+  const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+  const hash = window.location.hash.replace(/^#\/?/, '');
+  const target = path || hash;
+
+  if (target === 'dashboard') return 'dashboard';
+  if (target === 'about') return 'about';
+  if (target === 'how-it-works') return 'how-it-works';
+  if (target === 'features') return 'features';
+  if (target === 'faqs' || target === 'faq') return 'faqs';
+  if (target === 'contact') return 'contact';
+  if (target === 'signup') return 'signup';
+  if (target === 'login') return 'login';
+  if (target === 'blog') return 'blog';
+  if (target === 'terms') return 'terms';
+  if (target === 'privacy') return 'privacy';
+  if (target === 'velora-earnings') return 'velora-earnings';
+  if (target === 'velora-linux') return 'velora-linux';
+  return 'landing';
+};
 
 export const App: React.FC = () => {
   // Persistence state
@@ -93,12 +131,7 @@ export const App: React.FC = () => {
   }, [activities]);
 
   // User Account State & View Routing
-  const [currentView, setCurrentView] = useState<'landing' | 'dashboard'>(() => {
-    if (typeof window !== 'undefined' && window.location.hash === '#dashboard') {
-      return 'dashboard';
-    }
-    return 'landing';
-  });
+  const [currentView, setCurrentView] = useState<AppView>(parseInitialView);
 
   const [currentUser, setCurrentUser] = useState<VeloraUser | null>(() => {
     const saved = localStorage.getItem('velora_user');
@@ -120,18 +153,23 @@ export const App: React.FC = () => {
     return null;
   });
 
-  // Listen for hash changes
+  // Listen for browser navigation (popstate and hash changes)
   useEffect(() => {
-    const handleHashChange = () => {
-      if (window.location.hash === '#dashboard') {
-        setCurrentView('dashboard');
-      } else if (window.location.hash === '#home' || window.location.hash === '') {
-        setCurrentView('landing');
-      }
+    const handleNavigation = () => {
+      setCurrentView(parseInitialView());
     };
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleNavigation);
+    window.addEventListener('hashchange', handleNavigation);
+    return () => {
+      window.removeEventListener('popstate', handleNavigation);
+      window.removeEventListener('hashchange', handleNavigation);
+    };
   }, []);
+
+  // Update document SEO dynamically based on view
+  useEffect(() => {
+    applyPageSEO(currentView);
+  }, [currentView]);
 
   const handleUpdateUserStatus = (newStatus: 'inactive' | 'active') => {
     setCurrentUser((prev) => {
@@ -158,30 +196,40 @@ export const App: React.FC = () => {
     });
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('velora_user');
-    setCurrentUser(null);
-    setCurrentView('landing');
+  const handleNavigateView = (view: string) => {
+    const validViews: AppView[] = [
+      'landing', 'dashboard', 'about', 'how-it-works', 'features', 
+      'faqs', 'faq', 'contact', 'signup', 'login', 'blog', 'terms', 'privacy',
+      'velora-earnings', 'velora-linux'
+    ];
+    let targetView = validViews.includes(view as AppView) ? (view as AppView) : 'landing';
+    if (targetView === 'faq') targetView = 'faqs';
+    setCurrentView(targetView);
+
     if (typeof window !== 'undefined') {
-      window.location.hash = '';
+      if (targetView === 'landing') {
+        window.history.pushState(null, '', '/');
+        window.location.hash = '';
+      } else {
+        window.history.pushState(null, '', `/${targetView}`);
+        window.location.hash = targetView;
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   const handleNavigateDashboard = () => {
-    setCurrentView('dashboard');
-    if (typeof window !== 'undefined') {
-      window.location.hash = 'dashboard';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    handleNavigateView('dashboard');
   };
 
   const handleNavigateHome = () => {
-    setCurrentView('landing');
-    if (typeof window !== 'undefined') {
-      window.location.hash = 'home';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    handleNavigateView('landing');
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('velora_user');
+    setCurrentUser(null);
+    handleNavigateView('landing');
   };
 
   // Modal States
@@ -215,6 +263,17 @@ export const App: React.FC = () => {
   };
 
   const handleScrollToSection = (sectionId: string) => {
+    if (currentView !== 'landing') {
+      handleNavigateView('landing');
+      setTimeout(() => {
+        const cleanId = sectionId.replace('#', '');
+        const el = document.getElementById(cleanId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+      return;
+    }
     const cleanId = sectionId.replace('#', '');
     const el = document.getElementById(cleanId);
     if (el) {
@@ -249,11 +308,7 @@ export const App: React.FC = () => {
     setActivities((prev) => [newActivity, ...prev]);
 
     // Direct transition to dedicated dashboard page
-    setCurrentView('dashboard');
-    if (typeof window !== 'undefined') {
-      window.location.hash = 'dashboard';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    handleNavigateView('dashboard');
   };
 
   const handleLoginSuccess = (email: string) => {
@@ -276,11 +331,7 @@ export const App: React.FC = () => {
     }
 
     // Direct transition to dedicated dashboard page
-    setCurrentView('dashboard');
-    if (typeof window !== 'undefined') {
-      window.location.hash = 'dashboard';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    handleNavigateView('dashboard');
   };
 
   return (
@@ -298,6 +349,283 @@ export const App: React.FC = () => {
           rewards={rewards}
           onOpenContact={() => setContactModalOpen(true)}
         />
+      ) : currentView === 'about' ? (
+        /* DEDICATED ABOUT PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <AboutPage
+              onBackToHome={handleNavigateHome}
+              onOpenJoin={() => handleOpenAuth('signup')}
+              onNavigate={handleNavigateView}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'how-it-works' ? (
+        /* DEDICATED HOW IT WORKS PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <HowItWorksPage
+              onBackToHome={handleNavigateHome}
+              onOpenJoin={() => handleOpenAuth('signup')}
+              onNavigate={handleNavigateView}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'velora-earnings' ? (
+        /* DEDICATED VELORA EARNINGS PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <VeloraEarningsPage
+              onBackToHome={handleNavigateHome}
+              onOpenJoin={() => handleOpenAuth('signup')}
+              onNavigate={handleNavigateView}
+              rewards={rewards}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'velora-linux' ? (
+        /* DEDICATED VELORA LINUX PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <VeloraLinuxPage
+              onBackToHome={handleNavigateHome}
+              onOpenJoin={() => handleOpenAuth('signup')}
+              onNavigate={handleNavigateView}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'features' ? (
+        /* DEDICATED FEATURES PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <FeaturesPage
+              onBackToHome={handleNavigateHome}
+              onOpenJoin={() => handleOpenAuth('signup')}
+              onNavigate={handleNavigateView}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'faqs' || currentView === 'faq' ? (
+        /* DEDICATED FAQ PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <FAQPage
+              onBackToHome={handleNavigateHome}
+              onOpenJoin={() => handleOpenAuth('signup')}
+              onNavigate={handleNavigateView}
+              onOpenContact={() => setContactModalOpen(true)}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'signup' ? (
+        /* DEDICATED SIGN UP PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <SignUpPage
+              onBackToHome={handleNavigateHome}
+              onNavigate={handleNavigateView}
+              onSuccess={handleRegisterSuccess}
+              onOpenLogin={() => handleNavigateView('login')}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'login' ? (
+        /* DEDICATED LOGIN PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <LoginPage
+              onBackToHome={handleNavigateHome}
+              onNavigate={handleNavigateView}
+              onSuccess={handleLoginSuccess}
+              onOpenSignUp={() => handleNavigateView('signup')}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'blog' ? (
+        /* DEDICATED BLOG PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <BlogPage
+              onBackToHome={handleNavigateHome}
+              onNavigate={handleNavigateView}
+              onOpenJoin={() => handleOpenAuth('signup')}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'contact' ? (
+        /* DEDICATED CONTACT PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <ContactPage
+              onBackToHome={handleNavigateHome}
+              onNavigate={handleNavigateView}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'terms' ? (
+        /* DEDICATED TERMS OF SERVICE PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <TermsPage
+              onBackToHome={handleNavigateHome}
+              onNavigate={handleNavigateView}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'privacy' ? (
+        /* DEDICATED PRIVACY POLICY PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <PrivacyPage
+              onBackToHome={handleNavigateHome}
+              onNavigate={handleNavigateView}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
       ) : (
         /* MAIN LANDING PAGE VIEW */
         <>
@@ -306,68 +634,76 @@ export const App: React.FC = () => {
             onOpenAuth={handleOpenAuth}
             currentUser={currentUser}
             onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
           />
 
           {/* Main Page Content */}
           <main id="home" className="relative z-10">
-            {/* 1. HERO (with Dedicated Hero Artwork) */}
+            {/* 1. HERO (with Dedicated Hero Artwork & H1) */}
             <Hero
               onJoinClick={() => handleOpenAuth('signup')}
-              onExploreClick={() => handleScrollToSection('ai-upload')}
+              onExploreClick={() => handleScrollToSection('velora-overview')}
               stats={stats}
             />
 
-            {/* 2. AI UPLOAD (AI flyer/image) */}
+            {/* 2. VELORA EXPLAINER SECTION (What is Velora?, What is Velora Earnings?, How Velora Linux Works, How to Use Velora in Nigeria) */}
+            <VeloraExplainerSection
+              onNavigate={handleNavigateView}
+              onOpenJoin={() => handleOpenAuth('signup')}
+            />
+
+            {/* 3. AI UPLOAD (AI flyer/image) */}
             <AIUploadSection
               onOpenJoin={() => handleOpenAuth('signup')}
             />
 
-            {/* 3. YOUTUBE REWARDS (YouTube flyer/image) */}
+            {/* 4. YOUTUBE REWARDS (YouTube flyer/image) */}
             <YouTubeEarningsSection
               onOpenJoin={() => handleOpenAuth('signup')}
             />
 
-            {/* 4. VELORA NEWS (News flyer/image) */}
+            {/* 5. VELORA NEWS (News flyer/image) */}
             <NewsRewardsSection
               onOpenJoin={() => handleOpenAuth('signup')}
             />
 
-            {/* 5. CONTENT ENGAGEMENT (Engagement flyer/image) */}
+            {/* 6. CONTENT ENGAGEMENT (Engagement flyer/image) */}
             <ContentEngagementSection
               onOpenJoin={() => handleOpenAuth('signup')}
             />
 
-            {/* 6. FAN BATTLE ZONE (Fan Battle flyer/image) */}
+            {/* 7. FAN BATTLE ZONE (Fan Battle flyer/image) */}
             <FanBattleSection
               onOpenJoin={() => handleOpenAuth('signup')}
             />
 
-            {/* 7. COMMUNITY & REFERRALS (Turn Clout into Cash) */}
+            {/* 8. COMMUNITY & REFERRALS (Turn Clout into Cash) */}
             <CloutAndReferralsSection
               rewards={rewards}
               onOpenJoin={() => handleOpenAuth('signup')}
             />
 
-            {/* 8. TOP EARNERS (Verified USD Leaderboard) */}
+            {/* 9. TOP EARNERS (Verified USD Leaderboard) */}
             <TopEarners
               topEarners={topEarners}
               onOpenJoin={() => handleOpenAuth('signup')}
             />
 
-            {/* 9. WAYS TO EARN (Ecosystem Overview & Live Calculator) */}
+            {/* 10. WAYS TO EARN (Ecosystem Overview & Live Calculator) */}
             <WaysToEarn
               rewards={rewards}
               onOpenJoin={() => handleOpenAuth('signup')}
               onNavigateSection={handleScrollToSection}
             />
 
-            {/* 10. AI PACKAGES & ACTIVATION (Silver AI ₦9,500 & Golden AI ₦14,500) */}
+            {/* 11. AI PACKAGES & ACTIVATION (Silver AI ₦9,500 & Golden AI ₦14,500) */}
             <VeloraAIPackages
               rewards={rewards}
               onOpenJoin={(plan) => handleOpenActivation(plan || 'silver_ai')}
             />
 
-            {/* 11. CREATOR DASHBOARD AT A GLANCE */}
+            {/* 12. CREATOR DASHBOARD AT A GLANCE */}
             <CreatorDashboardPreview
               currentUser={currentUser}
               onOpenPayment={() => handleOpenActivation('silver_ai')}
@@ -376,20 +712,20 @@ export const App: React.FC = () => {
               onNavigateDedicatedDashboard={handleNavigateDashboard}
             />
 
-            {/* 12. ACTIVE OPPORTUNITIES & TASKS */}
+            {/* 13. ACTIVE OPPORTUNITIES & TASKS */}
             <OpportunitiesGrid
               onOpenJoin={() => handleOpenAuth('signup')}
             />
 
-            {/* 13. TESTIMONIALS & CREATOR PROOF */}
+            {/* 14. TESTIMONIALS & CREATOR PROOF */}
             <Testimonials />
 
-            {/* 14. FREQUENTLY ASKED QUESTIONS */}
+            {/* 15. FREQUENTLY ASKED QUESTIONS */}
             <FAQ
               onContactSupport={() => setContactModalOpen(true)}
             />
 
-            {/* 15. FINAL CALL TO ACTION */}
+            {/* 16. FINAL CALL TO ACTION */}
             <FinalCTA
               onJoin={() => handleOpenAuth('signup')}
               onExplore={() => handleScrollToSection('opportunities')}
@@ -400,6 +736,7 @@ export const App: React.FC = () => {
           <Footer
             onOpenTerms={() => setTermsModalOpen(true)}
             onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
           />
         </>
       )}
