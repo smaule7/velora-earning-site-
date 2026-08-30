@@ -137,7 +137,7 @@ export interface FaqItem {
   id: string;
   question: string;
   answer: string;
-  category: 'General' | 'Ecosystem' | 'Rewards' | 'Community' | 'Creators';
+  category: string;
 }
 
 export interface PlatformStats {

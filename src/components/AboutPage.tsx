@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Globe, ShieldCheck, Sparkles, Terminal, Award, Users, CheckCircle2, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, Sparkles, Terminal, Award, Users, CheckCircle2, ArrowRight, UserPlus, Zap, Wallet, HelpCircle, Layers } from 'lucide-react';
 
 interface AboutPageProps {
   onBackToHome: () => void;
@@ -18,199 +18,237 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onOpenJoin, 
           <span>Home</span>
         </button>
         <span>/</span>
-        <span className="text-amber-300">About Velora Earnings</span>
+        <span className="text-amber-300">About VELORA</span>
       </nav>
 
       {/* Page Header with Semantic H1 */}
       <header className="space-y-4 text-left border-b border-white/10 pb-8">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-mono uppercase tracking-widest">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Official Information</span>
+          <span>Official Platform Overview</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-display text-white font-normal tracking-tight">
-          What Is Velora Earnings?
+          About VELORA — Our Platform &amp; Opportunities
         </h1>
         <p className="text-base sm:text-lg text-stone-300 font-light leading-relaxed max-w-3xl">
-          Velora Earnings is a digital platform that provides structured micro-tasks, generative AI educational tools, video engagement rewards, digital news curation, sports matchday fan battles, and direct payout processing. Learn about the organization, operational model, available features, eligible users, and support channels.
+          VELORA is a digital platform offering opportunities to participate, create, learn, and earn through available VELORA activities. Explore what our platform offers, how users participate, and how account creation and activation work.
         </p>
       </header>
 
       {/* Main Content Article */}
       <article className="space-y-10 text-stone-300 leading-relaxed font-light text-sm sm:text-base">
         
-        {/* Section 1: What is Velora Earnings? */}
+        {/* Section 1: What is VELORA? */}
         <section className="space-y-4">
           <h2 className="text-2xl sm:text-3xl font-display text-white font-medium">
-            What is Velora Earnings?
+            What is VELORA?
           </h2>
           <p>
-            <strong>Velora Earnings</strong> is a digital platform and creator monetization ecosystem designed to connect online users with reward-eligible digital activities. The platform enables members to complete verified micro-tasks—including AI prompt creation, video feedback, news reading, and community engagement—and accumulate rewards that can be requested for withdrawal to supported Nigerian bank accounts.
+            <strong>VELORA</strong> is a digital earning and creator ecosystem designed to connect online users in Nigeria and worldwide with genuine digital activities. The platform brings together micro-tasking, generative AI skill development, video engagement, digital journalism curation, and community sports challenges into a unified web dashboard.
+          </p>
+          <p>
+            VELORA provides structured channels where individuals can apply their creative and analytical time online to complete verified digital activities and receive rewards credited directly to their internal account wallet.
           </p>
         </section>
 
-        {/* Section 2: What does Velora Earnings do? */}
+        {/* Section 2: What the platform offers */}
         <section className="space-y-4">
           <h2 className="text-2xl sm:text-3xl font-display text-white font-medium">
-            What does Velora Earnings do?
+            What Does the Platform Offer?
           </h2>
           <p>
-            Velora Earnings provides a web-based dashboard where users can access daily digital activities, track their completed tasks, manage an internal earnings balance, and submit withdrawal requests. The platform partners with digital campaigns, content creators, and AI model workflows to provide task opportunities that users can complete on mobile or desktop devices.
+            The VELORA platform provides a comprehensive suite of digital tools and engagement streams tailored to creators, learners, and remote workers:
           </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            <div className="p-5 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
+              <div className="flex items-center gap-2 text-amber-300 font-medium">
+                <Sparkles className="w-4 h-4" />
+                <span>AI Prompt Academy &amp; Asset Monetization</span>
+              </div>
+              <p className="text-xs text-stone-400">
+                Learn prompt engineering and upload creative generative text and visual prompts for validation and earning credits.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
+              <div className="flex items-center gap-2 text-purple-300 font-medium">
+                <Layers className="w-4 h-4" />
+                <span>YouTube Creator Suite</span>
+              </div>
+              <p className="text-xs text-stone-400">
+                Review, test, and optimize video content workflows and participate in digital media growth campaigns.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
+              <div className="flex items-center gap-2 text-emerald-300 font-medium">
+                <Zap className="w-4 h-4" />
+                <span>Digital Journalism &amp; News Curation</span>
+              </div>
+              <p className="text-xs text-stone-400">
+                Read, curate, and review daily verified news stories to claim structured editorial engagement rewards.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
+              <div className="flex items-center gap-2 text-amber-300 font-medium">
+                <Wallet className="w-4 h-4" />
+                <span>Direct Nigerian Bank Payouts</span>
+              </div>
+              <p className="text-xs text-stone-400">
+                Fast withdrawal processing directly to all Nigerian commercial banks including Moniepoint, GTBank, Zenith, and Kuda.
+              </p>
+            </div>
+          </div>
         </section>
 
-        {/* Section 3: Who operates Velora Earnings? */}
+        {/* Section 3: The Types of Opportunities Available */}
         <section className="space-y-4">
           <h2 className="text-2xl sm:text-3xl font-display text-white font-medium">
-            Who operates Velora Earnings?
+            Types of Opportunities Available
           </h2>
           <p>
-            Velora Earnings is operated by the Velora Earnings platform administration team, with official financial settlement processing handled through verified commercial banking integrations including Moniepoint Microfinance Bank (Account Name: MONIEPOINT VELORA / CHIDINDU BLESSING IKECHUKWU, Account Number: 5275881766).
+            Members on VELORA can participate across diverse reward-eligible digital streams:
           </p>
-        </section>
-
-        {/* Section 4: When was Velora Earnings established? */}
-        <section className="space-y-4">
-          <h2 className="text-2xl sm:text-3xl font-display text-white font-medium">
-            When was Velora Earnings established?
-          </h2>
-          <p>
-            Velora Earnings was founded to address digital monetization barriers and payment challenges faced by online creators in Africa, launching its integrated task and AI-powered reward architecture in 2026.
-          </p>
-        </section>
-
-        {/* Section 5: Where does Velora Earnings operate? */}
-        <section className="space-y-4">
-          <h2 className="text-2xl sm:text-3xl font-display text-white font-medium">
-            Where does Velora Earnings operate?
-          </h2>
-          <p>
-            Velora Earnings operates primarily in Nigeria with direct Nigerian Naira (₦) banking integration, while supporting international digital participants across Ghana, Kenya, South Africa, and worldwide through digital reward settlement channels.
-          </p>
-        </section>
-
-        {/* Section 6: What services/features does Velora Earnings provide? */}
-        <section className="space-y-4">
-          <h2 className="text-2xl sm:text-3xl font-display text-white font-medium">
-            What services and features does Velora Earnings provide?
-          </h2>
-          <ul className="space-y-2 text-stone-200">
-            <li className="flex items-start gap-2.5">
+          <ul className="space-y-3 text-stone-200">
+            <li className="flex items-start gap-3">
               <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-1" />
-              <span><strong>AI Upload &amp; Prompt Monetization:</strong> Tools for submitting AI prompts and dataset training materials for reward credits.</span>
+              <div>
+                <strong>Daily AI Creation Tasks:</strong> Submit prompts and test generative AI outputs tailored for regional datasets.
+              </div>
             </li>
-            <li className="flex items-start gap-2.5">
+            <li className="flex items-start gap-3">
               <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-1" />
-              <span><strong>YouTube Creator Suite:</strong> Video engagement campaigns and analytics review tasks.</span>
+              <div>
+                <strong>Media Engagement Challenges:</strong> Review video hooks, critique thumbnails, and provide content engagement.
+              </div>
             </li>
-            <li className="flex items-start gap-2.5">
+            <li className="flex items-start gap-3">
               <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-1" />
-              <span><strong>Velora News Curation:</strong> Daily verified editorial review and reading reward incentives.</span>
+              <div>
+                <strong>Editorial Reading Activities:</strong> Engage with curated news articles and share informed commentary.
+              </div>
             </li>
-            <li className="flex items-start gap-2.5">
+            <li className="flex items-start gap-3">
               <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-1" />
-              <span><strong>Matchday Fan Battle Arena:</strong> Interactive sports fixture predictions and community voting challenges.</span>
+              <div>
+                <strong>Matchday Fan Battles:</strong> Predict sports match outcomes and participate in community voting derbies.
+              </div>
             </li>
-            <li className="flex items-start gap-2.5">
+            <li className="flex items-start gap-3">
               <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-1" />
-              <span><strong>Creator Wallet &amp; Payout Gateway:</strong> Real-time task tracking with direct withdrawal execution to Nigerian commercial banks.</span>
+              <div>
+                <strong>Affiliate &amp; Community Referral Rewards:</strong> Share your unique referral link to earn direct referral bonuses upon new member activation.
+              </div>
             </li>
           </ul>
         </section>
 
-        {/* Section 7: Who can use Velora Earnings? */}
+        {/* Section 4: How Users Participate */}
         <section className="space-y-4">
           <h2 className="text-2xl sm:text-3xl font-display text-white font-medium">
-            Who can use Velora Earnings?
+            How Users Participate
           </h2>
           <p>
-            Any individual aged 18 or older with an internet-connected smartphone or computer, a valid email address, and an active bank account or supported digital payment method can register and participate on Velora Earnings.
+            Participation on VELORA is accessible from any smartphone, tablet, or personal computer with an internet connection:
           </p>
+          <ol className="list-decimal list-inside space-y-2 text-stone-200 pl-2">
+            <li>Log in to your verified member dashboard.</li>
+            <li>Select an active opportunity from the daily task catalog.</li>
+            <li>Follow the specific task instructions (e.g., submit an AI prompt, read an article, or submit feedback).</li>
+            <li>Submit your proof or complete the automated verification checklist.</li>
+            <li>Upon verification, your rewards balance updates in your creator wallet.</li>
+          </ol>
         </section>
 
-        {/* Section 8: How can users contact Velora Earnings? */}
+        {/* Section 5: How Users Create an Account */}
         <section className="space-y-4">
           <h2 className="text-2xl sm:text-3xl font-display text-white font-medium">
-            How can users contact Velora Earnings?
+            How Users Create an Account
           </h2>
           <p>
-            Users can contact Velora Earnings through the official email address <strong>support@veloraearnings.com.ng</strong>, via the official Contact page at <strong>https://veloraearnings.com.ng/contact</strong>, or through verified platform support channels.
+            Creating an account on VELORA is straightforward and takes less than two minutes:
           </p>
-        </section>
-
-        {/* Section 9: Understanding Velora Linux */}
-        <section className="space-y-4 p-6 sm:p-8 rounded-2xl bg-[#0d071a] border border-white/10">
-          <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs uppercase tracking-wider mb-2">
-            <Terminal className="w-4 h-4" />
-            <span>Infrastructure &amp; Technology Stack</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-display text-white font-medium">
-            Velora Linux: The Cloud Backbone of Velora Earnings
-          </h2>
-          <p>
-            <strong>Velora Linux</strong> refers to the robust, containerized cloud infrastructure that powers the Velora Earnings platform. Built on high-performance Linux server kernels, this stack is responsible for:
-          </p>
-          <ul className="space-y-2 pt-2 text-stone-200">
+          <ul className="space-y-2 text-stone-300">
             <li className="flex items-start gap-2.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
-              <span><strong>AI Inference Nodes:</strong> Hosting generative AI model processing pipelines for image, audio, and prompt creation modules.</span>
+              <span>Visit <strong className="text-white">veloraearnings.com.ng/signup</strong> or click any "Sign Up" button.</span>
             </li>
             <li className="flex items-start gap-2.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
-              <span><strong>Task Verification Engine:</strong> Running automated background algorithms that validate member task submissions and calculate rewards instantly.</span>
+              <span>Provide your Full Name, Email Address, WhatsApp Phone Number, and choose a secure Password.</span>
             </li>
             <li className="flex items-start gap-2.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
-              <span><strong>Secure Banking Gateway:</strong> Direct TLS-encrypted transaction links guaranteeing fast, reliable payout execution to Nigerian banks.</span>
+              <span>Submit the form to immediately access your member dashboard.</span>
             </li>
           </ul>
         </section>
 
-        {/* Section 4: Our Mission in Nigeria & Africa */}
-        <section className="space-y-4">
+        {/* Section 6: How Account Activation Works */}
+        <section className="space-y-4 p-6 sm:p-8 rounded-2xl bg-[#0e071c] border border-amber-400/20">
+          <div className="flex items-center gap-2 text-amber-300 font-mono text-xs uppercase tracking-wider mb-1">
+            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <span>Transparent Activation Model</span>
+          </div>
           <h2 className="text-2xl sm:text-3xl font-display text-white font-medium">
-            Velora Earnings in Nigeria &amp; Across Africa
+            How Account Activation Works
           </h2>
           <p>
-            In Nigeria, digital workers often face cross-border payment restrictions and lack of accessible AI training. Velora Earnings solves this by offering localized payment channels (Moniepoint, Nigerian bank accounts) and structuring micro-tasks that turn internet time into verified daily earnings.
+            To activate earning privileges, unlock daily task modules, and enable bank withdrawals, members select a one-time activation package:
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3">
+            <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
+              <span className="text-xs font-mono text-amber-300 uppercase">Silver AI Tier — ₦8,000</span>
+              <p className="text-xs text-stone-400">
+                Includes ₦5,000 instant welcome credit, standard AI prompt tasks, digital news rewards, and ₦6,200 direct referral commission.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl bg-black/40 border border-amber-400/30 space-y-2">
+              <span className="text-xs font-mono text-amber-300 uppercase">Golden AI Tier — ₦12,000</span>
+              <p className="text-xs text-stone-400">
+                Includes ₦8,000 instant welcome credit, advanced YouTube tools, priority Matchday Fan Battle pools, and ₦8,000 direct referral commission.
+              </p>
+            </div>
+          </div>
+          <p className="text-xs text-stone-400 pt-2">
+            Activation is a one-time payment made through verified bank transfer or coupon vendor. There are no recurring monthly maintenance subscription fees.
           </p>
         </section>
 
-        {/* Section 5: Core Pillars */}
-        <section className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-          <div className="p-5 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
-            <Users className="w-5 h-5 text-amber-400" />
-            <h3 className="text-base font-display text-white font-medium">Community First</h3>
-            <p className="text-xs text-stone-400">Over 38,000 active members actively collaborating, learning, and earning daily on Velora Earnings.</p>
-          </div>
-          <div className="p-5 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
-            <ShieldCheck className="w-5 h-5 text-emerald-400" />
-            <h3 className="text-base font-display text-white font-medium">Verified Transparency</h3>
-            <p className="text-xs text-stone-400">Transparent reward rates, verifiable payout records, and guaranteed withdrawal fulfillment.</p>
-          </div>
-          <div className="p-5 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
-            <Award className="w-5 h-5 text-purple-400" />
-            <h3 className="text-base font-display text-white font-medium">Continuous Innovation</h3>
-            <p className="text-xs text-stone-400">Regularly updated AI workflows, sports entertainment modules, and creator toolsets on Velora Earnings.</p>
-          </div>
+        {/* Section 7: Clear & Honest Platform Policy */}
+        <section className="space-y-4">
+          <h2 className="text-2xl sm:text-3xl font-display text-white font-medium">
+            Platform Transparency &amp; User Advisory
+          </h2>
+          <p>
+            Rewards on VELORA are earned through verified task completion and genuine participation. Earnings are not passive or automatically guaranteed. We encourage all prospective members to read our <button onClick={() => onNavigate('terms')} className="text-amber-300 underline underline-offset-2">Terms of Service</button> and <button onClick={() => onNavigate('privacy')} className="text-amber-300 underline underline-offset-2">Privacy Policy</button> before registering.
+          </p>
         </section>
 
         {/* Internal Link Exploration Strip */}
         <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
           <h3 className="text-sm font-mono text-amber-300 uppercase tracking-wider">
-            Explore Velora Earnings Pages
+            Explore VELORA Pages
           </h3>
           <div className="flex flex-wrap gap-3 text-xs">
-            <button onClick={() => onNavigate('signup')} className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-400/10 hover:text-amber-300 text-stone-300 transition-colors">
-              Sign Up
-            </button>
             <button onClick={() => onNavigate('how-it-works')} className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-400/10 hover:text-amber-300 text-stone-300 transition-colors">
               How It Works
             </button>
-            <button onClick={() => onNavigate('features')} className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-400/10 hover:text-amber-300 text-stone-300 transition-colors">
-              Platform Features
+            <button onClick={() => onNavigate('opportunities')} className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-400/10 hover:text-amber-300 text-stone-300 transition-colors">
+              Opportunities
+            </button>
+            <button onClick={() => onNavigate('academy')} className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-400/10 hover:text-amber-300 text-stone-300 transition-colors">
+              AI Academy
+            </button>
+            <button onClick={() => onNavigate('community')} className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-400/10 hover:text-amber-300 text-stone-300 transition-colors">
+              Community
+            </button>
+            <button onClick={() => onNavigate('packages')} className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-400/10 hover:text-amber-300 text-stone-300 transition-colors">
+              Membership Packages
             </button>
             <button onClick={() => onNavigate('faqs')} className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-400/10 hover:text-amber-300 text-stone-300 transition-colors">
-              Velora Earnings FAQs
+              VELORA FAQs
             </button>
             <button onClick={() => onNavigate('contact')} className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-400/10 hover:text-amber-300 text-stone-300 transition-colors">
               Contact Support
@@ -223,14 +261,14 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onOpenJoin, 
       {/* Call to Action Footer Box */}
       <div className="p-8 rounded-2xl bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-transparent border border-amber-500/20 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div className="space-y-1 text-left">
-          <h3 className="text-lg font-display text-white font-medium">Ready to start earning with Velora Earnings?</h3>
-          <p className="text-xs text-stone-300">Create your account in under two minutes and join thousands of active Nigerian creators.</p>
+          <h3 className="text-lg font-display text-white font-medium">Ready to explore VELORA opportunities?</h3>
+          <p className="text-xs text-stone-300">Create your account in under two minutes and join our creator platform.</p>
         </div>
         <button
           onClick={onOpenJoin}
           className="btn-gold text-xs sm:text-sm px-6 py-3 shrink-0 flex items-center gap-2"
         >
-          <span>Sign Up for Velora Earnings</span>
+          <span>Create Your Account</span>
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>

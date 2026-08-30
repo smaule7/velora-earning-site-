@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Search, ChevronDown, ChevronUp, HelpCircle, ArrowRight, ShieldCheck, Zap, Terminal } from 'lucide-react';
+import { ArrowLeft, Search, ChevronDown, ChevronUp, HelpCircle, ArrowRight, ShieldCheck, Zap, Terminal, Mail, MessageSquare } from 'lucide-react';
 
 interface FAQPageProps {
   onBackToHome: () => void;
@@ -8,78 +8,77 @@ interface FAQPageProps {
   onOpenContact: () => void;
 }
 
-const EXTENDED_FAQS = [
+export const VELORA_FAQS = [
   {
     id: 'faq-1',
     category: 'General',
-    question: 'What is Velora Earnings?',
-    answer: 'Velora Earnings is a digital platform and creator monetization ecosystem that connects online users with reward-eligible activities including AI prompt creation, video reviews, digital news reading, and community sports challenges with direct bank payouts.',
+    question: 'What is VELORA?',
+    answer: 'VELORA is a digital platform and creator ecosystem that offers opportunities to participate, create, learn, and earn through available activities such as AI prompt creation, video engagement, digital journalism reviews, matchday fan battles, and community programs.',
   },
   {
     id: 'faq-2',
-    category: 'Operation',
-    question: 'How does Velora Earnings work?',
-    answer: 'Velora Earnings operates in 5 clear steps: 1) Create an account, 2) Choose an activation package to access features, 3) Complete eligible daily activities, 4) Monitor task verification and wallet balances, and 5) Submit withdrawal requests to receive funds directly in your bank account.',
+    category: 'Registration',
+    question: 'How do I create a VELORA account?',
+    answer: 'You can create a free account by visiting https://veloraearnings.com.ng/signup or clicking "Sign Up" on the website. Enter your Full Name, valid Email Address, WhatsApp Phone Number, and a secure Password. Once submitted, your member profile is created immediately.',
   },
   {
     id: 'faq-3',
-    category: 'Registration',
-    question: 'How do I sign up for Velora Earnings?',
-    answer: 'To sign up for Velora Earnings, visit https://veloraearnings.com.ng/signup, provide your full name, email address, WhatsApp phone number, and password, select your preferred activation tier (Silver AI or Golden AI), and complete registration to access your member dashboard.',
+    category: 'Dashboard',
+    question: 'How do I access my dashboard?',
+    answer: 'You can access your member dashboard at any time by visiting https://veloraearnings.com.ng/login and entering your registered email and password. Your dashboard gives you full control over your active tasks, wallet balances, notification updates, and account settings.',
   },
   {
     id: 'faq-4',
-    category: 'Eligibility',
-    question: 'Who can use Velora Earnings?',
-    answer: 'Anyone aged 18 years or older with an internet-connected smartphone or computer, a valid email address, and a Nigerian commercial bank account (or supported digital payment method) can register and participate on Velora Earnings.',
+    category: 'Activation',
+    question: 'How does account activation work?',
+    answer: 'Account activation is a one-time process that unlocks full earning features, task submissions, and bank payouts. Members choose an activation tier: Silver AI (₦8,000, includes ₦5,000 welcome credit) or Golden AI (₦12,000, includes ₦8,000 welcome credit). Activation is paid via verified bank transfer or coupon vendor, with no recurring monthly subscription fees.',
   },
   {
     id: 'faq-5',
-    category: 'Features',
-    question: 'What features does Velora Earnings provide?',
-    answer: 'Velora Earnings provides AI prompt & asset upload tools, YouTube creator media optimization tasks, verified digital news curation rewards, Matchday Fan Battle sports derbies, and an automated Nigerian bank withdrawal gateway.',
+    category: 'Opportunities',
+    question: 'What opportunities are available?',
+    answer: 'VELORA offers multiple active opportunity streams including: Generative AI prompt submissions, YouTube creator video reviews, daily digital news curation, Matchday Fan Battle sports derbies, and optional affiliate referral programs.',
   },
   {
     id: 'faq-6',
-    category: 'Account Access',
-    question: 'How do I access my account?',
-    answer: 'You can access your account anytime by visiting https://veloraearnings.com.ng/login and entering your registered email address and password. If you encounter issues, contact support@veloraearnings.com.ng.',
+    category: 'Wallet & Balance',
+    question: 'Where can I see my account balance?',
+    answer: 'Your account balance is visible directly on your member dashboard. It shows your combined earnings balance, breakdown by activity category, verified task credits, and available withdrawal balance in real-time.',
   },
   {
     id: 'faq-7',
-    category: 'Fees',
-    question: 'Are there any fees to join Velora Earnings?',
-    answer: 'Velora Earnings offers two transparent one-time activation packages: the Silver AI Tier at ₦8,000 (which includes ₦5,000 welcome credit and standard earning tools) and the Golden AI Tier at ₦12,000 (which includes ₦8,000 welcome credit, priority Fan Battles, and enhanced tools). There are no recurring monthly maintenance subscription fees.',
+    category: 'Support',
+    question: 'How do I contact VELORA?',
+    answer: 'You can contact official VELORA customer support by emailing support@veloraearnings.com.ng, joining our official Telegram channel at https://t.me/VELORA_COACHREAL, or submitting a message through the official Contact page at https://veloraearnings.com.ng/contact.',
   },
   {
     id: 'faq-8',
-    category: 'Payouts',
-    question: 'How do payments or withdrawals work on Velora Earnings?',
-    answer: 'Withdrawals are requested through your member dashboard once your balance reaches the minimum payout threshold (₦10,000 for affiliate balances or task milestone criteria). Payouts are transferred in Nigerian Naira (NGN) directly to Moniepoint, GTBank, Zenith Bank, Access Bank, Kuda, or any commercial bank in Nigeria within 1 to 24 hours.',
+    category: 'Withdrawals',
+    question: 'How do withdrawals to Nigerian banks work?',
+    answer: 'Once your balance meets the withdrawal threshold (minimum ₦10,000 for affiliate balances or task milestone criteria), you can submit a withdrawal request from your dashboard. Payouts are sent directly in Nigerian Naira (NGN) to any commercial bank account (Moniepoint, GTBank, Zenith, Access, Kuda, etc.) within 1 to 24 hours.',
   },
   {
     id: 'faq-9',
-    category: 'Conditions',
-    question: 'What should I know before joining Velora Earnings?',
-    answer: 'Earnings on Velora Earnings depend strictly on active task completion, engagement, and verified participation. Earnings are not passive or automatically guaranteed without completing eligible activities. Always review our Terms and Privacy Policy before joining.',
-  },
-  {
-    id: 'faq-10',
-    category: 'Support',
-    question: 'How do I contact Velora Earnings support?',
-    answer: 'You can contact official support by emailing support@veloraearnings.com.ng, through the contact form at https://veloraearnings.com.ng/contact, or via official verified platform representatives.',
+    category: 'Transparency',
+    question: 'Are earnings guaranteed on VELORA?',
+    answer: 'Earnings on VELORA are strictly earned based on active task completion, skill application, and verified participation. Earnings are not passive or automatically guaranteed without completing eligible activities.',
   }
 ];
 
 export const FAQPage: React.FC<FAQPageProps> = ({ onBackToHome, onOpenJoin, onNavigate, onOpenContact }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [openItems, setOpenItems] = useState<Record<string, boolean>>({ 'faq-1': true, 'faq-2': true, 'faq-3': true });
+  const [openItems, setOpenItems] = useState<Record<string, boolean>>({
+    'faq-1': true,
+    'faq-2': true,
+    'faq-3': true,
+    'faq-4': true,
+  });
 
   const toggleItem = (id: string) => {
     setOpenItems((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const filteredFaqs = EXTENDED_FAQS.filter(
+  const filteredFaqs = VELORA_FAQS.filter(
     (item) =>
       item.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.answer.toLowerCase().includes(searchTerm.toLowerCase())
@@ -95,42 +94,46 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBackToHome, onOpenJoin, onNa
           <span>Home</span>
         </button>
         <span>/</span>
-        <span className="text-amber-300">Velora Earnings FAQs</span>
+        <span className="text-amber-300">VELORA FAQ</span>
       </nav>
 
-      {/* Page Header */}
+      {/* Page Header with Semantic H1 */}
       <header className="space-y-4 text-left border-b border-white/10 pb-8">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-mono uppercase tracking-widest">
           <HelpCircle className="w-3.5 h-3.5" />
-          <span>Frequently Asked Questions</span>
+          <span>Help &amp; Questions</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-display text-white font-normal tracking-tight">
-          Frequently Asked Questions About Velora Earnings
+          VELORA FAQ — Frequently Asked Questions
         </h1>
         <p className="text-base sm:text-lg text-stone-300 font-light leading-relaxed max-w-3xl">
-          Find direct, verified answers to common questions about Velora Earnings: how the platform works, account registration, available features, activation fees, and Nigerian bank withdrawals.
+          Find clear, verified answers to common questions about VELORA, account registration, dashboard access, account activation, earning opportunities, and withdrawals.
         </p>
-
-        {/* Live Search Input */}
-        <div className="pt-4 max-w-md">
-          <div className="relative">
-            <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search Velora Earnings FAQs..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/10 text-xs sm:text-sm text-white placeholder-stone-400 focus:outline-none focus:border-amber-400"
-            />
-          </div>
-        </div>
       </header>
 
-      {/* Accordion Questions */}
-      <div className="space-y-4">
+      {/* Live Search Input */}
+      <div className="relative">
+        <Search className="w-5 h-5 text-stone-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search questions (e.g. activation, dashboard, opportunities, contact)..."
+          className="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-white/[0.03] border border-white/10 text-white placeholder-stone-400 focus:outline-none focus:border-amber-400/50 transition-colors text-sm"
+        />
+      </div>
+
+      {/* FAQ Accordion List */}
+      <div className="space-y-3">
         {filteredFaqs.length === 0 ? (
-          <div className="p-8 text-center rounded-2xl bg-white/[0.02] border border-white/10 text-stone-400 text-sm">
-            No questions matched your search query. Try another keyword or contact support.
+          <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/10 text-center space-y-2">
+            <p className="text-stone-300 text-sm">No matching questions found for "{searchTerm}".</p>
+            <button
+              onClick={() => setSearchTerm('')}
+              className="text-xs text-amber-300 underline underline-offset-2"
+            >
+              Clear search filter
+            </button>
           </div>
         ) : (
           filteredFaqs.map((faq) => {
@@ -138,27 +141,23 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBackToHome, onOpenJoin, onNa
             return (
               <div
                 key={faq.id}
-                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
-                  isOpen
-                    ? 'bg-[#0f071f] border-amber-400/30'
-                    : 'bg-white/[0.02] border-white/10 hover:border-white/20'
-                }`}
+                className="rounded-2xl bg-white/[0.03] border border-white/10 overflow-hidden transition-colors hover:border-white/20"
               >
                 <button
                   onClick={() => toggleItem(faq.id)}
                   className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 focus:outline-none"
+                  aria-expanded={isOpen}
                 >
-                  <span className="text-sm sm:text-base font-display text-white font-medium">
+                  <span className="text-base sm:text-lg font-display text-white font-medium">
                     {faq.question}
                   </span>
-                  <div className={`p-1 rounded-full text-stone-400 transition-transform ${isOpen ? 'text-amber-300 rotate-180' : ''}`}>
-                    <ChevronDown className="w-4 h-4" />
+                  <div className="p-1.5 rounded-lg bg-white/5 text-stone-300 shrink-0">
+                    {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                   </div>
                 </button>
-
                 {isOpen && (
-                  <div className="px-5 sm:px-6 pb-6 pt-1 text-xs sm:text-sm text-stone-300 leading-relaxed font-light border-t border-white/5 animate-fadeIn">
-                    {faq.answer}
+                  <div className="px-5 pb-5 sm:px-6 sm:pb-6 text-sm text-stone-300 leading-relaxed font-light border-t border-white/5 pt-4">
+                    <p>{faq.answer}</p>
                   </div>
                 )}
               </div>
@@ -167,42 +166,60 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBackToHome, onOpenJoin, onNa
         )}
       </div>
 
-      {/* Internal SEO Navigation Grid */}
-      <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
-        <h3 className="text-sm font-mono text-amber-300 uppercase tracking-wider">
-          Quick Links
-        </h3>
-        <div className="flex flex-wrap gap-3 text-xs">
-          <button onClick={() => onNavigate('signup')} className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-400/10 hover:text-amber-300 text-stone-300 transition-colors">
-            Sign Up for Velora Earnings
-          </button>
-          <button onClick={() => onNavigate('how-it-works')} className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-400/10 hover:text-amber-300 text-stone-300 transition-colors">
-            How Velora Earnings Works
-          </button>
-          <button onClick={() => onNavigate('features')} className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-400/10 hover:text-amber-300 text-stone-300 transition-colors">
-            Platform Features
-          </button>
-          <button onClick={() => onNavigate('about')} className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-400/10 hover:text-amber-300 text-stone-300 transition-colors">
-            About Velora Earnings
-          </button>
-          <button onClick={() => onNavigate('contact')} className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-400/10 hover:text-amber-300 text-stone-300 transition-colors">
-            Contact Support
-          </button>
-        </div>
-      </section>
-
-      {/* Need Help Box */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-purple-900/20 via-amber-500/10 to-transparent border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
-        <div className="space-y-1 text-left">
-          <h3 className="text-base sm:text-lg font-display text-white font-medium">Still have questions about Velora Earnings?</h3>
-          <p className="text-xs text-stone-300">Our customer support and creator community representatives are available 24/7.</p>
+      {/* Still Have Questions Box */}
+      <div className="p-6 sm:p-8 rounded-2xl bg-[#0e071c] border border-amber-400/20 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="space-y-2 text-left">
+          <div className="flex items-center gap-2 text-amber-300 font-mono text-xs uppercase">
+            <MessageSquare className="w-4 h-4" />
+            <span>Need Additional Assistance?</span>
+          </div>
+          <h3 className="text-xl font-display text-white font-medium">Have a specific question about VELORA?</h3>
+          <p className="text-xs text-stone-400 max-w-xl">
+            Our official customer support desk is available to assist with account activation, technical questions, and verification.
+          </p>
         </div>
         <button
           onClick={onOpenContact}
-          className="btn-gold text-xs sm:text-sm px-6 py-3 shrink-0 flex items-center gap-2"
+          className="btn-ghost text-xs sm:text-sm px-6 py-3 shrink-0 flex items-center gap-2"
         >
-          <span>Contact Official Support</span>
-          <ArrowRight className="w-4 h-4" />
+          <Mail className="w-4 h-4" />
+          <span>Contact Support Desk</span>
+        </button>
+      </div>
+
+      {/* Internal Navigation Links */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+        <button
+          onClick={() => onNavigate('about')}
+          className="p-5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-amber-400/30 text-left transition-all group"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-display text-white font-medium">About VELORA</span>
+            <ArrowRight className="w-4 h-4 text-amber-300 group-hover:translate-x-1 transition-transform" />
+          </div>
+          <p className="text-xs text-stone-400 mt-1">Platform overview and mission.</p>
+        </button>
+
+        <button
+          onClick={() => onNavigate('how-it-works')}
+          className="p-5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-purple-400/30 text-left transition-all group"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-display text-white font-medium">How It Works</span>
+            <ArrowRight className="w-4 h-4 text-purple-300 group-hover:translate-x-1 transition-transform" />
+          </div>
+          <p className="text-xs text-stone-400 mt-1">5-step guide to get started.</p>
+        </button>
+
+        <button
+          onClick={() => onNavigate('opportunities')}
+          className="p-5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-emerald-400/30 text-left transition-all group"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-display text-white font-medium">Opportunities</span>
+            <ArrowRight className="w-4 h-4 text-emerald-300 group-hover:translate-x-1 transition-transform" />
+          </div>
+          <p className="text-xs text-stone-400 mt-1">Explore active tasks and campaigns.</p>
         </button>
       </div>
 

@@ -24,15 +24,17 @@ export const Navbar: React.FC<NavbarProps> = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Sitelink optimized primary navigation items:
-  // Home, About, How It Works, Features, FAQs, Blog, Contact
+  // Home, About, How It Works, Opportunities, Academy, Community, Packages, FAQs, Contact
   const navItems = [
-    { label: 'Home', href: '/', key: 'landing', title: 'Velora Earnings Official Homepage' },
-    { label: 'About', href: '/about', key: 'about', title: 'About Velora Earnings' },
-    { label: 'How It Works', href: '/how-it-works', key: 'how-it-works', title: 'How Velora Earnings Works' },
-    { label: 'Features', href: '/features', key: 'features', title: 'Velora Earnings Platform Features' },
-    { label: 'FAQs', href: '/faqs', key: 'faqs', title: 'Velora Earnings FAQs' },
-    { label: 'Blog', href: '/blog', key: 'blog', title: 'Velora Earnings Blog & Guides' },
-    { label: 'Contact', href: '/contact', key: 'contact', title: 'Contact Velora Earnings Support' },
+    { label: 'Home', href: '/', key: 'landing', title: 'VELORA Official Homepage' },
+    { label: 'About', href: '/about', key: 'about', title: 'About VELORA' },
+    { label: 'How It Works', href: '/how-it-works', key: 'how-it-works', title: 'How VELORA Works' },
+    { label: 'Opportunities', href: '/opportunities', key: 'opportunities', title: 'VELORA Opportunities' },
+    { label: 'Academy', href: '/academy', key: 'academy', title: 'VELORA Academy' },
+    { label: 'Community', href: '/community', key: 'community', title: 'VELORA Community' },
+    { label: 'Packages', href: '/packages', key: 'packages', title: 'VELORA Membership Packages' },
+    { label: 'FAQs', href: '/faqs', key: 'faqs', title: 'VELORA FAQs' },
+    { label: 'Contact', href: '/contact', key: 'contact', title: 'Contact VELORA Support' },
   ];
 
   // Detect active section on scroll

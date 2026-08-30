@@ -36,19 +36,16 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTerms, onOpenContact, onNa
           {/* Col 2: Earning Streams */}
           <div className="space-y-3">
             <h4 className="text-xs font-mono uppercase tracking-wider text-white font-semibold">
-              Ways to Earn
+              Explore VELORA
             </h4>
             <ul className="space-y-2 text-xs text-stone-400">
-              <li><a href="/features" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('features'); }} className="hover:text-amber-300 transition-colors text-left block">Velora Earnings Features</a></li>
-              <li><a href="/signup" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('signup'); }} className="hover:text-amber-300 transition-colors text-left block">Sign Up for Velora Earnings</a></li>
-              <li><a href="/login" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('login'); }} className="hover:text-amber-300 transition-colors text-left block">Login to Velora Earnings</a></li>
-              <li><a href="/blog" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('blog'); }} className="hover:text-amber-300 transition-colors text-left block">Velora Earnings Blog</a></li>
-              <li><a href="/velora-earnings" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('velora-earnings'); }} className="hover:text-amber-300 transition-colors text-left block">Velora Earnings Overview</a></li>
-              <li><a href="#ai-upload" className="hover:text-amber-300 transition-colors block">AI Upload Rewards</a></li>
-              <li><a href="#youtube-earnings" className="hover:text-amber-300 transition-colors block">YouTube Creator Suite</a></li>
-              <li><a href="#news-rewards" className="hover:text-amber-300 transition-colors block">Velora News Rewards</a></li>
-              <li><a href="#fan-battle" className="hover:text-amber-300 transition-colors block">Matchday Fan Battle Arena</a></li>
-              <li><a href="#clout-cash" className="hover:text-amber-300 transition-colors block">Turn Clout into Cash</a></li>
+              <li><a href="/opportunities" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('opportunities'); }} className="hover:text-amber-300 transition-colors text-left block">VELORA Opportunities</a></li>
+              <li><a href="/academy" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('academy'); }} className="hover:text-amber-300 transition-colors text-left block">VELORA Academy</a></li>
+              <li><a href="/community" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('community'); }} className="hover:text-amber-300 transition-colors text-left block">VELORA Community</a></li>
+              <li><a href="/packages" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('packages'); }} className="hover:text-amber-300 transition-colors text-left block">Membership Packages</a></li>
+              <li><a href="/features" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('features'); }} className="hover:text-amber-300 transition-colors text-left block">Platform Features</a></li>
+              <li><a href="/signup" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('signup'); }} className="hover:text-amber-300 transition-colors text-left block">Sign Up for VELORA</a></li>
+              <li><a href="/login" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('login'); }} className="hover:text-amber-300 transition-colors text-left block">Login to Dashboard</a></li>
             </ul>
           </div>
 
@@ -58,11 +55,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTerms, onOpenContact, onNa
               Platform &amp; Legal
             </h4>
             <ul className="space-y-2 text-xs text-stone-400">
-              <li><a href="/about" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('about'); }} className="hover:text-amber-300 transition-colors text-left block">About Velora Earnings</a></li>
-              <li><a href="/how-it-works" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('how-it-works'); }} className="hover:text-amber-300 transition-colors text-left block">How Velora Earnings Works</a></li>
-              <li><a href="/faqs" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('faqs'); }} className="hover:text-amber-300 transition-colors text-left block">Velora Earnings FAQs</a></li>
-              <li><a href="/contact" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('contact'); else onOpenContact(); }} className="hover:text-amber-300 transition-colors text-left block">Contact Velora Earnings Support</a></li>
-              <li><a href="/velora-linux" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('velora-linux'); }} className="hover:text-amber-300 transition-colors text-left block">Velora Linux Cloud</a></li>
+              <li><a href="/about" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('about'); }} className="hover:text-amber-300 transition-colors text-left block">About VELORA</a></li>
+              <li><a href="/how-it-works" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('how-it-works'); }} className="hover:text-amber-300 transition-colors text-left block">How VELORA Works</a></li>
+              <li><a href="/faqs" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('faqs'); }} className="hover:text-amber-300 transition-colors text-left block">VELORA FAQs</a></li>
+              <li><a href="/contact" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('contact'); else onOpenContact(); }} className="hover:text-amber-300 transition-colors text-left block">Contact Support</a></li>
               <li><a href="/terms" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('terms'); else onOpenTerms(); }} className="hover:text-amber-300 transition-colors text-left block">Terms of Service</a></li>
               <li><a href="/privacy" onClick={(e) => { e.preventDefault(); if (onNavigateView) onNavigateView('privacy'); else onOpenTerms(); }} className="hover:text-amber-300 transition-colors text-left block">Privacy Policy</a></li>
             </ul>

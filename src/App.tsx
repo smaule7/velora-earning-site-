@@ -25,6 +25,10 @@ import { FAQPage } from './components/FAQPage';
 import { ContactPage } from './components/ContactPage';
 import { TermsPage } from './components/TermsPage';
 import { PrivacyPage } from './components/PrivacyPage';
+import { OpportunitiesPage } from './components/OpportunitiesPage';
+import { AcademyPage } from './components/AcademyPage';
+import { CommunityPage } from './components/CommunityPage';
+import { PackagesPage } from './components/PackagesPage';
 import { OpportunitiesGrid } from './components/OpportunitiesGrid';
 import { Testimonials } from './components/Testimonials';
 import { FAQ } from './components/FAQ';
@@ -42,7 +46,7 @@ import { INITIAL_FLYERS, INITIAL_REWARD_RATES, INITIAL_TOP_EARNERS, INITIAL_STAT
 import { LiveActivityPopup, ActivityNotification, DEFAULT_ACTIVITIES } from './components/LiveActivityPopup';
 import { applyPageSEO } from './utils/seo';
 
-type AppView = 'landing' | 'dashboard' | 'about' | 'how-it-works' | 'features' | 'faqs' | 'faq' | 'contact' | 'signup' | 'login' | 'blog' | 'terms' | 'privacy' | 'velora-earnings' | 'velora-linux';
+type AppView = 'landing' | 'dashboard' | 'about' | 'how-it-works' | 'opportunities' | 'academy' | 'community' | 'packages' | 'features' | 'faqs' | 'faq' | 'contact' | 'signup' | 'login' | 'blog' | 'terms' | 'privacy' | 'velora-earnings' | 'velora-linux';
 
 const parseInitialView = (): AppView => {
   if (typeof window === 'undefined') return 'landing';
@@ -53,6 +57,10 @@ const parseInitialView = (): AppView => {
   if (target === 'dashboard') return 'dashboard';
   if (target === 'about') return 'about';
   if (target === 'how-it-works') return 'how-it-works';
+  if (target === 'opportunities') return 'opportunities';
+  if (target === 'academy') return 'academy';
+  if (target === 'community') return 'community';
+  if (target === 'packages') return 'packages';
   if (target === 'features') return 'features';
   if (target === 'faqs' || target === 'faq') return 'faqs';
   if (target === 'contact') return 'contact';
@@ -386,6 +394,98 @@ export const App: React.FC = () => {
             <HowItWorksPage
               onBackToHome={handleNavigateHome}
               onOpenJoin={() => handleOpenAuth('signup')}
+              onNavigate={handleNavigateView}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'opportunities' ? (
+        /* DEDICATED OPPORTUNITIES PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <OpportunitiesPage
+              onBackToHome={handleNavigateHome}
+              onOpenJoin={() => handleOpenAuth('signup')}
+              onNavigate={handleNavigateView}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'academy' ? (
+        /* DEDICATED ACADEMY PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <AcademyPage
+              onBackToHome={handleNavigateHome}
+              onOpenJoin={() => handleOpenAuth('signup')}
+              onNavigate={handleNavigateView}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'community' ? (
+        /* DEDICATED COMMUNITY PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <CommunityPage
+              onBackToHome={handleNavigateHome}
+              onOpenJoin={() => handleOpenAuth('signup')}
+              onNavigate={handleNavigateView}
+            />
+          </main>
+          <Footer
+            onOpenTerms={() => setTermsModalOpen(true)}
+            onOpenContact={() => setContactModalOpen(true)}
+            onNavigateView={handleNavigateView}
+          />
+        </>
+      ) : currentView === 'packages' ? (
+        /* DEDICATED PACKAGES PAGE VIEW */
+        <>
+          <Navbar
+            onOpenAuth={handleOpenAuth}
+            currentUser={currentUser}
+            onNavigateDashboard={handleNavigateDashboard}
+            onNavigateView={handleNavigateView}
+            onLogout={handleLogout}
+          />
+          <main className="relative z-10">
+            <PackagesPage
+              onBackToHome={handleNavigateHome}
+              onOpenActivation={(plan) => handleOpenActivation(plan)}
               onNavigate={handleNavigateView}
             />
           </main>
