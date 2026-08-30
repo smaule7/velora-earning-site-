@@ -50,7 +50,7 @@ export const Hero: React.FC<HeroProps> = ({ onJoinClick, onExploreClick, stats }
           }`}
           style={{ transitionDelay: '120ms' }}
         >
-          Velora Earnings
+          VELORA — Your Digital Earning & Opportunity Platform
         </h1>
 
         {/* Narrative Description */}
@@ -60,7 +60,7 @@ export const Hero: React.FC<HeroProps> = ({ onJoinClick, onExploreClick, stats }
           }`}
           style={{ transitionDelay: '220ms' }}
         >
-          Explore the official Velora Earnings platform, discover available features, learn how Velora Earnings works, and get started today with verified daily rewards across Nigeria and Africa.
+          VELORA is a digital platform offering opportunities to participate, create, learn and earn through available VELORA activities. Explore VELORA opportunities, discover verified rewards, and create your account on the premier VELORA earning platform in Nigeria.
         </p>
 
         {/* Action Buttons */}
@@ -74,7 +74,7 @@ export const Hero: React.FC<HeroProps> = ({ onJoinClick, onExploreClick, stats }
             onClick={onJoinClick}
             className="btn-gold text-sm sm:text-base px-8 py-3.5 w-full sm:w-auto shadow-lg shadow-amber-400/10"
           >
-            <span>SIGN UP FOR VELORA EARNINGS</span>
+            <span>CREATE YOUR VELORA ACCOUNT</span>
             <ArrowRight className="w-4 h-4" />
           </button>
           
@@ -82,7 +82,7 @@ export const Hero: React.FC<HeroProps> = ({ onJoinClick, onExploreClick, stats }
             onClick={onExploreClick}
             className="btn-ghost text-sm sm:text-base px-8 py-3.5 w-full sm:w-auto"
           >
-            <span>EXPLORE FEATURES</span>
+            <span>EXPLORE VELORA OPPORTUNITIES</span>
           </button>
         </div>
 
@@ -95,7 +95,7 @@ export const Hero: React.FC<HeroProps> = ({ onJoinClick, onExploreClick, stats }
         >
           <VeloraFlyer
             imageKey="platinum"
-            alt="VELORA Official Ecosystem Master Artwork"
+            alt="VELORA earning opportunities and digital platform ecosystem"
             aspectClass="aspect-[16/9] sm:aspect-[21/9]"
             caption="VELORA Ecosystem & Multi-Stream Rewards Overview"
             priority={true}

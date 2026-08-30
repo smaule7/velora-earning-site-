@@ -52,10 +52,10 @@ export const OpportunitiesGrid: React.FC<OpportunitiesGridProps> = ({ onOpenJoin
           <span>Active Bounties & Tasks</span>
         </div>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display text-white font-normal tracking-tight">
-          OPPORTUNITIES FOR YOU
+          VELORA Earning Opportunities
         </h2>
         <p className="text-stone-300 text-sm sm:text-base mt-3 leading-relaxed">
-          Select from active creator campaigns, split-test challenges, AI generative packages, and matchday competitions.
+          Select from active creator campaigns, split-test challenges, AI generative packages, and matchday competitions available on the VELORA earning platform.
         </p>
       </div>
 
@@ -79,7 +79,7 @@ export const OpportunitiesGrid: React.FC<OpportunitiesGridProps> = ({ onOpenJoin
       {/* Opportunities Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filtered.map((opp, idx) => (
-          <div
+          <article
             key={opp.id}
             className={`p-5 sm:p-6 rounded-2xl velora-glass border border-white/10 hover:border-amber-400/40 transition-all flex flex-col justify-between group reveal-item from-bottom ${
               isRevealed ? 'is-revealed' : ''
@@ -92,7 +92,7 @@ export const OpportunitiesGrid: React.FC<OpportunitiesGridProps> = ({ onOpenJoin
                 <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-black/60 mb-5 border border-white/10">
                   <img
                     src={opp.imageUrl}
-                    alt={opp.title}
+                    alt={`${opp.title} — VELORA Earning Opportunity`}
                     referrerPolicy="no-referrer"
                     loading="lazy"
                     className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
@@ -166,7 +166,7 @@ export const OpportunitiesGrid: React.FC<OpportunitiesGridProps> = ({ onOpenJoin
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>

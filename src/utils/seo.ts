@@ -9,124 +9,156 @@ export interface PageSEOConfig {
 
 export const SEO_PAGES: Record<string, PageSEOConfig> = {
   landing: {
-    title: 'Velora Earnings | Official Website',
-    description: 'Discover Velora Earnings, learn how the platform works, explore its features, create an account, and find official information and support.',
+    title: 'VELORA Earnings — Earn, Create & Grow',
+    description: 'VELORA is a digital platform offering opportunities to participate, create, learn and earn through available VELORA activities. Explore VELORA opportunities and create your account.',
     canonicalPath: '',
-    h1: 'Velora Earnings',
-    ogTitle: 'Velora Earnings | Official Website',
-    ogDescription: 'Discover Velora Earnings, learn how the platform works, explore its features, create an account, and find official information and support.'
+    h1: 'VELORA — Your Digital Earning & Opportunity Platform',
+    ogTitle: 'VELORA Earnings — Earn, Create & Grow',
+    ogDescription: 'VELORA is a digital platform offering opportunities to participate, create, learn and earn through available VELORA activities. Explore VELORA opportunities and create your account.'
   },
   signup: {
-    title: 'Velora Earnings Sign Up | Create an Account',
-    description: 'Create your account on the official Velora Earnings platform. Join verified creators exploring AI tasks, YouTube tools, and digital rewards.',
+    title: 'Sign Up for VELORA Earnings | Create Account',
+    description: 'Create your free account on the official VELORA earning platform. Explore daily earning opportunities, AI creation tools, and community rewards.',
     canonicalPath: 'signup',
-    h1: 'Sign Up for Velora Earnings',
-    ogTitle: 'Velora Earnings Sign Up | Create an Account',
-    ogDescription: 'Register your account on the official Velora Earnings platform and get started today.'
+    h1: 'Sign Up for VELORA Earnings',
+    ogTitle: 'Sign Up for VELORA Earnings | Create Account',
+    ogDescription: 'Register your account on the official VELORA platform and start exploring earning opportunities.'
   },
   login: {
-    title: 'Velora Earnings Login | Sign In',
-    description: 'Login to your official Velora Earnings creator dashboard. Access your daily tasks, wallet balance, and payout settings.',
+    title: 'VELORA Earnings Login | Sign In to Dashboard',
+    description: 'Login to your official VELORA Earnings dashboard. Access your daily tasks, rewards balance, and account tools.',
     canonicalPath: 'login',
-    h1: 'Velora Earnings Login',
-    ogTitle: 'Velora Earnings Login | Sign In',
-    ogDescription: 'Access your official Velora Earnings member account and manage your daily tasks.'
+    h1: 'VELORA Earnings Login',
+    ogTitle: 'VELORA Earnings Login | Sign In to Dashboard',
+    ogDescription: 'Access your official VELORA member account and manage your daily activities.'
   },
   about: {
-    title: 'About Velora Earnings | Official Information',
-    description: 'Official information about Velora Earnings — our mission, platform operations, digital tools, and verified community across Nigeria.',
+    title: 'About VELORA | Official Digital Platform & Opportunities',
+    description: 'Learn about VELORA — Nigeria\'s digital platform empowering creators, digital workers, and learners with earning opportunities and AI tools.',
     canonicalPath: 'about',
-    h1: 'What Is Velora Earnings?',
-    ogTitle: 'About Velora Earnings | Official Information',
-    ogDescription: 'Learn about Velora Earnings, what the platform does, who can use it, and how to get started.'
+    h1: 'About VELORA Platform',
+    ogTitle: 'About VELORA | Official Digital Platform & Opportunities',
+    ogDescription: 'Discover the mission, technology, and opportunities behind the VELORA earning platform.'
   },
   'how-it-works': {
-    title: 'How Velora Earnings Works | Step-by-Step Guide',
-    description: 'Step-by-step guide explaining how Velora Earnings works: register your account, access available features, complete eligible activities, and withdraw earnings to your Nigerian bank.',
+    title: 'How VELORA Works | Step-by-Step Earning Guide',
+    description: 'Learn how the VELORA earning platform works in Nigeria: create your account, participate in available opportunities, complete activities, and withdraw rewards.',
     canonicalPath: 'how-it-works',
-    h1: 'How Does Velora Earnings Work?',
-    ogTitle: 'How Velora Earnings Works | Step-by-Step Guide',
-    ogDescription: 'Learn how to create an account, complete daily tasks, and withdraw funds on Velora Earnings.'
+    h1: 'How VELORA Earnings Works',
+    ogTitle: 'How VELORA Works | Step-by-Step Earning Guide',
+    ogDescription: 'Step-by-step guide to participating, creating, learning, and earning on VELORA.'
   },
   features: {
-    title: 'Velora Earnings Features | Explore the Platform',
-    description: 'Explore genuine features offered by Velora Earnings: AI Academy & Asset Uploads, YouTube Creator Suite, Digital Journalism, Fan Battle Arena, and Automated Bank Withdrawals.',
+    title: 'VELORA Features | Digital Tools & Rewards Suite',
+    description: 'Explore the full suite of VELORA features: AI Creation Academy, YouTube growth tools, digital news rewards, matchday fan battles, and fast payouts.',
     canonicalPath: 'features',
-    h1: 'Velora Earnings Features',
-    ogTitle: 'Velora Earnings Features | Explore the Platform',
-    ogDescription: 'Explore genuine features offered by the official Velora Earnings platform.'
+    h1: 'VELORA Platform Features',
+    ogTitle: 'VELORA Features | Digital Tools & Rewards Suite',
+    ogDescription: 'Explore all digital earning tools and opportunities offered by VELORA.'
+  },
+  opportunities: {
+    title: 'VELORA Opportunities | Active Earning Streams & Tasks',
+    description: 'Explore active VELORA opportunities to create, learn, participate, and earn daily rewards across multiple digital streams in Nigeria.',
+    canonicalPath: 'opportunities',
+    h1: 'VELORA Earning Opportunities',
+    ogTitle: 'VELORA Opportunities | Active Earning Streams & Tasks',
+    ogDescription: 'Discover available activities, tasks, and reward opportunities on VELORA.'
+  },
+  academy: {
+    title: 'VELORA Academy | Generative AI Skills & Asset Creation',
+    description: 'Master in-demand generative AI skills, learn prompt engineering, submit creative digital assets, and earn rewards through VELORA Academy.',
+    canonicalPath: 'academy',
+    h1: 'VELORA AI Academy',
+    ogTitle: 'VELORA Academy | Generative AI Skills & Asset Creation',
+    ogDescription: 'Learn AI creation and monetize your digital assets with VELORA Academy.'
+  },
+  community: {
+    title: 'VELORA Community | Connect, Engage & Earn Together',
+    description: 'Join the thriving VELORA creator community across Nigeria. Participate in fan battles, referral rewards, and group earning activities.',
+    canonicalPath: 'community',
+    h1: 'VELORA Community & Network',
+    ogTitle: 'VELORA Community | Connect, Engage & Earn Together',
+    ogDescription: 'Connect with fellow creators and grow your rewards in the VELORA community.'
+  },
+  packages: {
+    title: 'VELORA Packages | Membership Plans & Activation',
+    description: 'Compare VELORA membership packages (Silver AI and Golden AI) and choose the right tier for your earning journey in Nigeria.',
+    canonicalPath: 'packages',
+    h1: 'VELORA Membership Packages',
+    ogTitle: 'VELORA Packages | Membership Plans & Activation',
+    ogDescription: 'Explore VELORA membership packages and activation options.'
   },
   faqs: {
-    title: 'Velora Earnings FAQs | Frequently Asked Questions',
-    description: 'Find direct answers to frequently asked questions about Velora Earnings — account registration, task validation, package activation, and Nigerian bank payouts.',
+    title: 'VELORA FAQs | Frequently Asked Questions & Answers',
+    description: 'Get clear answers to common questions about VELORA Earnings, account activation, daily tasks, rewards, and Nigerian bank withdrawals.',
     canonicalPath: 'faqs',
-    h1: 'Frequently Asked Questions About Velora Earnings',
-    ogTitle: 'Velora Earnings FAQs | Frequently Asked Questions',
-    ogDescription: 'Frequently asked questions and verified answers about the Velora Earnings platform.'
+    h1: 'Frequently Asked Questions About VELORA',
+    ogTitle: 'VELORA FAQs | Frequently Asked Questions & Answers',
+    ogDescription: 'Frequently asked questions and verified answers about the VELORA platform.'
   },
   faq: {
-    title: 'Velora Earnings FAQs | Frequently Asked Questions',
-    description: 'Find direct answers to frequently asked questions about Velora Earnings — account registration, task validation, package activation, and Nigerian bank payouts.',
+    title: 'VELORA FAQs | Frequently Asked Questions & Answers',
+    description: 'Get clear answers to common questions about VELORA Earnings, account activation, daily tasks, rewards, and Nigerian bank withdrawals.',
     canonicalPath: 'faqs',
-    h1: 'Frequently Asked Questions About Velora Earnings',
-    ogTitle: 'Velora Earnings FAQs | Frequently Asked Questions',
-    ogDescription: 'Frequently asked questions and verified answers about the Velora Earnings platform.'
+    h1: 'Frequently Asked Questions About VELORA',
+    ogTitle: 'VELORA FAQs | Frequently Asked Questions & Answers',
+    ogDescription: 'Frequently asked questions and verified answers about the VELORA platform.'
   },
   contact: {
-    title: 'Contact Velora Earnings | Official Support',
-    description: 'Contact official Velora Earnings support for help with account registration, payment confirmation, task questions, or technical inquiries.',
+    title: 'Contact VELORA Support | Help Desk & Inquiries',
+    description: 'Contact official VELORA customer support for assistance with your account, activation, payment confirmation, or technical questions.',
     canonicalPath: 'contact',
-    h1: 'Contact Velora Earnings',
-    ogTitle: 'Contact Velora Earnings | Official Support',
-    ogDescription: 'Official support channels and assistance for Velora Earnings.'
+    h1: 'Contact VELORA Support',
+    ogTitle: 'Contact VELORA Support | Help Desk & Inquiries',
+    ogDescription: 'Official customer support and help desk channels for VELORA.'
   },
   blog: {
-    title: 'Velora Earnings Blog | Official Guides & Insights',
-    description: 'Official guides, educational tutorials, and platform updates from the Velora Earnings team.',
+    title: 'VELORA Blog | Official Guides, Insights & Updates',
+    description: 'Read the latest guides, monetization tips, tutorials, and ecosystem news directly from the VELORA platform team.',
     canonicalPath: 'blog',
-    h1: 'Velora Earnings Blog',
-    ogTitle: 'Velora Earnings Blog | Official Guides & Insights',
-    ogDescription: 'Official guides, educational tutorials, and platform updates from the Velora Earnings team.'
+    h1: 'VELORA Earnings Blog & Insights',
+    ogTitle: 'VELORA Blog | Official Guides, Insights & Updates',
+    ogDescription: 'Educational guides and updates from the official VELORA team.'
   },
   terms: {
-    title: 'Terms of Service | Velora Earnings',
-    description: 'Read the official Terms of Service, user agreement, and platform policies for Velora Earnings.',
+    title: 'Terms of Service | VELORA Digital Platform',
+    description: 'Read the official Terms of Service and user agreement governing your use of the VELORA digital earning platform.',
     canonicalPath: 'terms',
-    h1: 'Velora Earnings Terms of Service',
-    ogTitle: 'Terms of Service | Velora Earnings',
-    ogDescription: 'Official Terms of Service and guidelines for the Velora Earnings platform.'
+    h1: 'VELORA Terms of Service',
+    ogTitle: 'Terms of Service | VELORA Digital Platform',
+    ogDescription: 'Official Terms of Service and user agreement for VELORA.'
   },
   privacy: {
-    title: 'Privacy Policy | Velora Earnings',
-    description: 'Read the official Privacy Policy and data protection standards for the Velora Earnings platform.',
+    title: 'Privacy Policy | VELORA Data Protection',
+    description: 'Read the official VELORA Privacy Policy detailing our commitment to user data privacy, security, and confidentiality.',
     canonicalPath: 'privacy',
-    h1: 'Velora Earnings Privacy Policy',
-    ogTitle: 'Privacy Policy | Velora Earnings',
-    ogDescription: 'Official Privacy Policy and data security details for Velora Earnings.'
+    h1: 'VELORA Privacy Policy',
+    ogTitle: 'Privacy Policy | VELORA Data Protection',
+    ogDescription: 'Official Privacy Policy and data security standards for VELORA.'
   },
   'velora-earnings': {
-    title: 'Velora Earnings Guide | Official Monetization System',
-    description: 'Comprehensive overview of the Velora Earnings reward streams, AI prompt payouts, YouTube growth bonuses, and verified payout structures.',
+    title: 'VELORA Earnings Guide | Monetization & Reward Streams',
+    description: 'Comprehensive guide to earning on VELORA: AI uploads, YouTube review tools, daily news reading rewards, and affiliate bonuses.',
     canonicalPath: 'velora-earnings',
-    h1: 'Velora Earnings Monetization Guide',
-    ogTitle: 'Velora Earnings Guide | Official Monetization System',
-    ogDescription: 'Learn about all earning streams on the official Velora Earnings platform.'
+    h1: 'VELORA Earnings Overview',
+    ogTitle: 'VELORA Earnings Guide | Monetization & Reward Streams',
+    ogDescription: 'Comprehensive overview of all earning streams on VELORA.'
   },
   'velora-linux': {
-    title: 'Velora Linux | Velora Earnings Cloud Infrastructure',
-    description: 'Discover Velora Linux, the high-performance Linux cloud infrastructure that powers real-time task validation and fast automated payouts for Velora Earnings.',
+    title: 'VELORA Linux | High-Performance Cloud Architecture',
+    description: 'Discover VELORA Linux — the containerized cloud architecture powering real-time task validation and secure automated payouts.',
     canonicalPath: 'velora-linux',
-    h1: 'Velora Linux Infrastructure',
-    ogTitle: 'Velora Linux | Velora Earnings Cloud Infrastructure',
-    ogDescription: 'The cloud architecture and compute stack powering the Velora Earnings platform.'
+    h1: 'VELORA Linux Cloud Infrastructure',
+    ogTitle: 'VELORA Linux | High-Performance Cloud Architecture',
+    ogDescription: 'The cloud infrastructure powering the VELORA earning platform.'
   },
   dashboard: {
-    title: 'Creator Dashboard | Velora Earnings',
-    description: 'Access your personal Velora Earnings creator dashboard, monitor wallet balance, submit tasks, and request fast withdrawals.',
+    title: 'Creator Dashboard | VELORA Earnings',
+    description: 'Access your personal VELORA creator dashboard, monitor rewards, complete activities, and manage your account.',
     canonicalPath: 'dashboard',
-    h1: 'Velora Earnings Creator Dashboard',
-    ogTitle: 'Creator Dashboard | Velora Earnings',
-    ogDescription: 'Manage your Velora Earnings account and track daily task rewards.'
+    h1: 'VELORA Creator Dashboard',
+    ogTitle: 'Creator Dashboard | VELORA Earnings',
+    ogDescription: 'Manage your VELORA account and track daily activities.'
   }
 };
 
