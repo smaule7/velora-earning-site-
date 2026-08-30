@@ -503,6 +503,10 @@ export const App: React.FC = () => {
             <SignUpPage
               onBackToHome={handleNavigateHome}
               onNavigate={handleNavigateView}
+              onRegisterSuccess={(user) => {
+                setCurrentUser(user);
+                handleNavigateView('dashboard');
+              }}
               onSuccess={handleRegisterSuccess}
               onOpenLogin={() => handleNavigateView('login')}
             />
@@ -527,6 +531,10 @@ export const App: React.FC = () => {
             <LoginPage
               onBackToHome={handleNavigateHome}
               onNavigate={handleNavigateView}
+              onLoginSuccess={(user) => {
+                setCurrentUser(user);
+                handleNavigateView('dashboard');
+              }}
               onSuccess={handleLoginSuccess}
               onOpenSignUp={() => handleNavigateView('signup')}
             />

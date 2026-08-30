@@ -29,10 +29,10 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onBackToHome, onOpen
           <span>Platform Capabilities</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-display text-white font-normal tracking-tight">
-          Velora Earnings Platform Features
+          Velora Earnings Features
         </h1>
         <p className="text-base sm:text-lg text-stone-300 font-light leading-relaxed max-w-3xl">
-          Discover the complete suite of monetization tools, AI learning modules, creator engines, and automated withdrawal features available on the official Velora Earnings platform.
+          Detailed guide to genuine platform features offered by Velora Earnings. For each feature, review what it does, how to access it, and any applicable requirements.
         </p>
       </header>
 
@@ -56,21 +56,13 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onBackToHome, onOpen
             <Cpu className="w-6 h-6" />
           </div>
           <h2 className="text-xl font-display text-white font-medium">
-            AI Academy &amp; Asset Uploads
+            AI Prompt Academy &amp; Asset Uploads
           </h2>
-          <p className="text-sm text-stone-300 leading-relaxed font-light">
-            Learn practical generative AI prompts across image, video, and audio synthesis. Verified Velora Earnings members earn daily rewards by creating and uploading approved AI prompts to the marketplace.
-          </p>
-          <ul className="space-y-2 text-xs font-mono text-stone-400">
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>4-Track Generative AI Curriculum</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>₦300–₦1,200 per approved AI asset</span>
-            </li>
-          </ul>
+          <div className="space-y-3 text-xs sm:text-sm text-stone-300 font-light leading-relaxed">
+            <p><strong>What it does:</strong> Enables members to learn prompt engineering and submit generative AI prompts, synthesized images, or audio prompts to earn task credits.</p>
+            <p><strong>How users access it:</strong> Accessible from the member dashboard under the "AI Academy" tab after account login.</p>
+            <p><strong>Requirements:</strong> Active account activation (Silver or Golden AI Tier) and compliance with prompt quality guidelines.</p>
+          </div>
         </div>
 
         {/* Feature 2: YouTube Creator Studio */}
@@ -81,19 +73,11 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onBackToHome, onOpen
           <h2 className="text-xl font-display text-white font-medium">
             YouTube Creator Growth Suite
           </h2>
-          <p className="text-sm text-stone-300 leading-relaxed font-light">
-            Boost video visibility, SEO tags, and subscriber engagement with built-in YouTube optimization tools. Earn bonuses by completing authorized video review and engagement campaigns.
-          </p>
-          <ul className="space-y-2 text-xs font-mono text-stone-400">
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Video Tag &amp; Title Optimization</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Channel Growth &amp; Engagement Rewards</span>
-            </li>
-          </ul>
+          <div className="space-y-3 text-xs sm:text-sm text-stone-300 font-light leading-relaxed">
+            <p><strong>What it does:</strong> Provides video optimization tools (tags, titles, SEO) and authorized video review tasks for channel engagement.</p>
+            <p><strong>How users access it:</strong> Accessible directly through the "YouTube Suite" section on the dashboard.</p>
+            <p><strong>Requirements:</strong> Registered user with active video review task slots available for the day.</p>
+          </div>
         </div>
 
         {/* Feature 3: Digital News Rewards */}
@@ -102,21 +86,13 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onBackToHome, onOpen
             <Newspaper className="w-6 h-6" />
           </div>
           <h2 className="text-xl font-display text-white font-medium">
-            Digital Journalism Rewards
+            Velora News Curation &amp; Reading Rewards
           </h2>
-          <p className="text-sm text-stone-300 leading-relaxed font-light">
-            Read, review, and syndicate curated tech, business, and entertainment news across your social channels. Earn per-article reading and distribution compensation.
-          </p>
-          <ul className="space-y-2 text-xs font-mono text-stone-400">
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Daily Verified Article Feeds</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>₦200 per syndicated news share</span>
-            </li>
-          </ul>
+          <div className="space-y-3 text-xs sm:text-sm text-stone-300 font-light leading-relaxed">
+            <p><strong>What it does:</strong> Delivers daily curated editorial articles on technology, finance, and culture. Users read and share verified article summaries to receive reading credits.</p>
+            <p><strong>How users access it:</strong> Found under the "Velora News" feed in the dashboard.</p>
+            <p><strong>Requirements:</strong> Read verified articles for the required reading duration before claiming the activity reward.</p>
+          </div>
         </div>
 
         {/* Feature 4: Fan Battle Matchday Derby */}
@@ -125,21 +101,13 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onBackToHome, onOpen
             <Trophy className="w-6 h-6" />
           </div>
           <h2 className="text-xl font-display text-white font-medium">
-            Fan Battle Derby Arena
+            Matchday Fan Battle Derby Arena
           </h2>
-          <p className="text-sm text-stone-300 leading-relaxed font-light">
-            Support top European and African football clubs (Real Madrid, Arsenal, Barcelona, Man City) in live matchday derbies, trivia tournaments, and community voting contests.
-          </p>
-          <ul className="space-y-2 text-xs font-mono text-stone-400">
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Weekly Derby Prize Pools</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Club Pride Leaderboards &amp; Badges</span>
-            </li>
-          </ul>
+          <div className="space-y-3 text-xs sm:text-sm text-stone-300 font-light leading-relaxed">
+            <p><strong>What it does:</strong> An interactive sports entertainment feature where members predict match outcomes and vote for their favorite clubs in weekly showdowns.</p>
+            <p><strong>How users access it:</strong> Located in the "Fan Battles" dashboard tab on scheduled fixture days.</p>
+            <p><strong>Requirements:</strong> Active participation in current open matchday polls.</p>
+          </div>
         </div>
 
         {/* Feature 5: Clout Cash & Referral System */}
@@ -148,21 +116,13 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onBackToHome, onOpen
             <Users className="w-6 h-6" />
           </div>
           <h2 className="text-xl font-display text-white font-medium">
-            Clout Cash &amp; Affiliate Bonuses
+            Affiliate Referral Program
           </h2>
-          <p className="text-sm text-stone-300 leading-relaxed font-light">
-            Share your unique Velora Earnings partner link to earn direct referral bonuses, 1st and 2nd generation spillover rewards, and community growth commissions.
-          </p>
-          <ul className="space-y-2 text-xs font-mono text-stone-400">
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>₦6,200 Direct Affiliate Bonus</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Multi-tier Spillover Commissions</span>
-            </li>
-          </ul>
+          <div className="space-y-3 text-xs sm:text-sm text-stone-300 font-light leading-relaxed">
+            <p><strong>What it does:</strong> Optional partner program enabling members to earn commission rewards (₦6,200–₦8,000) when new creators join via their referral link.</p>
+            <p><strong>How users access it:</strong> Your personal invite link and referral statistics are found in the "Referrals" tab.</p>
+            <p><strong>Requirements:</strong> Valid account with active referral link; commissions require invited users to complete registration.</p>
+          </div>
         </div>
 
         {/* Feature 6: Instant Nigerian Bank Withdrawals */}
@@ -171,21 +131,13 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onBackToHome, onOpen
             <Wallet className="w-6 h-6" />
           </div>
           <h2 className="text-xl font-display text-white font-medium">
-            Automated Nigerian Bank Payouts
+            Bank Payout Gateway
           </h2>
-          <p className="text-sm text-stone-300 leading-relaxed font-light">
-            Fast, transparent withdrawal processing to Moniepoint, GTBank, Zenith, Access, Kuda, and all licensed Nigerian commercial banks in NGN, as well as digital USD wallets.
-          </p>
-          <ul className="space-y-2 text-xs font-mono text-stone-400">
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>2 to 4 Hour Payout Processing</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Zero Hidden Withdrawal Fees</span>
-            </li>
-          </ul>
+          <div className="space-y-3 text-xs sm:text-sm text-stone-300 font-light leading-relaxed">
+            <p><strong>What it does:</strong> Automated payment system that transfers approved wallet balances directly to commercial bank accounts in Nigeria.</p>
+            <p><strong>How users access it:</strong> Access via "Wallet &gt; Withdraw" on the dashboard.</p>
+            <p><strong>Requirements:</strong> Meet minimum balance threshold (₦10,000) and provide a valid Nigerian bank account matching the member name.</p>
+          </div>
         </div>
       </div>
 

@@ -5,10 +5,18 @@ import { VeloraUser } from '../types';
 interface SignUpPageProps {
   onBackToHome: () => void;
   onNavigate: (view: string) => void;
-  onRegisterSuccess: (user: VeloraUser, packageId: string) => void;
+  onRegisterSuccess?: (user: VeloraUser, packageId: string) => void;
+  onSuccess?: (userData: { fullName: string; email: string; phoneNumber: string }) => void;
+  onOpenLogin?: () => void;
 }
 
-export const SignUpPage: React.FC<SignUpPageProps> = ({ onBackToHome, onNavigate, onRegisterSuccess }) => {
+export const SignUpPage: React.FC<SignUpPageProps> = ({ 
+  onBackToHome, 
+  onNavigate, 
+  onRegisterSuccess, 
+  onSuccess,
+  onOpenLogin 
+}) => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -51,7 +59,17 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onBackToHome, onNavigate
     };
 
     setTimeout(() => {
-      onRegisterSuccess(newUser, selectedTier === 'golden' ? 'golden-ai' : 'silver-ai');
+      localStorage.setItem('velora_user', JSON.stringify(newUser));
+      if (typeof onRegisterSuccess === 'function') {
+        onRegisterSuccess(newUser, selectedTier === 'golden' ? 'golden-ai' : 'silver-ai');
+      }
+      if (typeof onSuccess === 'function') {
+        onSuccess({
+          fullName: newUser.fullName,
+          email: newUser.email,
+          phoneNumber: newUser.phoneNumber || '',
+        });
+      }
       setIsSubmitting(false);
     }, 600);
   };

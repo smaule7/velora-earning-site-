@@ -5,10 +5,18 @@ import { VeloraUser } from '../types';
 interface LoginPageProps {
   onBackToHome: () => void;
   onNavigate: (view: string) => void;
-  onLoginSuccess: (user: VeloraUser) => void;
+  onLoginSuccess?: (user: VeloraUser) => void;
+  onSuccess?: (email: string) => void;
+  onOpenSignUp?: () => void;
 }
 
-export const LoginPage: React.FC<LoginPageProps> = ({ onBackToHome, onNavigate, onLoginSuccess }) => {
+export const LoginPage: React.FC<LoginPageProps> = ({ 
+  onBackToHome, 
+  onNavigate, 
+  onLoginSuccess,
+  onSuccess,
+  onOpenSignUp
+}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -64,7 +72,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onBackToHome, onNavigate, 
       }
 
       localStorage.setItem('velora_user', JSON.stringify(userData));
-      onLoginSuccess(userData);
+      if (typeof onLoginSuccess === 'function') {
+        onLoginSuccess(userData);
+      }
+      if (typeof onSuccess === 'function') {
+        onSuccess(userData.email);
+      }
       setIsSubmitting(false);
     }, 600);
   };
